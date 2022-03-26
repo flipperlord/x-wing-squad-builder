@@ -1,0 +1,79 @@
+# -*- mode: python ; coding: utf-8 -*-
+
+# Build .exe file as one file or as a directory
+ONE_FILE = %(one_file)s
+CONSOLE = %(console)s
+DEBUG = %(debug)s
+
+NAME = "%(display_name)s"
+ICON_FILE = r"%(icon_file)s"
+SRC_DIR =  r"%(src_dir)s"
+
+added_files = [(f'{ICON_FILE}', '.')]
+added_binaries = []
+hidden_imports = []
+
+block_cipher = None
+
+a = Analysis(['main.py'],
+             pathex=[f'./{SRC_DIR}'],
+             binaries=added_binaries,
+             datas=added_files,
+             hiddenimports=hidden_imports,
+             hookspath=[],
+             runtime_hooks=[],
+             excludes=[],
+             win_no_prefer_redirects=False,
+             win_private_assemblies=False,
+             cipher=block_cipher,
+             noarchive=False)
+
+pyz = PYZ(a.pure, a.zipped_data,
+             cipher=block_cipher)
+
+if ONE_FILE:
+    exe = EXE(pyz,
+            a.scripts,
+            a.binaries,
+            a.zipfiles,
+            a.datas,
+            [],
+            exclude_binaries=False,
+            name=f'{NAME}',
+            debug=DEBUG,
+            bootloader_ignore_signals=False,
+            strip=False,
+            manifest=None,
+            upx=False,
+            upx_exclude=[],
+            runtime_tmpdir=None,
+            console=CONSOLE,
+            icon=f'{ICON_FILE}',
+            version='win-version-info.txt'
+            )
+
+else:
+    exe = EXE(pyz,
+            a.scripts,
+            [],
+            exclude_binaries=True,
+            name=f'{NAME}',
+            debug=DEBUG,
+            bootloader_ignore_signals=False,
+            strip=False,
+            manifest=None,
+            upx=False,
+            upx_exclude=[],
+            runtime_tmpdir=None,
+            console=CONSOLE,
+            icon=f'{ICON_FILE}',
+            version='win-version-info.txt'
+            )
+
+    coll = COLLECT(exe,
+                a.binaries,
+                a.zipfiles,
+                a.datas,
+                strip=False,
+                upx=False,
+                name=f'{NAME}')

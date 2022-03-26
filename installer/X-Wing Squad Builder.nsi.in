@@ -1,0 +1,159 @@
+;NSIS Modern User Interface
+
+; Define your application name
+!define APPNAME "%(display_name)s"
+!define DESCRIPTION "%(description)s"
+!define VERSION "%(version)s"
+!define FILE_VERSION "%(file_version)s"
+!define ICON "%(icon_file)s"
+!define ICON_PATH "%(icon_path)s"
+!define PROJECT_PATH "%(base_dir)s"
+!define INSTALLER_PATH "%(installer_dir)s"
+!define PUBLISHER "%(publisher)s"
+!define LICENSE_FILE "LICENSE.txt"
+!define UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}"
+!define UNINST_ROOT_KEY "HKLM"
+
+;--------------------------------
+;Include Modern UI & FileFunc
+
+  !include "MUI2.nsh"
+  !include "FileFunc.nsh"
+
+;--------------------------------
+;General
+
+  ;Name and file
+  Name "${APPNAME}"
+  OutFile "${INSTALLER_PATH}\${APPNAME}-v${VERSION}-setup.exe"
+
+  ;Default installation folder
+  InstallDir "$PROGRAMFILES\${PUBLISHER}\${APPNAME}"
+
+  ;Get installation folder from registry if available
+  InstallDirRegKey HKCU "Software\${APPNAME}" ""
+
+  ;Request application privileges for Windows Vista
+  RequestExecutionLevel admin
+
+;--------------------------------
+;Interface Settings
+
+  !define MUI_ABORTWARNING
+
+;--------------------------------
+;Pages
+
+  !insertmacro MUI_PAGE_LICENSE "${PROJECT_PATH}\${LICENSE_FILE}"
+  !insertmacro MUI_PAGE_COMPONENTS
+  !insertmacro MUI_PAGE_DIRECTORY
+  !insertmacro MUI_PAGE_INSTFILES
+  !insertmacro MUI_UNPAGE_CONFIRM
+  !insertmacro MUI_UNPAGE_INSTFILES
+
+;--------------------------------
+;Languages
+  !insertmacro MUI_LANGUAGE "English"
+;--------------------------------
+
+; Adds info to installer
+VIProductVersion "${FILE_VERSION}"
+VIAddVersionKey /LANG=${LANG_ENGLISH} "ProductName" "${APPNAME}"
+VIAddVersionKey /LANG=${LANG_ENGLISH} "Comments" "${DESCRIPTION}"
+VIAddVersionKey /LANG=${LANG_ENGLISH} "CompanyName" "${PUBLISHER}"
+VIAddVersionKey /LANG=${LANG_ENGLISH} "FileDescription" "Installation for ${APPNAME}"
+VIAddVersionKey /LANG=${LANG_ENGLISH} "FileVersion" "${VERSION}"
+VIAddVersionKey /LANG=${LANG_ENGLISH} "ProductVersion" "${VERSION}"
+VIAddVersionKey /LANG=${LANG_ENGLISH} "LegalCopyright" "© ${PUBLISHER}"
+
+;Installer Sections
+
+Section "Install" install
+
+  SetOutPath "$INSTDIR"
+  ;ADD YOUR OWN FILES HERE...
+  File /r /x "locale" "${PROJECT_PATH}\dist\${APPNAME}\"
+  File /r /x "locale" "${ICON_PATH}"
+
+  ;Store installation folder
+  WriteRegStr HKCU "Software\${APPNAME}" "" $INSTDIR
+
+  ;write uninstall information to the registry
+  WriteRegStr ${UNINST_ROOT_KEY} "${UNINST_KEY}" "DisplayName" "${APPNAME}"
+  WriteRegStr ${UNINST_ROOT_KEY} "${UNINST_KEY}" "UninstallString" "$INSTDIR\Uninstall.exe"
+  WriteRegStr ${UNINST_ROOT_KEY} "${UNINST_KEY}" "DisplayIcon" "$INSTDIR\${ICON}"
+  WriteRegStr ${UNINST_ROOT_KEY} "${UNINST_KEY}" "Comments" "${DESCRIPTION}"
+  WriteRegStr ${UNINST_ROOT_KEY} "${UNINST_KEY}" "Publisher" "${PUBLISHER}"
+  WriteRegStr ${UNINST_ROOT_KEY} "${UNINST_KEY}" "DisplayVersion" "${VERSION}"
+
+    ${GetSize} "$INSTDIR" "/S=0K" $0 $1 $2
+    IntFmt $0 "0x%%08X" $0
+    WriteRegDWORD ${UNINST_ROOT_KEY} "${UNINST_KEY}" "EstimatedSize" "$0"
+
+  ;Create uninstaller
+  WriteUninstaller "$INSTDIR\Uninstall.exe"
+
+SectionEnd
+
+Section "Desktop Icon" desktopIcon
+  ;create desktop shortcut
+  CreateShortCut "$DESKTOP\${APPNAME}.lnk" "$INSTDIR\${APPNAME}.exe" ""
+SectionEnd
+
+Section "Start Menu Shortcut" startMenu
+  ;create start-menu items
+  CreateDirectory "$SMPROGRAMS\${APPNAME}"
+  CreateShortCut "$SMPROGRAMS\${APPNAME}\Uninstall.lnk" "$INSTDIR\Uninstall.exe" "" "$INSTDIR\Uninstall.exe" 0
+  CreateShortCut "$SMPROGRAMS\${APPNAME}\${APPNAME}.lnk" "$INSTDIR\${APPNAME}.exe" "" "$INSTDIR\${APPNAME}.exe" 0
+SectionEnd
+
+;--------------------------------
+;Descriptions
+
+  ;Language strings
+  LangString DESC_install ${LANG_ENGLISH} "Install ${APPNAME}."
+  LangString DESC_desktopIcon ${LANG_ENGLISH} "Create a Desktop shortcut"
+  LangString DESC_startMenu ${LANG_ENGLISH} "Create a Start Menu shortcut"
+
+  ;Assign language strings to sections
+  !insertmacro MUI_FUNCTION_DESCRIPTION_BEGIN
+    !insertmacro MUI_DESCRIPTION_TEXT ${install} $(DESC_install)
+    !insertmacro MUI_DESCRIPTION_TEXT ${desktopIcon} $(DESC_desktopIcon)
+    !insertmacro MUI_DESCRIPTION_TEXT ${startMenu} $(DESC_startMenu)
+  !insertmacro MUI_FUNCTION_DESCRIPTION_END
+
+;--------------------------------
+;Uninstaller Section
+
+Section "Uninstall"
+
+  ;Delete files and install directory
+  Delete "$INSTDIR\Uninstall.exe"
+  Delete "$INSTDIR\${APPNAME}.exe"
+  Delete "$INSTDIR\${ICON}"
+  RMDir /r /REBOOTOK "$INSTDIR"
+
+  ;Delete desktop shortcut
+  Delete "$DESKTOP\${APPNAME}.lnk"
+
+  ;Delete Start Menu Shortcuts
+  Delete "$DESKTOP\${APPNAME}.lnk"
+  Delete "$SMPROGRAMS\${APPNAME}\*.*"
+  RmDir  "$SMPROGRAMS\${APPNAME}"
+
+  DeleteRegKey /ifempty HKCU "Software\${APPNAME}"
+  DeleteRegKey ${UNINST_ROOT_KEY} "${UNINST_KEY}"
+
+SectionEnd
+
+;--------------------------------
+;MessageBox Section
+
+;Function that calls a messagebox when installation finished correctly
+Function .onInstSuccess
+  MessageBox MB_OK "You have successfully installed ${APPNAME}. Use the desktop icon to start the program."
+FunctionEnd
+
+Function un.onUninstSuccess
+  MessageBox MB_OK "You have successfully uninstalled ${APPNAME}."
+FunctionEnd
