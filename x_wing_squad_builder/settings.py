@@ -9,7 +9,7 @@ from PySide6 import QtCore
 class Settings:
 
     application_name = "X-Wing Squad Builder"
-    organization_name = "Lenard, Inc."
+    organization_name = "ryanlenardryanlenard, Inc."
 
     # To add a settings
     # 1. Add setting name to Key enum

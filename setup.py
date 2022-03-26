@@ -31,7 +31,7 @@ import xml.etree.ElementTree as et
 
 from setuptools import Command, find_packages, setup
 
-ORGANIZATION = "Lenard, Inc."
+ORGANIZATION = "ryanlenardryanlenard, Inc."
 NAME = "X-Wing Squad Builder"
 AUTHOR = "Will Diepholz"
 AUTHOR_EMAIL = "wbdiepholz@gmail.com"

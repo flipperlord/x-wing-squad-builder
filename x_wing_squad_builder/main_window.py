@@ -17,7 +17,7 @@ class MainWindow(QtWidgets.QMainWindow):
     def __init__(self, parent=None):
         super(MainWindow, self).__init__(parent)
         self.application_name = "X-Wing Squad Builder"
-        self.organization_name = "Lenard, Inc."
+        self.organization_name = "ryanlenardryanlenard, Inc."
 
         self.settings = Settings()
         self.ui = Ui_MainWindow()
