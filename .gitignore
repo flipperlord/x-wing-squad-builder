@@ -108,7 +108,7 @@ venv.bak/
 .vscode/
 tempCodeRunnerFile.py
 
-#PySide2 UI
+#PySide6 UI
 *_rc.py
 *_ui.py
 .qt_for_python/

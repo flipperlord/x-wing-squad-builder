@@ -1,5 +1,5 @@
-from PySide2.QtGui import QPalette, QColor
-from PySide2.QtCore import Qt
+from PySide6.QtGui import QPalette, QColor
+from PySide6.QtCore import Qt
 
 
 class DarkPalette(QPalette):

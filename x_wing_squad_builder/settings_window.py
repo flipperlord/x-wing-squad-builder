@@ -1,6 +1,6 @@
 import logging
 from pathlib import Path
-from PySide2 import QtGui, QtCore, QtWidgets
+from PySide6 import QtGui, QtCore, QtWidgets
 from .ui.settings_window_ui import Ui_SettingsWindow
 from .settings import Settings
 

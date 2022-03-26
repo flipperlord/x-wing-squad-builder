@@ -2,7 +2,7 @@ import os
 import sys
 import logging
 from x_wing_squad_builder.utils import create_log_level_parser
-from PySide2.QtWidgets import QApplication
+from PySide6.QtWidgets import QApplication
 from x_wing_squad_builder.main_window import MainWindow
 
 
@@ -51,7 +51,7 @@ def main(args=sys.argv):
     application = MainWindow()
     application.show()
     hide_console()
-    sys.exit(app.exec_())
+    sys.exit(app.exec())
 
 
 if __name__ == '__main__':
