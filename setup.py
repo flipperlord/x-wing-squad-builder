@@ -45,7 +45,7 @@ ICON_FILE = 'icon.ico'
 ICON_PATH = BASE_DIR / ICON_FILE
 RESOURCES_DIR = BASE_DIR / 'qt_designer'
 QRC_FILE = RESOURCES_DIR / 'resources.qrc'
-ONE_FILE = True
+ONE_FILE = False
 CONSOLE = True
 DEBUG = False
 

@@ -3,6 +3,25 @@ import re
 from _ctypes import PyObj_FromPtr
 import argparse
 
+from typing import List
+
+
+def prettify_name(name: str) -> str:
+    """Takes a lowercase string of a name and capitalizes it."""
+    return ' '.join([part.capitalize()for part in name.split()])
+
+def prettify_definition_form_entry(values: str) -> List[str]:
+    """Takes a list of values separated by a comma, and returns a list of the values
+    in lowercase with white space stripped from each side.
+
+    :param values: string of values from the definition form
+    :type values: str
+    :return: list of values cleaned up.
+    :rtype: List[str]
+    """
+    val_split = values.split(',')
+    return [val.lower().strip() for val in val_split]
+
 
 def create_log_level_parser():
     class NoAction(argparse.Action):

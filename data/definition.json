@@ -1,0 +1,189 @@
+{
+    "factions": [
+        {
+            "name": "first order",
+            "ships": []
+        },
+        {
+            "name": "galactic empire",
+            "ships": []
+        },
+        {
+            "name": "grand army of the republic",
+            "ships": []
+        },
+        {
+            "name": "rebel alliance",
+            "ships": [
+                {
+                    "name": "t-65 x-wing",
+                    "base": "small",
+                    "statistics": [
+                        {
+                            "attacks": [
+                                {
+                                    "attack": 3,
+                                    "arc_type": "front"
+                                }
+                            ]
+                        },
+                        {
+                            "agility": 2
+                        },
+                        {
+                            "hull": 4
+                        },
+                        {
+                            "shield": {
+                                "shield": 2,
+                                "recharge": 0
+                            }
+                        },
+                        {
+                            "force": {
+                                "force": 0,
+                                "recharge": 0
+                            }
+                        },
+                        {
+                            "energy": {
+                                "energy": 0,
+                                "recharge": 0
+                            }
+                        },
+                        {
+                            "charge": {
+                                "charge": 0,
+                                "recharge": 0
+                            }
+                        }
+                    ],
+                    "actions": [
+                        {
+                            "action": "focus",
+                            "color": "white"
+                        },
+                        {
+                            "action": "lock",
+                            "color": "white"
+                        },
+                        {
+                            "action": "barrel roll",
+                            "color": "white"
+                        }
+                    ],
+                    "upgrade_slots": [
+                        "astromech",
+                        "configuration",
+                        "modification",
+                        "torpedo"
+                    ],
+                    "pilots": [
+                        {
+                            "name": "blue squadron escort",
+                            "limit": 0,
+                            "initiative": 2,
+                            "cost": 38,
+                            "statistics": [
+                                {
+                                    "attacks": []
+                                },
+                                {
+                                    "agility": 0
+                                },
+                                {
+                                    "hull": 0
+                                },
+                                {
+                                    "shield": {
+                                        "shield": 0,
+                                        "recharge": 0
+                                    }
+                                },
+                                {
+                                    "force": {
+                                        "force": 0,
+                                        "recharge": 0
+                                    }
+                                },
+                                {
+                                    "energy": {
+                                        "energy": 0,
+                                        "recharge": 0
+                                    }
+                                },
+                                {
+                                    "charge": {
+                                        "charge": 0,
+                                        "recharge": 0
+                                    }
+                                }
+                            ],
+                            "actions": [],
+                            "upgrade_slots": [],
+                            "traits": []
+                        },
+                        {
+                            "name": "edrio two tubes",
+                            "limit": 1,
+                            "initiative": 2,
+                            "cost": 42,
+                            "statistics": [
+                                {
+                                    "attacks": []
+                                },
+                                {
+                                    "agility": 0
+                                },
+                                {
+                                    "hull": 0
+                                },
+                                {
+                                    "shield": {
+                                        "shield": 0,
+                                        "recharge": 0
+                                    }
+                                },
+                                {
+                                    "force": {
+                                        "force": 0,
+                                        "recharge": 0
+                                    }
+                                },
+                                {
+                                    "energy": {
+                                        "energy": 0,
+                                        "recharge": 0
+                                    }
+                                },
+                                {
+                                    "charge": {
+                                        "charge": 0,
+                                        "recharge": 0
+                                    }
+                                }
+                            ],
+                            "actions": [],
+                            "upgrade_slots": [
+                                "illicit"
+                            ],
+                            "traits": []
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "resistance",
+            "ships": []
+        },
+        {
+            "name": "scum and villainy",
+            "ships": []
+        },
+        {
+            "name": "separatist alliance",
+            "ships": []
+        }
+    ]
+}

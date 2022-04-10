@@ -19,12 +19,100 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="1">
+    <item row="2" column="1">
      <widget class="QPlainTextEdit" name="logging_plain_text_edit">
       <property name="readOnly">
        <bool>true</bool>
       </property>
      </widget>
+    </item>
+    <item row="0" column="1">
+     <layout class="QHBoxLayout" name="data_view_layout" stretch="0,0,0,0,0">
+      <item>
+       <widget class="QListWidget" name="faction_list_widget"/>
+      </item>
+      <item>
+       <widget class="QListWidget" name="ship_list_widget"/>
+      </item>
+      <item>
+       <widget class="QListWidget" name="pilot_list_widget"/>
+      </item>
+      <item>
+       <layout class="QVBoxLayout" name="ship_aggregate">
+        <item>
+         <layout class="QGridLayout" name="ship_information_2">
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_4">
+            <property name="text">
+             <string>Base: </string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QLabel" name="initiative_label">
+            <property name="text">
+             <string>TextLabel</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QLabel" name="ship_name_label">
+            <property name="text">
+             <string>TextLabel</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QLabel" name="base_label">
+            <property name="text">
+             <string>TextLabel</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="label_5">
+            <property name="text">
+             <string>Initiative:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QLabel" name="label_6">
+            <property name="text">
+             <string>Points:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QLabel" name="points_label">
+            <property name="text">
+             <string>TextLabel</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QLabel" name="maneuver_image_label">
+          <property name="text">
+           <string>TextLabel</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="card_image_layout">
+        <item>
+         <widget class="QLabel" name="pilot_image_label">
+          <property name="text">
+           <string>TextLabel</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
     </item>
    </layout>
   </widget>
@@ -34,7 +122,7 @@
      <x>0</x>
      <y>0</y>
      <width>1232</width>
-     <height>21</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -51,8 +139,15 @@
     </property>
     <addaction name="action_about"/>
    </widget>
+   <widget class="QMenu" name="menuTools">
+    <property name="title">
+     <string>Tools</string>
+    </property>
+    <addaction name="action_definition_form"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuHelp"/>
+   <addaction name="menuTools"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="action_about">
@@ -68,6 +163,14 @@
   <action name="action_open_settings_window">
    <property name="text">
     <string>Settings</string>
+   </property>
+  </action>
+  <action name="action_definition_form">
+   <property name="text">
+    <string>Definition Form</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+D</string>
    </property>
   </action>
  </widget>

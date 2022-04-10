@@ -35,6 +35,13 @@
       </widget>
      </item>
      <item>
+      <widget class="QLabel" name="company_label">
+       <property name="text">
+        <string>Company Name</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QLabel" name="version_label">
        <property name="text">
         <string>Version</string>
