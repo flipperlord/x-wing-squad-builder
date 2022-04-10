@@ -442,6 +442,8 @@ class DefinitionForm(QtWidgets.QDialog):
         with open(self.data_filepath, "w", encoding='utf-8') as file:
             json.dump(self.data, file, ensure_ascii=False, indent=4)
 
+        logging.info(f"Data successfully written to {self.data_filepath}")
+
     def handle_ok_pressed(self):
         if not self.valid_entry:
             self.show()
