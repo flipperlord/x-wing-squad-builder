@@ -146,8 +146,8 @@
     <addaction name="action_definition_form"/>
    </widget>
    <addaction name="menuFile"/>
-   <addaction name="menuHelp"/>
    <addaction name="menuTools"/>
+   <addaction name="menuHelp"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="action_about">
