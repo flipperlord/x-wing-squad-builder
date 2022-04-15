@@ -31,15 +31,16 @@ class DefinitionForm(QtWidgets.QDialog):
         with open(data_filepath) as file:
             self.data = json.load(file)
 
-        # self.ui.faction_name_line_edit.setText("rebel alliance")
-        # self.ui.ship_name_line_edit.setText("test ship")
-        # self.ui.base_size_line_edit.setText("small")
-        # self.ui.attacks_line_edit.setText("3, 3")
-        # self.ui.arc_types_line_edit.setText("rear, front")
-        # self.ui.actions_line_edit.setText("focus, evade")
-        # self.ui.colors_line_edit.setText("red, white")
-        # self.ui.upgrade_slots_line_edit.setText("astromech")
-        # self.ui.pilot_name_line_edit.setText("wizzleD")
+        self.ui.faction_name_line_edit.setText("great slayers")
+        self.ui.ship_name_line_edit.setText("will-d-beast")
+        self.ui.base_size_line_edit.setText("large")
+        self.ui.attacks_line_edit.setText("99, 99")
+        self.ui.arc_types_line_edit.setText("full rear, full front")
+        self.ui.actions_line_edit.setText("focus, evade")
+        self.ui.colors_line_edit.setText("red, white")
+        self.ui.upgrade_slots_line_edit.setText("astromech")
+        self.ui.pilot_name_line_edit.setText("el solverdor")
+        self.ui.cost_spinbox.setValue(6969)
 
 
         self.accepted.connect(self.handle_ok_pressed)
@@ -82,27 +83,46 @@ class DefinitionForm(QtWidgets.QDialog):
     def combined_attacks_arc_types(self) -> List[dict]:
         return [{"attack": attack, "arc_type": arc_type} for attack, arc_type in zip(self.attacks, self.arc_types)]
 
-    @property
-    def actions(self) -> Union[List[str], str]:
-        action_list = prettify_definition_form_entry(self.ui.actions_line_edit.text())
-        for action in action_list:
-            if action not in ACTIONS_:
+    @staticmethod
+    def parse_comma_separated_text_ship(text: str, restricted_text: List[str]):
+        parsed_list = prettify_definition_form_entry(text)
+        bases = []
+        links = []
+        for item in parsed_list:
+            if ">" in item:
+                base, link = item.split(">")
+            else:
+                base = item
+                link = None
+            base = base.strip()
+            bases.append(base)
+            if base not in restricted_text:
                 return "invalid"
-        return action_list
+
+            if link:
+                link = link.strip()
+                if link not in restricted_text:
+                    return "invalid"
+            links.append(link)
+        return bases, links
 
     @property
-    def colors(self) -> Union[List[str], str]:
-        color_list = prettify_definition_form_entry(self.ui.colors_line_edit.text())
-        for color in color_list:
-            if color not in ACTION_COLORS:
-                return "invalid"
-        if len(color_list) != len(self.actions):
+    def actions(self):
+        return self.parse_comma_separated_text_ship(self.ui.actions_line_edit.text(), ACTIONS_)
+
+    @property
+    def colors(self):
+        colors, color_links = self.parse_comma_separated_text_ship(self.ui.colors_line_edit.text(), ACTION_COLORS)
+        actions, _ = self.actions
+        if len(colors) != len(actions):
             return "invalid"
-        return color_list
+        return colors, color_links
 
     @property
     def combined_actions_and_colors(self) -> List[dict]:
-        return [{"action": action, "color": color} for action, color in zip(self.actions, self.colors)]
+        actions, action_links = self.actions
+        colors, color_links = self.colors
+        return [{"action": action, "color": color, "action_link": action_link, "color_link": color_link} for action, color, action_link, color_link in zip(actions, colors, action_links, color_links)]
 
     @property
     def agility(self) -> int:
@@ -197,34 +217,29 @@ class DefinitionForm(QtWidgets.QDialog):
 
     @property
     def pilot_actions(self) -> Union[List[str], str]:
-        actions_text = self.ui.pilot_actions_line_edit.text()
-        if actions_text:
-            action_list = prettify_definition_form_entry(actions_text)
-            if action_list[0]:
-                for action in action_list:
-                    if action not in ACTIONS_:
-                        return "invalid"
+        pilot_actions_text = self.ui.pilot_actions_line_edit.text()
+        if pilot_actions_text:
+            return self.parse_comma_separated_text_ship(pilot_actions_text, ACTIONS_)
         else:
-            action_list = []
-        return action_list
+            return [], []
 
     @property
     def pilot_colors(self) -> Union[List[str], str]:
-        color_text = self.ui.pilot_colors_line_edit.text()
-        if color_text:
-            color_list = prettify_definition_form_entry(color_text)
-            for color in color_list:
-                if color not in ACTION_COLORS:
-                    return "invalid"
-            if len(color_list) != len(self.pilot_actions):
+        pilot_colors_text = self.ui.pilot_colors_line_edit.text()
+        if pilot_colors_text:
+            colors, color_links = self.parse_comma_separated_text_ship(pilot_colors_text, ACTION_COLORS)
+            actions, _ = self.actions
+            if len(colors) != len(actions):
                 return "invalid"
+            return colors, color_links
         else:
-            color_list = []
-        return color_list
+            return [], []
 
     @property
     def pilot_combined_actions_and_colors(self) -> List[dict]:
-        return [{"action": action, "color": color} for action, color in zip(self.pilot_actions, self.pilot_colors)]
+        actions, action_links = self.pilot_actions
+        colors, color_links = self.pilot_colors
+        return [{"action": action, "color": color, "action_link": action_link, "color_link": color_link} for action, color, action_link, color_link in zip(actions, colors, action_links, color_links)]
 
     @property
     def pilot_traits(self) -> List[str]:
@@ -248,19 +263,27 @@ class DefinitionForm(QtWidgets.QDialog):
 
     @property
     def pilot_shield(self) -> dict:
-        return {"shield": self.ui.pilot_shield_spinbox.value(), "recharge": self.ui.pilot_shield_recharge_spinbox.value()}
+        return {"shield": self.ui.pilot_shield_spinbox.value(),
+                "recharge": self.ui.pilot_shield_recharge_spinbox.value(),
+                "decharge": self.ui.pilot_shield_decharge_spinbox.value()}
 
     @property
     def pilot_force(self) -> dict:
-        return {"force": self.ui.pilot_force_spinbox.value(), "recharge": self.ui.pilot_force_recharge_spinbox.value()}
+        return {"force": self.ui.pilot_force_spinbox.value(),
+                "recharge": self.ui.pilot_force_recharge_spinbox.value(),
+                "decharge": self.ui.pilot_force_decharge_spinbox.value()}
 
     @property
     def pilot_energy(self) -> dict:
-        return {"energy": self.ui.pilot_energy_spinbox.value(), "recharge": self.ui.pilot_energy_recharge_spinbox.value()}
+        return {"energy": self.ui.pilot_energy_spinbox.value(),
+                "recharge": self.ui.pilot_energy_recharge_spinbox.value(),
+                "decharge": self.ui.pilot_energy_decharge_spinbox.value()}
 
     @property
     def pilot_charge(self) -> dict:
-        return {"charge": self.ui.pilot_charge_spinbox.value(), "recharge": self.ui.pilot_charge_recharge_spinbox.value()}
+        return {"charge": self.ui.pilot_charge_spinbox.value(),
+                "recharge": self.ui.pilot_charge_recharge_spinbox.value(),
+                "decharge": self.ui.pilot_charge_decharge_spinbox.value()}
 
 
     @property

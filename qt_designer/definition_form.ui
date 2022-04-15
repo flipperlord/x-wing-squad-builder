@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>576</width>
-    <height>700</height>
+    <width>1055</width>
+    <height>844</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -34,6 +34,22 @@
            </property>
            <property name="text">
             <string>Ship</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_37">
+           <property name="font">
+            <font>
+             <pointsize>10</pointsize>
+             <bold>false</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>Fill out every line item below.  Once a ship is entered into the definition file, it can only be updated manually in the definition file regardless of the inputs below.  Use a &quot;,&quot; to separate list items, and a &quot;&gt;&quot; to indicate linked actions.</string>
+           </property>
+           <property name="wordWrap">
+            <bool>true</bool>
            </property>
           </widget>
          </item>
@@ -388,6 +404,22 @@
           </widget>
          </item>
          <item>
+          <widget class="QLabel" name="label_42">
+           <property name="font">
+            <font>
+             <pointsize>10</pointsize>
+             <bold>false</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>Required fields are pilot name, cost, initiative, and limit.  Other text fields can be left blank if they are the same as the ship.  Numerical fields will be added to the definition file, and will override the ship's statistic if they differ. Pilot data can be overwritten if the name already exists, but the software will warn the user in this case.</string>
+           </property>
+           <property name="wordWrap">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
           <layout class="QHBoxLayout" name="horizontalLayout_20">
            <item>
             <widget class="QLabel" name="label_22">
@@ -418,7 +450,11 @@
             </widget>
            </item>
            <item>
-            <widget class="QSpinBox" name="cost_spinbox"/>
+            <widget class="QSpinBox" name="cost_spinbox">
+             <property name="maximum">
+              <number>9999</number>
+             </property>
+            </widget>
            </item>
           </layout>
          </item>
@@ -551,6 +587,20 @@
           </layout>
          </item>
          <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_42">
+           <item>
+            <widget class="QLabel" name="label_45">
+             <property name="text">
+              <string>Shield Decharge:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QSpinBox" name="pilot_shield_decharge_spinbox"/>
+           </item>
+          </layout>
+         </item>
+         <item>
           <layout class="QVBoxLayout" name="verticalLayout_11">
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_28">
@@ -579,6 +629,20 @@
               <widget class="QSpinBox" name="pilot_force_recharge_spinbox"/>
              </item>
             </layout>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_43">
+           <item>
+            <widget class="QLabel" name="label_46">
+             <property name="text">
+              <string>Force Decharge:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QSpinBox" name="pilot_force_decharge_spinbox"/>
            </item>
           </layout>
          </item>
@@ -615,6 +679,20 @@
           </layout>
          </item>
          <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_44">
+           <item>
+            <widget class="QLabel" name="label_47">
+             <property name="text">
+              <string>Energy Decharge: </string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QSpinBox" name="pilot_energy_decharge_spinbox"/>
+           </item>
+          </layout>
+         </item>
+         <item>
           <layout class="QVBoxLayout" name="verticalLayout_13">
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_32">
@@ -643,6 +721,20 @@
               <widget class="QSpinBox" name="pilot_charge_recharge_spinbox"/>
              </item>
             </layout>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_45">
+           <item>
+            <widget class="QLabel" name="label_48">
+             <property name="text">
+              <string>Charge Decharge:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QSpinBox" name="pilot_charge_decharge_spinbox"/>
            </item>
           </layout>
          </item>

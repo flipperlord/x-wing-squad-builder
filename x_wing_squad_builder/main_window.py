@@ -116,7 +116,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def update_pilot(self, item):
         pilot_name = item.text().lower()
-        self.ui.pilot_image_label.setPixmap(image_path_to_qpixmap(self.pilots_dir / f"{pilot_name}.png"))
+        self.ui.pilot_image_label.setPixmap(image_path_to_qpixmap(self.pilots_dir / f"{pilot_name}.jpg"))
 
 
 
