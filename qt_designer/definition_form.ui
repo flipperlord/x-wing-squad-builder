@@ -319,7 +319,7 @@
              <item>
               <widget class="QLabel" name="label_16">
                <property name="text">
-                <string>Actions:</string>
+                <string>Action(s): </string>
                </property>
               </widget>
              </item>
@@ -337,7 +337,7 @@
              <item>
               <widget class="QLabel" name="label_17">
                <property name="text">
-                <string>Colors:</string>
+                <string>Action Color(s): </string>
                </property>
               </widget>
              </item>
@@ -357,7 +357,7 @@
            <item>
             <widget class="QLabel" name="label_18">
              <property name="text">
-              <string>Upgrade Slots: </string>
+              <string>Upgrade Slot(s): </string>
              </property>
             </widget>
            </item>
@@ -745,7 +745,7 @@
              <item>
               <widget class="QLabel" name="label_21">
                <property name="text">
-                <string>Actions:</string>
+                <string>Action(s):</string>
                </property>
               </widget>
              </item>
@@ -763,7 +763,7 @@
              <item>
               <widget class="QLabel" name="label_36">
                <property name="text">
-                <string>Colors:</string>
+                <string>Action Color(s):</string>
                </property>
               </widget>
              </item>
@@ -783,7 +783,7 @@
            <item>
             <widget class="QLabel" name="label_38">
              <property name="text">
-              <string>Upgrade Slots: </string>
+              <string>Upgrade Slot(s):</string>
              </property>
             </widget>
            </item>
@@ -804,7 +804,7 @@
            <item>
             <widget class="QLabel" name="label_40">
              <property name="text">
-              <string>Keywords:</string>
+              <string>Keyword(s):</string>
              </property>
             </widget>
            </item>

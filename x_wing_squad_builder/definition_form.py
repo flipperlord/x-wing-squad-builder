@@ -2,6 +2,7 @@ from PySide6 import QtWidgets, QtCore, QtGui
 from .ui.definition_form_ui import Ui_DefinitionForm
 
 from .model import XWing, Faction, Ship
+from .model.constants import BASE_SIZES, ARC_TYPES_, ACTION_COLORS, ACTIONS_, UPGRADE_SLOTS_, FACTION_NAMES, KEYWORDS
 from .utils import prettify_definition_form_entry
 
 import logging
@@ -10,20 +11,11 @@ from pathlib import Path
 
 from typing import List, Optional, Union
 
-BASE_SIZES = ["small", "medium", "large"]
-ARC_TYPES_ = ["front", "rear", "bullseye","turret", "double turret", "full front", "left side", "right side", "full rear"]
-ACTION_COLORS = ["red", "purple", "white"]
-ACTIONS_ = ["barrel roll", "boost", "calculate", "cloak", "coordinate", "evade", "focus", "lock", "reinforce", "reload", "rotate", "slam"]
-UPGRADE_SLOTS_  = ["astromech", "cannon", "cargo", "command", "configuration", "crew", "force", "gunner", "hardpoint", 'illicit', 'missile',
-                'modification', 'payload', 'sensor', 'tactical relay', 'talent', 'team', 'tech', 'title', 'torpedo', 'turret']
-FACTION_NAMES = ["first order", "galactice empire", "grand army of the republic", "rebel alliance", "resistance", "scum and villainy", "separatist alliance"]
-KEYWORDS = ["a-wing", "assault ship", "b-wing", "bounty hunter", "clone", "corvette", "cruiser", "dark side", "droid", "freighter", "jedi", "light side", "mandalorian",
-            "partisan", "sith", "spectre", "tie", "x-wing", "y-wing", "yt-1300"]
 
 class DefinitionForm(QtWidgets.QDialog):
     update_signal = QtCore.Signal()
     def __init__(self, data_filepath: Path, parent=None):
-        super(DefinitionForm, self).__init__(parent)
+        super().__init__()
         self.ui = Ui_DefinitionForm()
         self.ui.setupUi(self)
 
@@ -84,7 +76,7 @@ class DefinitionForm(QtWidgets.QDialog):
         return [{"attack": attack, "arc_type": arc_type} for attack, arc_type in zip(self.attacks, self.arc_types)]
 
     @staticmethod
-    def parse_comma_separated_text_ship(text: str, restricted_text: List[str]):
+    def parse_actions_and_colors(text: str, restricted_text: List[str]):
         parsed_list = prettify_definition_form_entry(text)
         bases = []
         links = []
@@ -106,13 +98,21 @@ class DefinitionForm(QtWidgets.QDialog):
             links.append(link)
         return bases, links
 
+    @staticmethod
+    def parse_comma_separated_text(text: str, restricted_text: List[str]):
+        item_list = prettify_definition_form_entry(text)
+        for item in item_list:
+            if item not in restricted_text:
+                return "invalid"
+        return item_list
+
     @property
     def actions(self):
-        return self.parse_comma_separated_text_ship(self.ui.actions_line_edit.text(), ACTIONS_)
+        return self.parse_actions_and_colors(self.ui.actions_line_edit.text(), ACTIONS_)
 
     @property
     def colors(self):
-        colors, color_links = self.parse_comma_separated_text_ship(self.ui.colors_line_edit.text(), ACTION_COLORS)
+        colors, color_links = self.parse_actions_and_colors(self.ui.colors_line_edit.text(), ACTION_COLORS)
         actions, _ = self.actions
         if len(colors) != len(actions):
             return "invalid"
@@ -150,11 +150,7 @@ class DefinitionForm(QtWidgets.QDialog):
 
     @property
     def upgrade_slots(self) -> Union[List[str], str]:
-        upgrade_slot_list = prettify_definition_form_entry(self.ui.upgrade_slots_line_edit.text())
-        for upgrade_slot in upgrade_slot_list:
-            if upgrade_slot not in UPGRADE_SLOTS_:
-                return "invalid"
-        return upgrade_slot_list
+        return self.parse_comma_separated_text(self.ui.upgrade_slots_line_edit.text(), UPGRADE_SLOTS_)
 
     @property
     def pilot_name(self) -> str:
@@ -207,10 +203,7 @@ class DefinitionForm(QtWidgets.QDialog):
     def pilot_upgrade_slots(self) -> Union[List[str], str]:
         upgrade_slot_text = self.ui.pilot_upgrade_slots_line_edit.text()
         if upgrade_slot_text:
-            upgrade_slot_list = prettify_definition_form_entry(upgrade_slot_text)
-            for upgrade_slot in upgrade_slot_list:
-                if upgrade_slot not in UPGRADE_SLOTS_:
-                    return "invalid"
+            upgrade_slot_list = self.parse_comma_separated_text(upgrade_slot_text, UPGRADE_SLOTS_)
         else:
             upgrade_slot_list = []
         return upgrade_slot_list
@@ -219,7 +212,7 @@ class DefinitionForm(QtWidgets.QDialog):
     def pilot_actions(self) -> Union[List[str], str]:
         pilot_actions_text = self.ui.pilot_actions_line_edit.text()
         if pilot_actions_text:
-            return self.parse_comma_separated_text_ship(pilot_actions_text, ACTIONS_)
+            return self.parse_actions_and_colors(pilot_actions_text, ACTIONS_)
         else:
             return [], []
 
@@ -227,7 +220,7 @@ class DefinitionForm(QtWidgets.QDialog):
     def pilot_colors(self) -> Union[List[str], str]:
         pilot_colors_text = self.ui.pilot_colors_line_edit.text()
         if pilot_colors_text:
-            colors, color_links = self.parse_comma_separated_text_ship(pilot_colors_text, ACTION_COLORS)
+            colors, color_links = self.parse_actions_and_colors(pilot_colors_text, ACTION_COLORS)
             actions, _ = self.actions
             if len(colors) != len(actions):
                 return "invalid"
@@ -245,10 +238,7 @@ class DefinitionForm(QtWidgets.QDialog):
     def pilot_traits(self) -> List[str]:
         traits_text = self.ui.traits_line_edit.text()
         if traits_text:
-            traits = prettify_definition_form_entry(traits_text)
-            for trait in traits:
-                if trait not in KEYWORDS:
-                    return "invalid"
+            traits = self.parse_comma_separated_text(traits_text, KEYWORDS)
         else:
             traits = []
         return traits

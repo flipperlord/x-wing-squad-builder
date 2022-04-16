@@ -14,7 +14,7 @@
    <string>Template</string>
   </property>
   <property name="windowIcon">
-   <iconset>
+   <iconset resource="resources.qrc">
     <normaloff>:/images/icon.png</normaloff>:/images/icon.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
@@ -144,6 +144,7 @@
      <string>Tools</string>
     </property>
     <addaction name="action_definition_form"/>
+    <addaction name="action_upgrade_form"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuTools"/>
@@ -173,7 +174,21 @@
     <string>Ctrl+D</string>
    </property>
   </action>
+  <action name="action_upgrade_form">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/images/icon.png</normaloff>:/images/icon.png</iconset>
+   </property>
+   <property name="text">
+    <string>Upgrade Form</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+U</string>
+   </property>
+  </action>
  </widget>
- <resources/>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
  <connections/>
 </ui>

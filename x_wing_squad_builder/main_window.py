@@ -4,6 +4,7 @@ from pathlib import Path
 from PySide6 import QtWidgets, QtCore, QtGui
 
 from x_wing_squad_builder.definition_form import DefinitionForm
+from x_wing_squad_builder.upgrade_form import UpgradeForm
 from .settings import Settings
 from .worker import Worker
 from .root_logger_handler import RootLoggerHandler
@@ -75,6 +76,11 @@ class MainWindow(QtWidgets.QMainWindow):
         self.definition_form = DefinitionForm(self.file_path)
         self.ui.action_definition_form.triggered.connect(self.definition_form.show)
         self.definition_form.update_signal.connect(self.reload_data)
+
+        # Set up upgrade form for adding to definition file.
+        self.upgrade_form = UpgradeForm(self.file_path)
+        self.ui.action_upgrade_form.triggered.connect(self.upgrade_form.show)
+        self.upgrade_form.update_signal.connect(self.reload_data)
 
         self.showMaximized()
 
