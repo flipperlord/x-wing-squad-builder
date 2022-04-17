@@ -42,9 +42,9 @@ class DefinitionForm(QtWidgets.QDialog):
 
     def check_ship_name(self):
         faction_idx = self.get_faction_index(self.faction_name)
-        if faction_idx:
+        if faction_idx is not None:
             ship_idx = self.get_ship_index(self.faction_name, self.ship_name)
-            if ship_idx:
+            if ship_idx is not None:
                 self.ui.ship_exists_label.setText(f"Ship {self.ship_name} already exists, continue to pilot entry.")
             else:
                 self.ui.ship_exists_label.setText("Ship does not exist - please continue with new ship entry.")

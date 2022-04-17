@@ -2,7 +2,1762 @@
     "factions": [
         {
             "name": "first order",
-            "ships": []
+            "ships": [
+                {
+                    "name": "tieba interceptor",
+                    "base": "small",
+                    "statistics": [
+                        {
+                            "attacks": [
+                                {
+                                    "attack": 3,
+                                    "arc_type": "front"
+                                }
+                            ]
+                        },
+                        {
+                            "agility": 3
+                        },
+                        {
+                            "hull": 2
+                        },
+                        {
+                            "shield": {
+                                "shield": 2,
+                                "recharge": 0
+                            }
+                        },
+                        {
+                            "force": {
+                                "force": 0,
+                                "recharge": 0
+                            }
+                        },
+                        {
+                            "energy": {
+                                "energy": 0,
+                                "recharge": 0
+                            }
+                        },
+                        {
+                            "charge": {
+                                "charge": 0,
+                                "recharge": 0
+                            }
+                        }
+                    ],
+                    "actions": [
+                        {
+                            "action": "focus",
+                            "color": "white",
+                            "action_link": null,
+                            "color_link": null
+                        },
+                        {
+                            "action": "evade",
+                            "color": "white",
+                            "action_link": null,
+                            "color_link": null
+                        },
+                        {
+                            "action": "lock",
+                            "color": "white",
+                            "action_link": null,
+                            "color_link": null
+                        },
+                        {
+                            "action": "barrel roll",
+                            "color": "white",
+                            "action_link": null,
+                            "color_link": null
+                        },
+                        {
+                            "action": "boost",
+                            "color": "white",
+                            "action_link": null,
+                            "color_link": null
+                        }
+                    ],
+                    "upgrade_slots": [
+                        "talent",
+                        "tech",
+                        "missile",
+                        "modification"
+                    ],
+                    "pilots": [
+                        {
+                            "name": "major vonreg",
+                            "limit": 1,
+                            "initiative": 6,
+                            "cost": 54,
+                            "statistics": [
+                                {
+                                    "attacks": []
+                                },
+                                {
+                                    "agility": null
+                                },
+                                {
+                                    "hull": null
+                                },
+                                {
+                                    "shield": {
+                                        "shield": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "force": {
+                                        "force": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "energy": {
+                                        "energy": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "charge": {
+                                        "charge": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                }
+                            ],
+                            "actions": [],
+                            "upgrade_slots": [],
+                            "keywords": [
+                                "tie"
+                            ]
+                        },
+                        {
+                            "name": "holo",
+                            "limit": 1,
+                            "initiative": 5,
+                            "cost": 53,
+                            "statistics": [
+                                {
+                                    "attacks": []
+                                },
+                                {
+                                    "agility": null
+                                },
+                                {
+                                    "hull": null
+                                },
+                                {
+                                    "shield": {
+                                        "shield": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "force": {
+                                        "force": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "energy": {
+                                        "energy": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "charge": {
+                                        "charge": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                }
+                            ],
+                            "actions": [],
+                            "upgrade_slots": [],
+                            "keywords": [
+                                "tie"
+                            ]
+                        },
+                        {
+                            "name": "ember",
+                            "limit": 1,
+                            "initiative": 4,
+                            "cost": 45,
+                            "statistics": [
+                                {
+                                    "attacks": []
+                                },
+                                {
+                                    "agility": null
+                                },
+                                {
+                                    "hull": null
+                                },
+                                {
+                                    "shield": {
+                                        "shield": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "force": {
+                                        "force": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "energy": {
+                                        "energy": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "charge": {
+                                        "charge": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                }
+                            ],
+                            "actions": [],
+                            "upgrade_slots": [],
+                            "keywords": [
+                                "tie"
+                            ]
+                        },
+                        {
+                            "name": "first order provocateur",
+                            "limit": 0,
+                            "initiative": 3,
+                            "cost": 41,
+                            "statistics": [
+                                {
+                                    "attacks": []
+                                },
+                                {
+                                    "agility": null
+                                },
+                                {
+                                    "hull": null
+                                },
+                                {
+                                    "shield": {
+                                        "shield": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "force": {
+                                        "force": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "energy": {
+                                        "energy": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "charge": {
+                                        "charge": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                }
+                            ],
+                            "actions": [],
+                            "upgrade_slots": [],
+                            "keywords": [
+                                "tie"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "tiefo fighter",
+                    "base": "small",
+                    "statistics": [
+                        {
+                            "attacks": [
+                                {
+                                    "attack": 2,
+                                    "arc_type": "front"
+                                }
+                            ]
+                        },
+                        {
+                            "agility": 3
+                        },
+                        {
+                            "hull": 3
+                        },
+                        {
+                            "shield": {
+                                "shield": 1,
+                                "recharge": 0
+                            }
+                        },
+                        {
+                            "force": {
+                                "force": 0,
+                                "recharge": 0
+                            }
+                        },
+                        {
+                            "energy": {
+                                "energy": 0,
+                                "recharge": 0
+                            }
+                        },
+                        {
+                            "charge": {
+                                "charge": 0,
+                                "recharge": 0
+                            }
+                        }
+                    ],
+                    "actions": [
+                        {
+                            "action": "focus",
+                            "color": "white",
+                            "action_link": null,
+                            "color_link": null
+                        },
+                        {
+                            "action": "evade",
+                            "color": "white",
+                            "action_link": null,
+                            "color_link": null
+                        },
+                        {
+                            "action": "lock",
+                            "color": "white",
+                            "action_link": null,
+                            "color_link": null
+                        },
+                        {
+                            "action": "barrel roll",
+                            "color": "white",
+                            "action_link": null,
+                            "color_link": null
+                        }
+                    ],
+                    "upgrade_slots": [
+                        "tech",
+                        "modification"
+                    ],
+                    "pilots": [
+                        {
+                            "name": "epsilon squadron cadet",
+                            "limit": 0,
+                            "initiative": 1,
+                            "cost": 26,
+                            "statistics": [
+                                {
+                                    "attacks": []
+                                },
+                                {
+                                    "agility": null
+                                },
+                                {
+                                    "hull": null
+                                },
+                                {
+                                    "shield": {
+                                        "shield": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "force": {
+                                        "force": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "energy": {
+                                        "energy": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "charge": {
+                                        "charge": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                }
+                            ],
+                            "actions": [],
+                            "upgrade_slots": [],
+                            "keywords": [
+                                "tie"
+                            ]
+                        },
+                        {
+                            "name": "zeta squadron pilot",
+                            "limit": 0,
+                            "initiative": 1,
+                            "cost": 27,
+                            "statistics": [
+                                {
+                                    "attacks": []
+                                },
+                                {
+                                    "agility": null
+                                },
+                                {
+                                    "hull": null
+                                },
+                                {
+                                    "shield": {
+                                        "shield": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "force": {
+                                        "force": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "energy": {
+                                        "energy": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "charge": {
+                                        "charge": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                }
+                            ],
+                            "actions": [],
+                            "upgrade_slots": [],
+                            "keywords": [
+                                "tie"
+                            ]
+                        },
+                        {
+                            "name": "omega squadron pilot",
+                            "limit": 0,
+                            "initiative": 3,
+                            "cost": 29,
+                            "statistics": [
+                                {
+                                    "attacks": []
+                                },
+                                {
+                                    "agility": null
+                                },
+                                {
+                                    "hull": null
+                                },
+                                {
+                                    "shield": {
+                                        "shield": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "force": {
+                                        "force": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "energy": {
+                                        "energy": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "charge": {
+                                        "charge": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                }
+                            ],
+                            "actions": [],
+                            "upgrade_slots": [],
+                            "keywords": [
+                                "tie"
+                            ]
+                        },
+                        {
+                            "name": "lieutenant rivas",
+                            "limit": 1,
+                            "initiative": 1,
+                            "cost": 28,
+                            "statistics": [
+                                {
+                                    "attacks": []
+                                },
+                                {
+                                    "agility": null
+                                },
+                                {
+                                    "hull": null
+                                },
+                                {
+                                    "shield": {
+                                        "shield": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "force": {
+                                        "force": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "energy": {
+                                        "energy": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "charge": {
+                                        "charge": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                }
+                            ],
+                            "actions": [],
+                            "upgrade_slots": [],
+                            "keywords": [
+                                "tie"
+                            ]
+                        },
+                        {
+                            "name": "tn-3465",
+                            "limit": 1,
+                            "initiative": 2,
+                            "cost": 28,
+                            "statistics": [
+                                {
+                                    "attacks": []
+                                },
+                                {
+                                    "agility": null
+                                },
+                                {
+                                    "hull": null
+                                },
+                                {
+                                    "shield": {
+                                        "shield": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "force": {
+                                        "force": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "energy": {
+                                        "energy": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "charge": {
+                                        "charge": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                }
+                            ],
+                            "actions": [],
+                            "upgrade_slots": [],
+                            "keywords": [
+                                "tie"
+                            ]
+                        },
+                        {
+                            "name": "null",
+                            "limit": 1,
+                            "initiative": 0,
+                            "cost": 30,
+                            "statistics": [
+                                {
+                                    "attacks": []
+                                },
+                                {
+                                    "agility": null
+                                },
+                                {
+                                    "hull": null
+                                },
+                                {
+                                    "shield": {
+                                        "shield": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "force": {
+                                        "force": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "energy": {
+                                        "energy": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "charge": {
+                                        "charge": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                }
+                            ],
+                            "actions": [],
+                            "upgrade_slots": [],
+                            "keywords": [
+                                "tie"
+                            ]
+                        },
+                        {
+                            "name": "muse",
+                            "limit": 1,
+                            "initiative": 2,
+                            "cost": 30,
+                            "statistics": [
+                                {
+                                    "attacks": []
+                                },
+                                {
+                                    "agility": null
+                                },
+                                {
+                                    "hull": null
+                                },
+                                {
+                                    "shield": {
+                                        "shield": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "force": {
+                                        "force": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "energy": {
+                                        "energy": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "charge": {
+                                        "charge": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                }
+                            ],
+                            "actions": [],
+                            "upgrade_slots": [],
+                            "keywords": [
+                                "tie"
+                            ]
+                        },
+                        {
+                            "name": "longshot",
+                            "limit": 1,
+                            "initiative": 3,
+                            "cost": 30,
+                            "statistics": [
+                                {
+                                    "attacks": []
+                                },
+                                {
+                                    "agility": null
+                                },
+                                {
+                                    "hull": null
+                                },
+                                {
+                                    "shield": {
+                                        "shield": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "force": {
+                                        "force": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "energy": {
+                                        "energy": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "charge": {
+                                        "charge": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                }
+                            ],
+                            "actions": [],
+                            "upgrade_slots": [],
+                            "keywords": [
+                                "tie"
+                            ]
+                        },
+                        {
+                            "name": "static",
+                            "limit": 1,
+                            "initiative": 4,
+                            "cost": 31,
+                            "statistics": [
+                                {
+                                    "attacks": []
+                                },
+                                {
+                                    "agility": null
+                                },
+                                {
+                                    "hull": null
+                                },
+                                {
+                                    "shield": {
+                                        "shield": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "force": {
+                                        "force": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "energy": {
+                                        "energy": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "charge": {
+                                        "charge": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                }
+                            ],
+                            "actions": [],
+                            "upgrade_slots": [
+                                "talent"
+                            ],
+                            "keywords": [
+                                "tie"
+                            ]
+                        },
+                        {
+                            "name": "commander malarus (tie fighter)",
+                            "limit": 1,
+                            "initiative": 5,
+                            "cost": 33,
+                            "statistics": [
+                                {
+                                    "attacks": []
+                                },
+                                {
+                                    "agility": null
+                                },
+                                {
+                                    "hull": null
+                                },
+                                {
+                                    "shield": {
+                                        "shield": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "force": {
+                                        "force": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "energy": {
+                                        "energy": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "charge": {
+                                        "charge": 2,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                }
+                            ],
+                            "actions": [],
+                            "upgrade_slots": [
+                                "talent"
+                            ],
+                            "keywords": [
+                                "tie"
+                            ]
+                        },
+                        {
+                            "name": "scorch (tie fighter)",
+                            "limit": 1,
+                            "initiative": 4,
+                            "cost": 33,
+                            "statistics": [
+                                {
+                                    "attacks": []
+                                },
+                                {
+                                    "agility": null
+                                },
+                                {
+                                    "hull": null
+                                },
+                                {
+                                    "shield": {
+                                        "shield": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "force": {
+                                        "force": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "energy": {
+                                        "energy": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "charge": {
+                                        "charge": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                }
+                            ],
+                            "actions": [],
+                            "upgrade_slots": [
+                                "talent"
+                            ],
+                            "keywords": [
+                                "tie"
+                            ]
+                        },
+                        {
+                            "name": "midnight",
+                            "limit": 1,
+                            "initiative": 6,
+                            "cost": 35,
+                            "statistics": [
+                                {
+                                    "attacks": []
+                                },
+                                {
+                                    "agility": null
+                                },
+                                {
+                                    "hull": null
+                                },
+                                {
+                                    "shield": {
+                                        "shield": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "force": {
+                                        "force": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "energy": {
+                                        "energy": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "charge": {
+                                        "charge": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                }
+                            ],
+                            "actions": [],
+                            "upgrade_slots": [
+                                "talent"
+                            ],
+                            "keywords": [
+                                "tie"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "tiese bomber",
+                    "base": "small",
+                    "statistics": [
+                        {
+                            "attacks": [
+                                {
+                                    "attack": 2,
+                                    "arc_type": "front"
+                                }
+                            ]
+                        },
+                        {
+                            "agility": 2
+                        },
+                        {
+                            "hull": 4
+                        },
+                        {
+                            "shield": {
+                                "shield": 2,
+                                "recharge": 0
+                            }
+                        },
+                        {
+                            "force": {
+                                "force": 0,
+                                "recharge": 0
+                            }
+                        },
+                        {
+                            "energy": {
+                                "energy": 0,
+                                "recharge": 0
+                            }
+                        },
+                        {
+                            "charge": {
+                                "charge": 0,
+                                "recharge": 0
+                            }
+                        }
+                    ],
+                    "actions": [
+                        {
+                            "action": "focus",
+                            "color": "white",
+                            "action_link": null,
+                            "color_link": null
+                        },
+                        {
+                            "action": "lock",
+                            "color": "white",
+                            "action_link": null,
+                            "color_link": null
+                        },
+                        {
+                            "action": "barrel roll",
+                            "color": "white",
+                            "action_link": "lock",
+                            "color_link": "red"
+                        },
+                        {
+                            "action": "boost",
+                            "color": "red",
+                            "action_link": null,
+                            "color_link": null
+                        },
+                        {
+                            "action": "reload",
+                            "color": "white",
+                            "action_link": "evade",
+                            "color_link": "red"
+                        }
+                    ],
+                    "upgrade_slots": [
+                        "tech",
+                        "torpedo",
+                        "missile",
+                        "gunner",
+                        "payload",
+                        "payload",
+                        "modification"
+                    ],
+                    "pilots": [
+                        {
+                            "name": "sienar-jaemus test pilot",
+                            "limit": 0,
+                            "initiative": 2,
+                            "cost": 31,
+                            "statistics": [
+                                {
+                                    "attacks": []
+                                },
+                                {
+                                    "agility": null
+                                },
+                                {
+                                    "hull": null
+                                },
+                                {
+                                    "shield": {
+                                        "shield": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "force": {
+                                        "force": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "energy": {
+                                        "energy": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "charge": {
+                                        "charge": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                }
+                            ],
+                            "actions": [],
+                            "upgrade_slots": [],
+                            "keywords": [
+                                "tie"
+                            ]
+                        },
+                        {
+                            "name": "first order cadet",
+                            "limit": 0,
+                            "initiative": 3,
+                            "cost": 32,
+                            "statistics": [
+                                {
+                                    "attacks": []
+                                },
+                                {
+                                    "agility": null
+                                },
+                                {
+                                    "hull": null
+                                },
+                                {
+                                    "shield": {
+                                        "shield": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "force": {
+                                        "force": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "energy": {
+                                        "energy": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "charge": {
+                                        "charge": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                }
+                            ],
+                            "actions": [],
+                            "upgrade_slots": [
+                                "talent"
+                            ],
+                            "keywords": [
+                                "tie"
+                            ]
+                        },
+                        {
+                            "name": "grudge",
+                            "limit": 1,
+                            "initiative": 2,
+                            "cost": 36,
+                            "statistics": [
+                                {
+                                    "attacks": []
+                                },
+                                {
+                                    "agility": null
+                                },
+                                {
+                                    "hull": null
+                                },
+                                {
+                                    "shield": {
+                                        "shield": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "force": {
+                                        "force": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "energy": {
+                                        "energy": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "charge": {
+                                        "charge": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                }
+                            ],
+                            "actions": [],
+                            "upgrade_slots": [],
+                            "keywords": [
+                                "tie"
+                            ]
+                        },
+                        {
+                            "name": "dread",
+                            "limit": 1,
+                            "initiative": 3,
+                            "cost": 32,
+                            "statistics": [
+                                {
+                                    "attacks": []
+                                },
+                                {
+                                    "agility": null
+                                },
+                                {
+                                    "hull": null
+                                },
+                                {
+                                    "shield": {
+                                        "shield": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "force": {
+                                        "force": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "energy": {
+                                        "energy": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "charge": {
+                                        "charge": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                }
+                            ],
+                            "actions": [],
+                            "upgrade_slots": [],
+                            "keywords": [
+                                "tie"
+                            ]
+                        },
+                        {
+                            "name": "scorch (tie bomber)",
+                            "limit": 1,
+                            "initiative": 4,
+                            "cost": 35,
+                            "statistics": [
+                                {
+                                    "attacks": []
+                                },
+                                {
+                                    "agility": null
+                                },
+                                {
+                                    "hull": null
+                                },
+                                {
+                                    "shield": {
+                                        "shield": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "force": {
+                                        "force": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "energy": {
+                                        "energy": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "charge": {
+                                        "charge": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                }
+                            ],
+                            "actions": [],
+                            "upgrade_slots": [
+                                "talent"
+                            ],
+                            "keywords": [
+                                "tie"
+                            ]
+                        },
+                        {
+                            "name": "breach",
+                            "limit": 1,
+                            "initiative": 5,
+                            "cost": 36,
+                            "statistics": [
+                                {
+                                    "attacks": []
+                                },
+                                {
+                                    "agility": null
+                                },
+                                {
+                                    "hull": null
+                                },
+                                {
+                                    "shield": {
+                                        "shield": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "force": {
+                                        "force": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "energy": {
+                                        "energy": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "charge": {
+                                        "charge": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                }
+                            ],
+                            "actions": [],
+                            "upgrade_slots": [
+                                "talent"
+                            ],
+                            "keywords": [
+                                "tie"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "tiesf fighter",
+                    "base": "small",
+                    "statistics": [
+                        {
+                            "attacks": [
+                                {
+                                    "attack": 2,
+                                    "arc_type": "front"
+                                },
+                                {
+                                    "attack": 2,
+                                    "arc_type": "turret"
+                                }
+                            ]
+                        },
+                        {
+                            "agility": 2
+                        },
+                        {
+                            "hull": 3
+                        },
+                        {
+                            "shield": {
+                                "shield": 3,
+                                "recharge": 0
+                            }
+                        },
+                        {
+                            "force": {
+                                "force": 0,
+                                "recharge": 0
+                            }
+                        },
+                        {
+                            "energy": {
+                                "energy": 0,
+                                "recharge": 0
+                            }
+                        },
+                        {
+                            "charge": {
+                                "charge": 0,
+                                "recharge": 0
+                            }
+                        }
+                    ],
+                    "actions": [
+                        {
+                            "action": "focus",
+                            "color": "white",
+                            "action_link": "rotate",
+                            "color_link": "white"
+                        },
+                        {
+                            "action": "evade",
+                            "color": "white",
+                            "action_link": "rotate",
+                            "color_link": "white"
+                        },
+                        {
+                            "action": "lock",
+                            "color": "white",
+                            "action_link": "rotate",
+                            "color_link": "white"
+                        },
+                        {
+                            "action": "barrel roll",
+                            "color": "white",
+                            "action_link": "rotate",
+                            "color_link": "white"
+                        }
+                    ],
+                    "upgrade_slots": [
+                        "sensor",
+                        "tech",
+                        "missile",
+                        "gunner",
+                        "modification"
+                    ],
+                    "pilots": [
+                        {
+                            "name": "zeta squadron pilot",
+                            "limit": 0,
+                            "initiative": 2,
+                            "cost": 32,
+                            "statistics": [
+                                {
+                                    "attacks": []
+                                },
+                                {
+                                    "agility": null
+                                },
+                                {
+                                    "hull": null
+                                },
+                                {
+                                    "shield": {
+                                        "shield": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "force": {
+                                        "force": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "energy": {
+                                        "energy": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "charge": {
+                                        "charge": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                }
+                            ],
+                            "actions": [],
+                            "upgrade_slots": [],
+                            "keywords": [
+                                "tie"
+                            ]
+                        },
+                        {
+                            "name": "omega squadron expert",
+                            "limit": 0,
+                            "initiative": 3,
+                            "cost": 33,
+                            "statistics": [
+                                {
+                                    "attacks": []
+                                },
+                                {
+                                    "agility": null
+                                },
+                                {
+                                    "hull": null
+                                },
+                                {
+                                    "shield": {
+                                        "shield": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "force": {
+                                        "force": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "energy": {
+                                        "energy": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "charge": {
+                                        "charge": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                }
+                            ],
+                            "actions": [],
+                            "upgrade_slots": [
+                                "talent"
+                            ],
+                            "keywords": [
+                                "tie"
+                            ]
+                        },
+                        {
+                            "name": "lieutenant lehuse",
+                            "limit": 1,
+                            "initiative": 5,
+                            "cost": 33,
+                            "statistics": [
+                                {
+                                    "attacks": []
+                                },
+                                {
+                                    "agility": null
+                                },
+                                {
+                                    "hull": null
+                                },
+                                {
+                                    "shield": {
+                                        "shield": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "force": {
+                                        "force": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "energy": {
+                                        "energy": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "charge": {
+                                        "charge": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                }
+                            ],
+                            "actions": [],
+                            "upgrade_slots": [
+                                "talent"
+                            ],
+                            "keywords": [
+                                "tie"
+                            ]
+                        },
+                        {
+                            "name": "captain phasma",
+                            "limit": 1,
+                            "initiative": 4,
+                            "cost": 34,
+                            "statistics": [
+                                {
+                                    "attacks": []
+                                },
+                                {
+                                    "agility": null
+                                },
+                                {
+                                    "hull": null
+                                },
+                                {
+                                    "shield": {
+                                        "shield": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "force": {
+                                        "force": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "energy": {
+                                        "energy": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "charge": {
+                                        "charge": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                }
+                            ],
+                            "actions": [],
+                            "upgrade_slots": [
+                                "talent"
+                            ],
+                            "keywords": [
+                                "tie"
+                            ]
+                        },
+                        {
+                            "name": "backdraft",
+                            "limit": 1,
+                            "initiative": 4,
+                            "cost": 36,
+                            "statistics": [
+                                {
+                                    "attacks": []
+                                },
+                                {
+                                    "agility": null
+                                },
+                                {
+                                    "hull": null
+                                },
+                                {
+                                    "shield": {
+                                        "shield": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "force": {
+                                        "force": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "energy": {
+                                        "energy": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "charge": {
+                                        "charge": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                }
+                            ],
+                            "actions": [],
+                            "upgrade_slots": [
+                                "talent"
+                            ],
+                            "keywords": [
+                                "tie"
+                            ]
+                        },
+                        {
+                            "name": "quickdraw",
+                            "limit": 1,
+                            "initiative": 6,
+                            "cost": 44,
+                            "statistics": [
+                                {
+                                    "attacks": []
+                                },
+                                {
+                                    "agility": null
+                                },
+                                {
+                                    "hull": null
+                                },
+                                {
+                                    "shield": {
+                                        "shield": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "force": {
+                                        "force": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "energy": {
+                                        "energy": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "charge": {
+                                        "charge": 1,
+                                        "recharge": 1,
+                                        "dicharge": null
+                                    }
+                                }
+                            ],
+                            "actions": [],
+                            "upgrade_slots": [
+                                "talent"
+                            ],
+                            "keywords": [
+                                "tie"
+                            ]
+                        }
+                    ]
+                }
+            ]
         },
         {
             "name": "galactic empire",

@@ -29,22 +29,56 @@
     <item row="0" column="1">
      <layout class="QHBoxLayout" name="data_view_layout" stretch="0,0,0,0,0">
       <item>
-       <widget class="QListWidget" name="faction_list_widget"/>
+       <widget class="QListWidget" name="faction_list_widget">
+        <property name="toolTip">
+         <string>Faction list</string>
+        </property>
+       </widget>
       </item>
       <item>
-       <widget class="QListWidget" name="ship_list_widget"/>
+       <widget class="QListWidget" name="ship_list_widget">
+        <property name="toolTip">
+         <string>Ship List</string>
+        </property>
+       </widget>
       </item>
       <item>
-       <widget class="QListWidget" name="pilot_list_widget"/>
+       <widget class="QListWidget" name="pilot_list_widget">
+        <property name="toolTip">
+         <string>Pilot List
+(Initiative) Pilot Name (Cost)</string>
+        </property>
+       </widget>
       </item>
       <item>
        <layout class="QVBoxLayout" name="ship_aggregate">
         <item>
          <layout class="QGridLayout" name="ship_information_2">
-          <item row="1" column="0">
-           <widget class="QLabel" name="label_4">
+          <item row="3" column="0">
+           <widget class="QLabel" name="label_6">
             <property name="text">
-             <string>Base: </string>
+             <string>Points:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="label_5">
+            <property name="text">
+             <string>Initiative:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QLabel" name="base_label">
+            <property name="text">
+             <string>TextLabel</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QLabel" name="points_label">
+            <property name="text">
+             <string>TextLabel</string>
             </property>
            </widget>
           </item>
@@ -62,33 +96,32 @@
             </property>
            </widget>
           </item>
-          <item row="1" column="1">
-           <widget class="QLabel" name="base_label">
+          <item row="4" column="0">
+           <widget class="QLabel" name="label_7">
             <property name="text">
-             <string>TextLabel</string>
+             <string>Ship Actions:</string>
             </property>
            </widget>
           </item>
-          <item row="2" column="0">
-           <widget class="QLabel" name="label_5">
+          <item row="4" column="1">
+           <layout class="QHBoxLayout" name="ship_action_layout"/>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_4">
             <property name="text">
-             <string>Initiative:</string>
+             <string>Base: </string>
             </property>
            </widget>
           </item>
-          <item row="3" column="0">
-           <widget class="QLabel" name="label_6">
+          <item row="5" column="0">
+           <widget class="QLabel" name="label_8">
             <property name="text">
-             <string>Points:</string>
+             <string>Pilot Actions:</string>
             </property>
            </widget>
           </item>
-          <item row="3" column="1">
-           <widget class="QLabel" name="points_label">
-            <property name="text">
-             <string>TextLabel</string>
-            </property>
-           </widget>
+          <item row="5" column="1">
+           <layout class="QHBoxLayout" name="pilot_action_layout"/>
           </item>
          </layout>
         </item>
@@ -145,6 +178,7 @@
     </property>
     <addaction name="action_definition_form"/>
     <addaction name="action_upgrade_form"/>
+    <addaction name="action_reload_data"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuTools"/>
@@ -175,15 +209,19 @@
    </property>
   </action>
   <action name="action_upgrade_form">
-   <property name="icon">
-    <iconset resource="resources.qrc">
-     <normaloff>:/images/icon.png</normaloff>:/images/icon.png</iconset>
-   </property>
    <property name="text">
     <string>Upgrade Form</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+U</string>
+   </property>
+  </action>
+  <action name="action_reload_data">
+   <property name="text">
+    <string>Reload Data</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+R</string>
    </property>
   </action>
  </widget>

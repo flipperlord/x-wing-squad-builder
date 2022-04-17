@@ -5,6 +5,19 @@ import argparse
 
 from typing import List
 
+from PIL import Image
+import numpy as np
+
+
+def change_action_image_color(image_path, color):
+    im = Image.open(image_path)
+    im_arr = np.array(im).astype('uint8')
+    if color == "red":
+        im_arr[im_arr[:, :, 0] > 0, 1] = 0
+        im_arr[im_arr[:, :, 0] > 0, 2] = 0
+    elif color == "purple":
+        im_arr[im_arr[:, :, 0] > 0, 1] = 0
+    return Image.fromarray(im_arr).toqimage()
 
 def prettify_name(name: str) -> str:
     """Takes a lowercase string of a name and capitalizes it."""

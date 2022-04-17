@@ -14,7 +14,7 @@ from .about_window import AboutWindow
 from .settings_window import SettingsWindow
 
 from .model import XWing, Faction, Ship
-from .utils_pyside import image_path_to_qpixmap, populate_list_widget
+from .utils_pyside import image_path_to_qpixmap, populate_list_widget, get_pilot_name_from_list_item, clear_ship_layout
 from .utils import prettify_name
 
 from pathlib import Path
@@ -82,6 +82,8 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.action_upgrade_form.triggered.connect(self.upgrade_form.show)
         self.upgrade_form.update_signal.connect(self.handle_new_upgrade_data)
 
+        self.ui.action_reload_data.triggered.connect(self.reload_data)
+
         self.showMaximized()
 
 
@@ -119,18 +121,27 @@ class MainWindow(QtWidgets.QMainWindow):
         low, high = ship.point_range
         self.ui.points_label.setText(f"{low} - {high}")
         self.ui.maneuver_image_label.setPixmap(image_path_to_qpixmap(self.maneuvers_dir / f"{ship_name}.png"))
+        self.update_ship_actions(ship)
 
 
         # Populate the pilot list
         self.ui.pilot_list_widget.clear()
-        pilot_names = [prettify_name(name) for name in ship.pilot_names]
+        pilot_names = [f"({init}) {prettify_name(name)} ({cost})" for init, cost, name in ship.pilot_names_cost_initiative]
         populate_list_widget(pilot_names, self.ui.pilot_list_widget)
 
     def update_pilot(self, item):
-        pilot_name = item.text().lower()
+        pilot_name = get_pilot_name_from_list_item(item)
         self.ui.pilot_image_label.setPixmap(image_path_to_qpixmap(self.pilots_dir / f"{pilot_name}.jpg"))
 
-
+    def update_ship_actions(self, ship: Ship):
+        clear_ship_layout(self.ui.ship_action_layout)
+        for action_item in ship.actions:
+            image_label = QtWidgets.QLabel()
+            action_name = action_item.action
+            action_color = action_item.color
+            image_path = self.actions_dir / f"{action_name}.png"
+            image_label.setPixmap(image_path_to_qpixmap(image_path, action_color))
+            self.ui.ship_action_layout.addWidget(image_label)
 
     @property
     def faction_selected(self) -> str:
@@ -171,6 +182,10 @@ class MainWindow(QtWidgets.QMainWindow):
     @property
     def upgrades_dir(self) -> Path:
         return Path(__file__).parents[1] / "data" / "resources" / "upgrades"
+
+    @property
+    def actions_dir(self) -> Path:
+        return Path(__file__).parents[1] / "data" / "resources" / "actions"
 
     def check_theme(self):
         app = QtWidgets.QApplication.instance()

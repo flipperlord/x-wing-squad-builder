@@ -31,6 +31,12 @@ class Ship:
         return [pilot.name for pilot in self.pilots]
 
     @property
+    def pilot_names_cost_initiative(self):
+        arr = [(pilot.initiative, pilot.cost, pilot.name) for pilot in self.pilots]
+        arr = sorted(arr, key= lambda x: (x[0], x[1], x[2]))
+        return arr
+
+    @property
     def initiative_list(self) -> List[int]:
         return list(sorted((int(pilot.initiative) for pilot in self.pilots)))
 

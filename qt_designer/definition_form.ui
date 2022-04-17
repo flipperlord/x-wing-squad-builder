@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1055</width>
-    <height>844</height>
+    <height>820</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -32,24 +32,13 @@
              <bold>true</bold>
             </font>
            </property>
+           <property name="toolTip">
+            <string>Fill out every line item below.
+Once a ship is entered into the definition file, it can only be updated manually in the definition file regardless of the inputs below.
+Use a &quot;,&quot; to separate list items, and a &quot;&gt;&quot; to indicate linked actions.</string>
+           </property>
            <property name="text">
             <string>Ship</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_37">
-           <property name="font">
-            <font>
-             <pointsize>10</pointsize>
-             <bold>false</bold>
-            </font>
-           </property>
-           <property name="text">
-            <string>Fill out every line item below.  Once a ship is entered into the definition file, it can only be updated manually in the definition file regardless of the inputs below.  Use a &quot;,&quot; to separate list items, and a &quot;&gt;&quot; to indicate linked actions.</string>
-           </property>
-           <property name="wordWrap">
-            <bool>true</bool>
            </property>
           </widget>
          </item>
@@ -411,24 +400,13 @@
              <bold>true</bold>
             </font>
            </property>
+           <property name="toolTip">
+            <string>Required fields are pilot name, cost, initiative, and limit.
+Text Fields can be left blank and numerical fields can be left as none if there is no change from the ship.
+Pilot data can be overwritten if the name already exists, but the software will warn the user in this case.</string>
+           </property>
            <property name="text">
             <string>Pilot</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_42">
-           <property name="font">
-            <font>
-             <pointsize>10</pointsize>
-             <bold>false</bold>
-            </font>
-           </property>
-           <property name="text">
-            <string>Required fields are pilot name, cost, initiative, and limit.  Text Fields can be left blank and numerical fields can be left as none if there is no change from the ship. Pilot data can be overwritten if the name already exists, but the software will warn the user in this case.</string>
-           </property>
-           <property name="wordWrap">
-            <bool>true</bool>
            </property>
           </widget>
          </item>

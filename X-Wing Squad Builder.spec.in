@@ -14,10 +14,10 @@ added_files = [
     ('data/definition.json', 'data'),
     ('data/resources/factions/*.png', 'data/resources/factions'),
     ('data/resources/maneuvers/*.png', 'data/resources/maneuvers'),
-    ('data/resources/pilots/*.png', 'data/resources/pilots'),
+    ('data/resources/pilots/*.jpg', 'data/resources/pilots'),
     ('data/resources/ship_icons/*.png', 'data/resources/ship_icons'),
     ('data/resources/upgrade_slots/*.png', 'data/resources/upgrade_slots'),
-    ('data/resources/upgrades/*.png', 'data/resources/upgrades'),
+    ('data/resources/upgrades/*.jpg', 'data/resources/upgrades'),
     ('data/resources/actions/*.png', 'data/resources/actions')
     ]
 
