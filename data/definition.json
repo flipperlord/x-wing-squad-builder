@@ -175,7 +175,123 @@
         },
         {
             "name": "resistance",
-            "ships": []
+            "ships": [
+                {
+                    "name": "will-d-beast",
+                    "base": "large",
+                    "statistics": [
+                        {
+                            "attacks": [
+                                {
+                                    "attack": 99,
+                                    "arc_type": "full rear"
+                                },
+                                {
+                                    "attack": 99,
+                                    "arc_type": "full front"
+                                }
+                            ]
+                        },
+                        {
+                            "agility": 0
+                        },
+                        {
+                            "hull": 0
+                        },
+                        {
+                            "shield": {
+                                "shield": 0,
+                                "recharge": 0
+                            }
+                        },
+                        {
+                            "force": {
+                                "force": 0,
+                                "recharge": 0
+                            }
+                        },
+                        {
+                            "energy": {
+                                "energy": 0,
+                                "recharge": 0
+                            }
+                        },
+                        {
+                            "charge": {
+                                "charge": 0,
+                                "recharge": 0
+                            }
+                        }
+                    ],
+                    "actions": [
+                        {
+                            "action": "focus",
+                            "color": "red",
+                            "action_link": null,
+                            "color_link": null
+                        },
+                        {
+                            "action": "evade",
+                            "color": "white",
+                            "action_link": null,
+                            "color_link": null
+                        }
+                    ],
+                    "upgrade_slots": [
+                        "astromech"
+                    ],
+                    "pilots": [
+                        {
+                            "name": "el solverdor",
+                            "limit": 0,
+                            "initiative": 0,
+                            "cost": 6969,
+                            "statistics": [
+                                {
+                                    "attacks": []
+                                },
+                                {
+                                    "agility": 0
+                                },
+                                {
+                                    "hull": 0
+                                },
+                                {
+                                    "shield": {
+                                        "shield": 0,
+                                        "recharge": 0,
+                                        "decharge": 0
+                                    }
+                                },
+                                {
+                                    "force": {
+                                        "force": 0,
+                                        "recharge": 0,
+                                        "decharge": 0
+                                    }
+                                },
+                                {
+                                    "energy": {
+                                        "energy": 0,
+                                        "recharge": 0,
+                                        "decharge": 0
+                                    }
+                                },
+                                {
+                                    "charge": {
+                                        "charge": 0,
+                                        "recharge": 0,
+                                        "decharge": 0
+                                    }
+                                }
+                            ],
+                            "actions": [],
+                            "upgrade_slots": [],
+                            "keywords": []
+                        }
+                    ]
+                }
+            ]
         },
         {
             "name": "scum and villainy",
@@ -184,6 +300,58 @@
         {
             "name": "separatist alliance",
             "ships": []
+        }
+    ],
+    "upgrades": [
+        {
+            "name": "pikachu's tractor beam",
+            "upgrade_slot_types": [
+                "astromech"
+            ],
+            "restrictions": {
+                "limit": 0,
+                "factions": [],
+                "ships": [],
+                "base_sizes": [],
+                "attacks": [],
+                "agility": {},
+                "hull": {},
+                "shield": {
+                    "shield": {
+                        "shield": 2,
+                        "inequality": "less than"
+                    },
+                    "decharge": {
+                        "decharge": 1,
+                        "inequality": "equal to"
+                    }
+                },
+                "force": {},
+                "energy": {
+                    "energy": {
+                        "energy": 1,
+                        "inequality": "less than"
+                    },
+                    "recharge": {
+                        "recharge": 3,
+                        "inequality": "greater than"
+                    },
+                    "decharge": {
+                        "decharge": 4,
+                        "inequality": "greater than"
+                    }
+                },
+                "charge": {},
+                "actions": [
+                    {
+                        "action": "evade",
+                        "color": "red",
+                        "action_link": null,
+                        "color_link": null
+                    }
+                ],
+                "keywords": []
+            }
         }
     ]
 }

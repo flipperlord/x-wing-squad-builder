@@ -2,7 +2,7 @@ from PySide6 import QtWidgets, QtCore, QtGui
 from .ui.definition_form_ui import Ui_DefinitionForm
 
 from .model import XWing, Faction, Ship
-from .model.constants import BASE_SIZES, ARC_TYPES_, ACTION_COLORS, ACTIONS_, UPGRADE_SLOTS_, FACTION_NAMES, KEYWORDS
+from .model.constants import BASE_SIZES, ARC_TYPES_, ACTION_COLORS, ACTIONS_, UPGRADE_SLOTS_, FACTION_NAMES, KEYWORDS, INVALID
 from .utils import prettify_definition_form_entry
 
 import logging
@@ -58,7 +58,7 @@ class DefinitionForm(QtWidgets.QDialog):
         try:
             attack_list = [int(attack) for attack in attack_list]
         except ValueError:
-            return "invalid"
+            return INVALID
         return attack_list
 
     @property
@@ -66,9 +66,9 @@ class DefinitionForm(QtWidgets.QDialog):
         arc_types = prettify_definition_form_entry(self.ui.arc_types_line_edit.text())
         for arc_type in arc_types:
             if arc_type not in ARC_TYPES_:
-                return "invalid"
+                return INVALID
         if len(arc_types) != len(self.attacks):
-            return "invalid"
+            return INVALID
         return arc_types
 
     @property
@@ -89,21 +89,31 @@ class DefinitionForm(QtWidgets.QDialog):
             base = base.strip()
             bases.append(base)
             if base not in restricted_text:
-                return "invalid"
+                return INVALID
 
             if link:
                 link = link.strip()
                 if link not in restricted_text:
-                    return "invalid"
+                    return INVALID
             links.append(link)
         return bases, links
 
     @staticmethod
     def parse_comma_separated_text(text: str, restricted_text: List[str]):
+        """Generates a formatted list of entries from a text field separated by commas.  No input must be handled
+        outside of this function.
+
+
+        :param text:
+        :type text: str
+        :param restricted_text:
+        :type restricted_text: List[str]
+        :return: A list of formatted values if the input falls within the restricted text, otherwise INVALID string.
+        """
         item_list = prettify_definition_form_entry(text)
         for item in item_list:
             if item not in restricted_text:
-                return "invalid"
+                return INVALID
         return item_list
 
     @property
@@ -115,7 +125,7 @@ class DefinitionForm(QtWidgets.QDialog):
         colors, color_links = self.parse_actions_and_colors(self.ui.colors_line_edit.text(), ACTION_COLORS)
         actions, _ = self.actions
         if len(colors) != len(actions):
-            return "invalid"
+            return INVALID
         return colors, color_links
 
     @property
@@ -176,7 +186,7 @@ class DefinitionForm(QtWidgets.QDialog):
             try:
                 attack_list = [int(attack) for attack in attack_list]
             except ValueError:
-                return "invalid"
+                return INVALID
         else:
             attack_list = []
         return attack_list
@@ -188,11 +198,14 @@ class DefinitionForm(QtWidgets.QDialog):
             arc_types = prettify_definition_form_entry(arc_type_text)
             for arc_type in arc_types:
                 if arc_type not in ARC_TYPES_:
-                    return "invalid"
+                    return INVALID
             if len(arc_types) != len(self.pilot_attacks):
-                return "invalid"
+                return INVALID
         else:
-            arc_types = []
+            if self.pilot_attacks:
+                return INVALID
+            else:
+                arc_types = []
         return arc_types
 
     @property
@@ -223,7 +236,7 @@ class DefinitionForm(QtWidgets.QDialog):
             colors, color_links = self.parse_actions_and_colors(pilot_colors_text, ACTION_COLORS)
             actions, _ = self.actions
             if len(colors) != len(actions):
-                return "invalid"
+                return INVALID
             return colors, color_links
         else:
             return [], []
@@ -292,22 +305,22 @@ class DefinitionForm(QtWidgets.QDialog):
         if self.base_size not in BASE_SIZES:
             logging.info(f"Base size invalid.  Please choose from the following: {BASE_SIZES}")
             valid = False
-        if self.attacks == "invalid" or self.pilot_attacks == "invalid":
+        if self.attacks == INVALID or self.pilot_attacks == INVALID:
             logging.info("Attack entries must be numbers separated by commas.  Please try again.")
             valid = False
-        if self.arc_types == "invalid" or self.pilot_arc_types == "invalid":
+        if self.arc_types == INVALID or self.pilot_arc_types == INVALID:
             logging.info(f"Arc types must have the same number of attacks.  Arc Types must be be within the following: {ARC_TYPES_}")
             valid = False
-        if self.actions == "invalid" or self.pilot_actions == "invalid":
+        if self.actions == INVALID or self.pilot_actions == INVALID:
             logging.info(f"Action entries must be within the following: {ACTIONS_}")
             valid = False
-        if self.colors == "invalid" or self.pilot_colors == "invalid":
+        if self.colors == INVALID or self.pilot_colors == INVALID:
             logging.info(f"Colors must have the same number of actions.  Colors must be be within the following: {ACTION_COLORS}")
             valid = False
-        if self.upgrade_slots == "invalid" or self.pilot_upgrade_slots == "invalid":
+        if self.upgrade_slots == INVALID or self.pilot_upgrade_slots == INVALID:
             logging.info(f"Upgrade slots must be within the following: {UPGRADE_SLOTS_}")
             valid = False
-        if self.pilot_traits == "invalid":
+        if self.pilot_traits == INVALID:
             logging.info(f"Pilot keywords must either be empty, or one of the following: {KEYWORDS}")
             valid = False
 
@@ -385,6 +398,31 @@ class DefinitionForm(QtWidgets.QDialog):
         }
         return new_entry
 
+    @property
+    def current_upgrade_names(self):
+        upgrade_list = self.data["upgrades"]
+        upgrade_name_list = [upgrade["name"] for upgrade in upgrade_list]
+        return upgrade_name_list
+
+    def insert_new_upgrade_entry(self, upgrade_entry):
+        new_upgrade_name = upgrade_entry["name"]
+        if new_upgrade_name in self.current_upgrade_names:
+            title = "Upgrade Exists!"
+            msg = "This upgrade exists.  Do you want to overwrite the existing upgrade data?"
+            reply = QtWidgets.QMessageBox.warning(
+                self, title, msg, QtWidgets.QMessageBox.Ok | QtWidgets.QMessageBox.Cancel)
+            if reply == QtWidgets.QMessageBox.Ok:
+                self.data["upgrades"].append(upgrade_entry)
+                logging.info(f"Upgrade data for <{new_upgrade_name}> successfully overwritten.")
+            else:
+                logging.info(f"Upgrade data for <{new_upgrade_name}> not overwritten.")
+                # returning true is what we use to open the upgrade form again
+                return True
+        else:
+            self.data["upgrades"].append(upgrade_entry)
+            logging.info(f"Upgrade data for <{new_upgrade_name}> successfully inserted.")
+        self.write_data()
+
     def insert_new_entry(self) -> bool:
         self.xwing = XWing.launch_xwing_data(self.data_filepath)
         entry = self.data_entry_template()
@@ -403,6 +441,7 @@ class DefinitionForm(QtWidgets.QDialog):
                     if reply == QtWidgets.QMessageBox.Ok:
                         self.insert_pilot(new_faction_name, new_ship_name, pilot_data, overwrite=True)
                     else:
+                        # returning true is what we use to open the definition form again
                         return True
                 else:
                     self.insert_pilot(new_faction_name, new_ship_name, pilot_data)

@@ -80,10 +80,16 @@ class MainWindow(QtWidgets.QMainWindow):
         # Set up upgrade form for adding to definition file.
         self.upgrade_form = UpgradeForm(self.file_path)
         self.ui.action_upgrade_form.triggered.connect(self.upgrade_form.show)
-        self.upgrade_form.update_signal.connect(self.reload_data)
+        self.upgrade_form.update_signal.connect(self.handle_new_upgrade_data)
 
         self.showMaximized()
 
+
+    def handle_new_upgrade_data(self, data):
+        insert_flag = self.definition_form.insert_new_upgrade_entry(data)
+        if insert_flag:
+            self.upgrade_form.show()
+        self.reload_data()
 
     def reload_data(self):
         self.ui.ship_list_widget.clear()
