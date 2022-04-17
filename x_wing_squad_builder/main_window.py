@@ -14,7 +14,7 @@ from .about_window import AboutWindow
 from .settings_window import SettingsWindow
 
 from .model import XWing, Faction, Ship
-from .utils_pyside import image_path_to_qpixmap, populate_list_widget, get_pilot_name_from_list_item, clear_ship_layout
+from .utils_pyside import image_path_to_qpixmap, populate_list_widget, get_pilot_name_from_list_item, clear_ship_layout, update_action_layout
 from .utils import prettify_name
 
 from pathlib import Path
@@ -121,7 +121,7 @@ class MainWindow(QtWidgets.QMainWindow):
         low, high = ship.point_range
         self.ui.points_label.setText(f"{low} - {high}")
         self.ui.maneuver_image_label.setPixmap(image_path_to_qpixmap(self.maneuvers_dir / f"{ship_name}.png"))
-        self.update_ship_actions(ship)
+        update_action_layout(self.ui.ship_action_layout, ship, self.actions_dir)
 
 
         # Populate the pilot list
@@ -132,16 +132,6 @@ class MainWindow(QtWidgets.QMainWindow):
     def update_pilot(self, item):
         pilot_name = get_pilot_name_from_list_item(item)
         self.ui.pilot_image_label.setPixmap(image_path_to_qpixmap(self.pilots_dir / f"{pilot_name}.jpg"))
-
-    def update_ship_actions(self, ship: Ship):
-        clear_ship_layout(self.ui.ship_action_layout)
-        for action_item in ship.actions:
-            image_label = QtWidgets.QLabel()
-            action_name = action_item.action
-            action_color = action_item.color
-            image_path = self.actions_dir / f"{action_name}.png"
-            image_label.setPixmap(image_path_to_qpixmap(image_path, action_color))
-            self.ui.ship_action_layout.addWidget(image_label)
 
     @property
     def faction_selected(self) -> str:

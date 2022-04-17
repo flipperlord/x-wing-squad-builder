@@ -4,6 +4,7 @@ from PySide6 import QtWidgets, QtGui, QtCore
 from typing import List, Optional
 
 from .utils import change_action_image_color
+from .model import Ship
 
 def image_path_to_qpixmap(image_path: Path, color=None) -> QtGui.QPixmap:
     if color is not None:
@@ -21,6 +22,24 @@ def populate_list_widget(arr: List[str], list_widget: QtWidgets.QListWidget, ima
             pixmap = image_path_to_qpixmap(image_path / f"{s}.png")
             list_widget_item.setIcon(pixmap)
         list_widget.addItem(list_widget_item)
+
+def create_image_label(action_name, action_color, action_dir):
+    image_label = QtWidgets.QLabel()
+    image_path = action_dir / f"{action_name}.png"
+    image_label.setPixmap(image_path_to_qpixmap(image_path, action_color))
+    return image_label
+
+def update_action_layout(layout: QtWidgets.QLayout, ship: Ship, action_dir: Path):
+    clear_ship_layout(layout)
+    for action_item in ship.actions:
+        image_label = create_image_label(action_item.action, action_item.color, action_dir)
+        layout.addWidget(image_label)
+        if action_item.action_link is not None:
+            arrow_label = QtWidgets.QLabel()
+            arrow_label.setText(">")
+            layout.addWidget(arrow_label)
+            image_label = create_image_label(action_item.action_link, action_item.color_link, action_dir)
+            layout.addWidget(image_label)
 
 def clear_ship_layout(layout: QtWidgets.QLayout):
     while layout.count():

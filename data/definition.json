@@ -462,7 +462,7 @@
                             ]
                         },
                         {
-                            "name": "omega squadron pilot",
+                            "name": "omega squadron ace",
                             "limit": 0,
                             "initiative": 3,
                             "cost": 29,
@@ -1446,7 +1446,7 @@
                     ],
                     "pilots": [
                         {
-                            "name": "zeta squadron pilot",
+                            "name": "zeta squadron survivor",
                             "limit": 0,
                             "initiative": 2,
                             "cost": 32,

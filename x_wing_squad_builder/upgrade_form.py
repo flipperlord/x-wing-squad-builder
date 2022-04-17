@@ -232,6 +232,10 @@ class UpgradeForm(QtWidgets.QDialog):
         return traits
 
     @property
+    def autoinclude(self):
+        return str(self.ui.autoinclude_checkbox.isChecked())
+
+    @property
     def valid_entry(self):
         valid = True
         if not self.upgrade_name:
@@ -269,6 +273,7 @@ class UpgradeForm(QtWidgets.QDialog):
             "name": self.upgrade_name,
             "upgrade_slot_types": self.upgrade_slot_types,
             "cost": self.cost,
+            "autoinclude": self.autoinclude,
             "restrictions":{
                 "limit": self.limit,
                 "factions": self.factions,
