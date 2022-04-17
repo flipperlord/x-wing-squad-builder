@@ -1,4 +1,4 @@
-BASE_SIZES = ["small", "medium", "large"]
+BASE_SIZES = ["small", "medium", "large", "huge"]
 ARC_TYPES_ = ["front", "rear", "bullseye","turret", "double turret", "full front", "left side", "right side", "full rear"]
 ACTION_COLORS = ["red", "purple", "white"]
 ACTIONS_ = ["barrel roll", "boost", "calculate", "cloak", "coordinate", "evade", "focus", "lock", "reinforce", "reload", "rotate", "slam"]
