@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>272</width>
+    <width>281</width>
     <height>886</height>
    </rect>
   </property>
@@ -188,17 +188,56 @@
        <item>
         <widget class="QLabel" name="label_5">
          <property name="text">
-          <string>Attack(s):</string>
+          <string>Attack:</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="attacks_line_edit">
-         <property name="text">
-          <string/>
+        <spacer name="horizontalSpacer_15">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
          </property>
-         <property name="placeholderText">
-          <string/>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QSpinBox" name="attack_low_spinbox">
+         <property name="buttonSymbols">
+          <enum>QAbstractSpinBox::UpDownArrows</enum>
+         </property>
+         <property name="specialValueText">
+          <string>none</string>
+         </property>
+         <property name="minimum">
+          <number>-1</number>
+         </property>
+         <property name="value">
+          <number>-1</number>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_11">
+         <property name="text">
+          <string>to</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QSpinBox" name="attack_high_spinbox">
+         <property name="specialValueText">
+          <string>none</string>
+         </property>
+         <property name="minimum">
+          <number>-1</number>
+         </property>
+         <property name="value">
+          <number>-1</number>
          </property>
         </widget>
        </item>
@@ -248,54 +287,51 @@
         </spacer>
        </item>
        <item>
-        <widget class="QCheckBox" name="agility_lt_checkbox">
-         <property name="text">
-          <string>&lt;</string>
+        <widget class="QSpinBox" name="agility_low_spinbox">
+         <property name="specialValueText">
+          <string>none</string>
          </property>
-         <property name="autoExclusive">
-          <bool>false</bool>
+         <property name="minimum">
+          <number>-1</number>
          </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QCheckBox" name="agility_gt_checkbox">
-         <property name="text">
-          <string>&gt;</string>
-         </property>
-         <property name="autoExclusive">
-          <bool>false</bool>
+         <property name="value">
+          <number>-1</number>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="agility_eq_checkbox">
+        <widget class="QLabel" name="label_14">
          <property name="text">
-          <string>=</string>
-         </property>
-         <property name="autoExclusive">
-          <bool>false</bool>
-         </property>
-         <property name="tristate">
-          <bool>false</bool>
+          <string>to</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QSpinBox" name="agility_spinbox"/>
+        <widget class="QSpinBox" name="agility_high_spinbox">
+         <property name="specialValueText">
+          <string>none</string>
+         </property>
+         <property name="minimum">
+          <number>-1</number>
+         </property>
+         <property name="value">
+          <number>-1</number>
+         </property>
+        </widget>
        </item>
       </layout>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_8">
+      <layout class="QHBoxLayout" name="horizontalLayout_11">
        <item>
-        <widget class="QLabel" name="label_8">
+        <widget class="QLabel" name="label_15">
          <property name="text">
           <string>Hull:</string>
          </property>
         </widget>
        </item>
        <item>
-        <spacer name="horizontalSpacer_2">
+        <spacer name="horizontalSpacer_16">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
@@ -308,51 +344,51 @@
         </spacer>
        </item>
        <item>
-        <widget class="QCheckBox" name="hull_lt_checkbox">
-         <property name="text">
-          <string>&lt;</string>
+        <widget class="QSpinBox" name="hull_low_spinbox">
+         <property name="specialValueText">
+          <string>none</string>
          </property>
-         <property name="autoExclusive">
-          <bool>false</bool>
+         <property name="minimum">
+          <number>-1</number>
          </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QCheckBox" name="hull_gt_checkbox">
-         <property name="text">
-          <string>&gt;</string>
-         </property>
-         <property name="autoExclusive">
-          <bool>false</bool>
+         <property name="value">
+          <number>-1</number>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="hull_eq_checkbox">
+        <widget class="QLabel" name="label_16">
          <property name="text">
-          <string>=</string>
-         </property>
-         <property name="autoExclusive">
-          <bool>false</bool>
+          <string>to</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QSpinBox" name="hull_spinbox"/>
+        <widget class="QSpinBox" name="hull_high_spinbox">
+         <property name="specialValueText">
+          <string>none</string>
+         </property>
+         <property name="minimum">
+          <number>-1</number>
+         </property>
+         <property name="value">
+          <number>-1</number>
+         </property>
+        </widget>
        </item>
       </layout>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_29">
+      <layout class="QHBoxLayout" name="horizontalLayout_14">
        <item>
-        <widget class="QLabel" name="label_28">
+        <widget class="QLabel" name="label_17">
          <property name="text">
           <string>Shield:</string>
          </property>
         </widget>
        </item>
        <item>
-        <spacer name="horizontalSpacer_3">
+        <spacer name="horizontalSpacer_17">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
@@ -365,51 +401,51 @@
         </spacer>
        </item>
        <item>
-        <widget class="QCheckBox" name="shield_lt_checkbox">
-         <property name="text">
-          <string>&lt;</string>
+        <widget class="QSpinBox" name="shield_low_spinbox">
+         <property name="specialValueText">
+          <string>none</string>
          </property>
-         <property name="autoExclusive">
-          <bool>false</bool>
+         <property name="minimum">
+          <number>-1</number>
          </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QCheckBox" name="shield_gt_checkbox">
-         <property name="text">
-          <string>&gt;</string>
-         </property>
-         <property name="autoExclusive">
-          <bool>false</bool>
+         <property name="value">
+          <number>-1</number>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="shield_eq_checkbox">
+        <widget class="QLabel" name="label_18">
          <property name="text">
-          <string>=</string>
-         </property>
-         <property name="autoExclusive">
-          <bool>false</bool>
+          <string>to</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QSpinBox" name="shield_spinbox"/>
+        <widget class="QSpinBox" name="shield_high_spinbox">
+         <property name="specialValueText">
+          <string>none</string>
+         </property>
+         <property name="minimum">
+          <number>-1</number>
+         </property>
+         <property name="value">
+          <number>-1</number>
+         </property>
+        </widget>
        </item>
       </layout>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_30">
+      <layout class="QHBoxLayout" name="horizontalLayout_15">
        <item>
-        <widget class="QLabel" name="label_29">
+        <widget class="QLabel" name="label_21">
          <property name="text">
           <string>Shield Recharge:</string>
          </property>
         </widget>
        </item>
        <item>
-        <spacer name="horizontalSpacer_4">
+        <spacer name="horizontalSpacer_18">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
@@ -422,51 +458,51 @@
         </spacer>
        </item>
        <item>
-        <widget class="QCheckBox" name="shield_recharge_lt_checkbox">
-         <property name="text">
-          <string>&lt;</string>
+        <widget class="QSpinBox" name="shield_recharge_low_spinbox">
+         <property name="specialValueText">
+          <string>none</string>
          </property>
-         <property name="autoExclusive">
-          <bool>false</bool>
+         <property name="minimum">
+          <number>-1</number>
          </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QCheckBox" name="shield_recharge_gt_checkbox">
-         <property name="text">
-          <string>&gt;</string>
-         </property>
-         <property name="autoExclusive">
-          <bool>false</bool>
+         <property name="value">
+          <number>-1</number>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="shield_recharge_eq_checkbox">
+        <widget class="QLabel" name="label_22">
          <property name="text">
-          <string>=</string>
-         </property>
-         <property name="autoExclusive">
-          <bool>false</bool>
+          <string>to</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QSpinBox" name="shield_recharge_spinbox"/>
+        <widget class="QSpinBox" name="shield_recharge_high_spinbox">
+         <property name="specialValueText">
+          <string>none</string>
+         </property>
+         <property name="minimum">
+          <number>-1</number>
+         </property>
+         <property name="value">
+          <number>-1</number>
+         </property>
+        </widget>
        </item>
       </layout>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_31">
+      <layout class="QHBoxLayout" name="horizontalLayout_16">
        <item>
-        <widget class="QLabel" name="label_30">
+        <widget class="QLabel" name="label_23">
          <property name="text">
           <string>Shield Decharge:</string>
          </property>
         </widget>
        </item>
        <item>
-        <spacer name="horizontalSpacer_5">
+        <spacer name="horizontalSpacer_19">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
@@ -479,51 +515,51 @@
         </spacer>
        </item>
        <item>
-        <widget class="QCheckBox" name="shield_decharge_lt_checkbox">
-         <property name="text">
-          <string>&lt;</string>
+        <widget class="QSpinBox" name="shield_decharge_low_spinbox">
+         <property name="specialValueText">
+          <string>none</string>
          </property>
-         <property name="autoExclusive">
-          <bool>false</bool>
+         <property name="minimum">
+          <number>-1</number>
          </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QCheckBox" name="shield_decharge_gt_checkbox">
-         <property name="text">
-          <string>&gt;</string>
-         </property>
-         <property name="autoExclusive">
-          <bool>false</bool>
+         <property name="value">
+          <number>-1</number>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="shield_decharge_eq_checkbox">
+        <widget class="QLabel" name="label_24">
          <property name="text">
-          <string>=</string>
-         </property>
-         <property name="autoExclusive">
-          <bool>false</bool>
+          <string>to</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QSpinBox" name="shield_decharge_spinbox"/>
+        <widget class="QSpinBox" name="shield_decharge_high_spinbox">
+         <property name="specialValueText">
+          <string>none</string>
+         </property>
+         <property name="minimum">
+          <number>-1</number>
+         </property>
+         <property name="value">
+          <number>-1</number>
+         </property>
+        </widget>
        </item>
       </layout>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_32">
+      <layout class="QHBoxLayout" name="horizontalLayout_17">
        <item>
-        <widget class="QLabel" name="label_31">
+        <widget class="QLabel" name="label_27">
          <property name="text">
           <string>Force:</string>
          </property>
         </widget>
        </item>
        <item>
-        <spacer name="horizontalSpacer_6">
+        <spacer name="horizontalSpacer_20">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
@@ -536,51 +572,51 @@
         </spacer>
        </item>
        <item>
-        <widget class="QCheckBox" name="force_lt_checkbox">
-         <property name="text">
-          <string>&lt;</string>
+        <widget class="QSpinBox" name="force_low_spinbox">
+         <property name="specialValueText">
+          <string>none</string>
          </property>
-         <property name="autoExclusive">
-          <bool>false</bool>
+         <property name="minimum">
+          <number>-1</number>
          </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QCheckBox" name="force_gt_checkbox">
-         <property name="text">
-          <string>&gt;</string>
-         </property>
-         <property name="autoExclusive">
-          <bool>false</bool>
+         <property name="value">
+          <number>-1</number>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="force_eq_checkbox">
+        <widget class="QLabel" name="label_28">
          <property name="text">
-          <string>=</string>
-         </property>
-         <property name="autoExclusive">
-          <bool>false</bool>
+          <string>to</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QSpinBox" name="force_spinbox"/>
+        <widget class="QSpinBox" name="force_high_spinbox">
+         <property name="specialValueText">
+          <string>none</string>
+         </property>
+         <property name="minimum">
+          <number>-1</number>
+         </property>
+         <property name="value">
+          <number>-1</number>
+         </property>
+        </widget>
        </item>
       </layout>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_33">
+      <layout class="QHBoxLayout" name="horizontalLayout_18">
        <item>
-        <widget class="QLabel" name="label_32">
+        <widget class="QLabel" name="label_29">
          <property name="text">
           <string>Force Recharge:</string>
          </property>
         </widget>
        </item>
        <item>
-        <spacer name="horizontalSpacer_7">
+        <spacer name="horizontalSpacer_21">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
@@ -593,51 +629,51 @@
         </spacer>
        </item>
        <item>
-        <widget class="QCheckBox" name="force_recharge_lt_checkbox">
-         <property name="text">
-          <string>&lt;</string>
+        <widget class="QSpinBox" name="force_recharge_low_spinbox">
+         <property name="specialValueText">
+          <string>none</string>
          </property>
-         <property name="autoExclusive">
-          <bool>false</bool>
+         <property name="minimum">
+          <number>-1</number>
          </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QCheckBox" name="force_recharge_gt_checkbox">
-         <property name="text">
-          <string>&gt;</string>
-         </property>
-         <property name="autoExclusive">
-          <bool>false</bool>
+         <property name="value">
+          <number>-1</number>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="force_recharge_eq_checkbox">
+        <widget class="QLabel" name="label_30">
          <property name="text">
-          <string>=</string>
-         </property>
-         <property name="autoExclusive">
-          <bool>false</bool>
+          <string>to</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QSpinBox" name="force_recharge_spinbox"/>
+        <widget class="QSpinBox" name="force_recharge_high_spinbox">
+         <property name="specialValueText">
+          <string>none</string>
+         </property>
+         <property name="minimum">
+          <number>-1</number>
+         </property>
+         <property name="value">
+          <number>-1</number>
+         </property>
+        </widget>
        </item>
       </layout>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_34">
+      <layout class="QHBoxLayout" name="horizontalLayout_19">
        <item>
-        <widget class="QLabel" name="label_33">
+        <widget class="QLabel" name="label_40">
          <property name="text">
           <string>Force Decharge:</string>
          </property>
         </widget>
        </item>
        <item>
-        <spacer name="horizontalSpacer_8">
+        <spacer name="horizontalSpacer_22">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
@@ -650,51 +686,51 @@
         </spacer>
        </item>
        <item>
-        <widget class="QCheckBox" name="force_decharge_lt_checkbox">
-         <property name="text">
-          <string>&lt;</string>
+        <widget class="QSpinBox" name="force_decharge_low_spinbox">
+         <property name="specialValueText">
+          <string>none</string>
          </property>
-         <property name="autoExclusive">
-          <bool>false</bool>
+         <property name="minimum">
+          <number>-1</number>
          </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QCheckBox" name="force_decharge_gt_checkbox">
-         <property name="text">
-          <string>&gt;</string>
-         </property>
-         <property name="autoExclusive">
-          <bool>false</bool>
+         <property name="value">
+          <number>-1</number>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="force_decharge_eq_checkbox">
+        <widget class="QLabel" name="label_41">
          <property name="text">
-          <string>=</string>
-         </property>
-         <property name="autoExclusive">
-          <bool>false</bool>
+          <string>to</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QSpinBox" name="force_decharge_spinbox"/>
+        <widget class="QSpinBox" name="force_decharge_high_spinbox">
+         <property name="specialValueText">
+          <string>none</string>
+         </property>
+         <property name="minimum">
+          <number>-1</number>
+         </property>
+         <property name="value">
+          <number>-1</number>
+         </property>
+        </widget>
        </item>
       </layout>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_35">
+      <layout class="QHBoxLayout" name="horizontalLayout_20">
        <item>
-        <widget class="QLabel" name="label_34">
+        <widget class="QLabel" name="label_31">
          <property name="text">
           <string>Energy:</string>
          </property>
         </widget>
        </item>
        <item>
-        <spacer name="horizontalSpacer_9">
+        <spacer name="horizontalSpacer_23">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
@@ -707,51 +743,51 @@
         </spacer>
        </item>
        <item>
-        <widget class="QCheckBox" name="energy_lt_checkbox">
-         <property name="text">
-          <string>&lt;</string>
+        <widget class="QSpinBox" name="energy_low_spinbox">
+         <property name="specialValueText">
+          <string>none</string>
          </property>
-         <property name="autoExclusive">
-          <bool>false</bool>
+         <property name="minimum">
+          <number>-1</number>
          </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QCheckBox" name="energy_gt_checkbox">
-         <property name="text">
-          <string>&gt;</string>
-         </property>
-         <property name="autoExclusive">
-          <bool>false</bool>
+         <property name="value">
+          <number>-1</number>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="energy_eq_checkbox">
+        <widget class="QLabel" name="label_32">
          <property name="text">
-          <string>=</string>
-         </property>
-         <property name="autoExclusive">
-          <bool>false</bool>
+          <string>to</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QSpinBox" name="energy_spinbox"/>
+        <widget class="QSpinBox" name="energy_high_spinbox">
+         <property name="specialValueText">
+          <string>none</string>
+         </property>
+         <property name="minimum">
+          <number>-1</number>
+         </property>
+         <property name="value">
+          <number>-1</number>
+         </property>
+        </widget>
        </item>
       </layout>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_36">
+      <layout class="QHBoxLayout" name="horizontalLayout_21">
        <item>
-        <widget class="QLabel" name="label_35">
+        <widget class="QLabel" name="label_33">
          <property name="text">
           <string>Energy Recharge:</string>
          </property>
         </widget>
        </item>
        <item>
-        <spacer name="horizontalSpacer_10">
+        <spacer name="horizontalSpacer_24">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
@@ -764,51 +800,51 @@
         </spacer>
        </item>
        <item>
-        <widget class="QCheckBox" name="energy_recharge_lt_checkbox">
-         <property name="text">
-          <string>&lt;</string>
+        <widget class="QSpinBox" name="energy_recharge_low_spinbox">
+         <property name="specialValueText">
+          <string>none</string>
          </property>
-         <property name="autoExclusive">
-          <bool>false</bool>
+         <property name="minimum">
+          <number>-1</number>
          </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QCheckBox" name="energy_recharge_gt_checkbox">
-         <property name="text">
-          <string>&gt;</string>
-         </property>
-         <property name="autoExclusive">
-          <bool>false</bool>
+         <property name="value">
+          <number>-1</number>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="energy_recharge_eq_checkbox">
+        <widget class="QLabel" name="label_34">
          <property name="text">
-          <string>=</string>
-         </property>
-         <property name="autoExclusive">
-          <bool>false</bool>
+          <string>to</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QSpinBox" name="energy_recharge_spinbox"/>
+        <widget class="QSpinBox" name="energy_recharge_high_spinbox">
+         <property name="specialValueText">
+          <string>none</string>
+         </property>
+         <property name="minimum">
+          <number>-1</number>
+         </property>
+         <property name="value">
+          <number>-1</number>
+         </property>
+        </widget>
        </item>
       </layout>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_37">
+      <layout class="QHBoxLayout" name="horizontalLayout_22">
        <item>
-        <widget class="QLabel" name="label_36">
+        <widget class="QLabel" name="label_42">
          <property name="text">
           <string>Energy Decharge:</string>
          </property>
         </widget>
        </item>
        <item>
-        <spacer name="horizontalSpacer_11">
+        <spacer name="horizontalSpacer_25">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
@@ -821,51 +857,51 @@
         </spacer>
        </item>
        <item>
-        <widget class="QCheckBox" name="energy_decharge_lt_checkbox">
-         <property name="text">
-          <string>&lt;</string>
+        <widget class="QSpinBox" name="energy_decharge_low_spinbox">
+         <property name="specialValueText">
+          <string>none</string>
          </property>
-         <property name="autoExclusive">
-          <bool>false</bool>
+         <property name="minimum">
+          <number>-1</number>
          </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QCheckBox" name="energy_decharge_gt_checkbox">
-         <property name="text">
-          <string>&gt;</string>
-         </property>
-         <property name="autoExclusive">
-          <bool>false</bool>
+         <property name="value">
+          <number>-1</number>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="energy_decharge_eq_checkbox">
+        <widget class="QLabel" name="label_43">
          <property name="text">
-          <string>=</string>
-         </property>
-         <property name="autoExclusive">
-          <bool>false</bool>
+          <string>to</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QSpinBox" name="energy_decharge_spinbox"/>
+        <widget class="QSpinBox" name="energy_decharge_high_spinbox">
+         <property name="specialValueText">
+          <string>none</string>
+         </property>
+         <property name="minimum">
+          <number>-1</number>
+         </property>
+         <property name="value">
+          <number>-1</number>
+         </property>
+        </widget>
        </item>
       </layout>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_38">
+      <layout class="QHBoxLayout" name="horizontalLayout_23">
        <item>
-        <widget class="QLabel" name="label_37">
+        <widget class="QLabel" name="label_35">
          <property name="text">
           <string>Charge:</string>
          </property>
         </widget>
        </item>
        <item>
-        <spacer name="horizontalSpacer_12">
+        <spacer name="horizontalSpacer_26">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
@@ -878,51 +914,51 @@
         </spacer>
        </item>
        <item>
-        <widget class="QCheckBox" name="charge_lt_checkbox">
-         <property name="text">
-          <string>&lt;</string>
+        <widget class="QSpinBox" name="charge_low_spinbox">
+         <property name="specialValueText">
+          <string>none</string>
          </property>
-         <property name="autoExclusive">
-          <bool>false</bool>
+         <property name="minimum">
+          <number>-1</number>
          </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QCheckBox" name="charge_gt_checkbox">
-         <property name="text">
-          <string>&gt;</string>
-         </property>
-         <property name="autoExclusive">
-          <bool>false</bool>
+         <property name="value">
+          <number>-1</number>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="charge_eq_checkbox">
+        <widget class="QLabel" name="label_36">
          <property name="text">
-          <string>=</string>
-         </property>
-         <property name="autoExclusive">
-          <bool>false</bool>
+          <string>to</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QSpinBox" name="charge_spinbox"/>
+        <widget class="QSpinBox" name="charge_high_spinbox">
+         <property name="specialValueText">
+          <string>none</string>
+         </property>
+         <property name="minimum">
+          <number>-1</number>
+         </property>
+         <property name="value">
+          <number>-1</number>
+         </property>
+        </widget>
        </item>
       </layout>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_39">
+      <layout class="QHBoxLayout" name="horizontalLayout_26">
        <item>
-        <widget class="QLabel" name="label_38">
+        <widget class="QLabel" name="label_44">
          <property name="text">
           <string>Charge Recharge:</string>
          </property>
         </widget>
        </item>
        <item>
-        <spacer name="horizontalSpacer_13">
+        <spacer name="horizontalSpacer_27">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
@@ -935,51 +971,51 @@
         </spacer>
        </item>
        <item>
-        <widget class="QCheckBox" name="charge_recharge_lt_checkbox">
-         <property name="text">
-          <string>&lt;</string>
+        <widget class="QSpinBox" name="charge_recharge_low_spinbox">
+         <property name="specialValueText">
+          <string>none</string>
          </property>
-         <property name="autoExclusive">
-          <bool>false</bool>
+         <property name="minimum">
+          <number>-1</number>
          </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QCheckBox" name="charge_recharge_gt_checkbox">
-         <property name="text">
-          <string>&gt;</string>
-         </property>
-         <property name="autoExclusive">
-          <bool>false</bool>
+         <property name="value">
+          <number>-1</number>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="charge_recharge_eq_checkbox">
+        <widget class="QLabel" name="label_45">
          <property name="text">
-          <string>=</string>
-         </property>
-         <property name="autoExclusive">
-          <bool>false</bool>
+          <string>to</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QSpinBox" name="charge_recharge_spinbox"/>
+        <widget class="QSpinBox" name="charge_recharge_high_spinbox">
+         <property name="specialValueText">
+          <string>none</string>
+         </property>
+         <property name="minimum">
+          <number>-1</number>
+         </property>
+         <property name="value">
+          <number>-1</number>
+         </property>
+        </widget>
        </item>
       </layout>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_40">
+      <layout class="QHBoxLayout" name="horizontalLayout_27">
        <item>
-        <widget class="QLabel" name="label_39">
+        <widget class="QLabel" name="label_46">
          <property name="text">
           <string>Charge Decharge:</string>
          </property>
         </widget>
        </item>
        <item>
-        <spacer name="horizontalSpacer_14">
+        <spacer name="horizontalSpacer_28">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
@@ -992,37 +1028,37 @@
         </spacer>
        </item>
        <item>
-        <widget class="QCheckBox" name="charge_decharge_lt_checkbox">
-         <property name="text">
-          <string>&lt;</string>
+        <widget class="QSpinBox" name="charge_decharge_low_spinbox">
+         <property name="specialValueText">
+          <string>none</string>
          </property>
-         <property name="autoExclusive">
-          <bool>false</bool>
+         <property name="minimum">
+          <number>-1</number>
          </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QCheckBox" name="charge_decharge_gt_checkbox">
-         <property name="text">
-          <string>&gt;</string>
-         </property>
-         <property name="autoExclusive">
-          <bool>false</bool>
+         <property name="value">
+          <number>-1</number>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="charge_decharge_eq_checkbox">
+        <widget class="QLabel" name="label_47">
          <property name="text">
-          <string>=</string>
-         </property>
-         <property name="autoExclusive">
-          <bool>false</bool>
+          <string>to</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QSpinBox" name="charge_decharge_spinbox"/>
+        <widget class="QSpinBox" name="charge_decharge_high_spinbox">
+         <property name="specialValueText">
+          <string>none</string>
+         </property>
+         <property name="minimum">
+          <number>-1</number>
+         </property>
+         <property name="value">
+          <number>-1</number>
+         </property>
+        </widget>
        </item>
       </layout>
      </item>

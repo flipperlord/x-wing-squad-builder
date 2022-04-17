@@ -33,9 +33,21 @@ class DefinitionForm(QtWidgets.QDialog):
         self.ui.upgrade_slots_line_edit.setText("astromech")
         self.ui.pilot_name_line_edit.setText("el solverdor")
         self.ui.cost_spinbox.setValue(6969)
+        self.ship_check_timer = QtCore.QTimer()
+        self.ship_check_timer.timeout.connect(self.check_ship_name)
+        self.ship_check_timer.start(500)
 
 
         self.accepted.connect(self.handle_ok_pressed)
+
+    def check_ship_name(self):
+        faction_idx = self.get_faction_index(self.faction_name)
+        if faction_idx:
+            ship_idx = self.get_ship_index(self.faction_name, self.ship_name)
+            if ship_idx:
+                self.ui.ship_exists_label.setText(f"Ship {self.ship_name} already exists, continue to pilot entry.")
+            else:
+                self.ui.ship_exists_label.setText("Ship does not exist - please continue with new ship entry.")
 
     @property
     def faction_name(self) -> str:
@@ -256,37 +268,40 @@ class DefinitionForm(QtWidgets.QDialog):
             traits = []
         return traits
 
+    @staticmethod
+    def evaluate_none_spinbox(spinbox: QtWidgets.QSpinBox):
+        val = spinbox.value()
+        if val == -1:
+            return None
+        else:
+            return val
     @property
     def pilot_agility(self) -> int:
-        return self.ui.pilot_agility_spinbox.value()
+        return self.evaluate_none_spinbox(self.ui.pilot_agility_spinbox)
 
     @property
     def pilot_hull(self) -> int:
-        return self.ui.pilot_hull_spinbox.value()
+        return self.evaluate_none_spinbox(self.ui.pilot_hull_spinbox)
 
+    def evaluate_attributes(self, name, base_spinbox, recharge_spinbox, decharge_spinbox):
+        return {name: self.evaluate_none_spinbox(base_spinbox),
+                "recharge": self.evaluate_none_spinbox(recharge_spinbox),
+                "dicharge": self.evaluate_none_spinbox(decharge_spinbox)}
     @property
     def pilot_shield(self) -> dict:
-        return {"shield": self.ui.pilot_shield_spinbox.value(),
-                "recharge": self.ui.pilot_shield_recharge_spinbox.value(),
-                "decharge": self.ui.pilot_shield_decharge_spinbox.value()}
+        return self.evaluate_attributes("shield", self.ui.pilot_shield_spinbox, self.ui.pilot_shield_recharge_spinbox, self.ui.pilot_shield_decharge_spinbox)
 
     @property
     def pilot_force(self) -> dict:
-        return {"force": self.ui.pilot_force_spinbox.value(),
-                "recharge": self.ui.pilot_force_recharge_spinbox.value(),
-                "decharge": self.ui.pilot_force_decharge_spinbox.value()}
+        return self.evaluate_attributes("force", self.ui.pilot_force_spinbox, self.ui.pilot_force_recharge_spinbox, self.ui.pilot_force_decharge_spinbox)
 
     @property
     def pilot_energy(self) -> dict:
-        return {"energy": self.ui.pilot_energy_spinbox.value(),
-                "recharge": self.ui.pilot_energy_recharge_spinbox.value(),
-                "decharge": self.ui.pilot_energy_decharge_spinbox.value()}
+        return self.evaluate_attributes("energy", self.ui.pilot_energy_spinbox, self.ui.pilot_energy_recharge_spinbox, self.ui.pilot_energy_decharge_spinbox)
 
     @property
     def pilot_charge(self) -> dict:
-        return {"charge": self.ui.pilot_charge_spinbox.value(),
-                "recharge": self.ui.pilot_charge_recharge_spinbox.value(),
-                "decharge": self.ui.pilot_charge_decharge_spinbox.value()}
+        return self.evaluate_attributes("charge", self.ui.pilot_charge_spinbox, self.ui.pilot_charge_recharge_spinbox, self.ui.pilot_charge_decharge_spinbox)
 
 
     @property
@@ -457,12 +472,14 @@ class DefinitionForm(QtWidgets.QDialog):
         for i, faction in enumerate(self.data['factions']):
             if faction['name'] == faction_name:
                 return i
+        return None
 
     def get_ship_index(self, faction_name: str, ship_name: str) -> int:
         faction_idx = self.get_faction_index(faction_name)
         for i, ship in enumerate(self.data['factions'][faction_idx]['ships']):
             if ship['name'] == ship_name:
                 return i
+        return None
 
     def insert_faction(self, faction_name:str):
         new_faction = {

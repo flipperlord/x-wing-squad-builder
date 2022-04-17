@@ -96,6 +96,19 @@
           </layout>
          </item>
          <item>
+          <widget class="QLabel" name="ship_exists_label">
+           <property name="font">
+            <font>
+             <italic>true</italic>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>Ship does not exist - please continue entry.</string>
+           </property>
+          </widget>
+         </item>
+         <item>
           <layout class="QHBoxLayout" name="horizontalLayout_3">
            <item>
             <widget class="QLabel" name="label_3">
@@ -412,7 +425,7 @@
             </font>
            </property>
            <property name="text">
-            <string>Required fields are pilot name, cost, initiative, and limit.  Other text fields can be left blank if they are the same as the ship.  Numerical fields will be added to the definition file, and will override the ship's statistic if they differ. Pilot data can be overwritten if the name already exists, but the software will warn the user in this case.</string>
+            <string>Required fields are pilot name, cost, initiative, and limit.  Text Fields can be left blank and numerical fields can be left as none if there is no change from the ship. Pilot data can be overwritten if the name already exists, but the software will warn the user in this case.</string>
            </property>
            <property name="wordWrap">
             <bool>true</bool>
@@ -451,8 +464,17 @@
            </item>
            <item>
             <widget class="QSpinBox" name="cost_spinbox">
+             <property name="specialValueText">
+              <string/>
+             </property>
+             <property name="minimum">
+              <number>0</number>
+             </property>
              <property name="maximum">
               <number>9999</number>
+             </property>
+             <property name="value">
+              <number>0</number>
              </property>
             </widget>
            </item>
@@ -468,7 +490,17 @@
             </widget>
            </item>
            <item>
-            <widget class="QSpinBox" name="initiative_spinbox"/>
+            <widget class="QSpinBox" name="initiative_spinbox">
+             <property name="specialValueText">
+              <string/>
+             </property>
+             <property name="minimum">
+              <number>0</number>
+             </property>
+             <property name="value">
+              <number>0</number>
+             </property>
+            </widget>
            </item>
           </layout>
          </item>
@@ -482,7 +514,17 @@
             </widget>
            </item>
            <item>
-            <widget class="QSpinBox" name="limit_spinbox"/>
+            <widget class="QSpinBox" name="limit_spinbox">
+             <property name="specialValueText">
+              <string/>
+             </property>
+             <property name="minimum">
+              <number>0</number>
+             </property>
+             <property name="value">
+              <number>0</number>
+             </property>
+            </widget>
            </item>
           </layout>
          </item>
@@ -536,7 +578,17 @@
             </widget>
            </item>
            <item>
-            <widget class="QSpinBox" name="pilot_agility_spinbox"/>
+            <widget class="QSpinBox" name="pilot_agility_spinbox">
+             <property name="specialValueText">
+              <string>none</string>
+             </property>
+             <property name="minimum">
+              <number>-1</number>
+             </property>
+             <property name="value">
+              <number>-1</number>
+             </property>
+            </widget>
            </item>
           </layout>
          </item>
@@ -550,7 +602,17 @@
             </widget>
            </item>
            <item>
-            <widget class="QSpinBox" name="pilot_hull_spinbox"/>
+            <widget class="QSpinBox" name="pilot_hull_spinbox">
+             <property name="specialValueText">
+              <string>none</string>
+             </property>
+             <property name="minimum">
+              <number>-1</number>
+             </property>
+             <property name="value">
+              <number>-1</number>
+             </property>
+            </widget>
            </item>
           </layout>
          </item>
@@ -566,7 +628,17 @@
               </widget>
              </item>
              <item>
-              <widget class="QSpinBox" name="pilot_shield_spinbox"/>
+              <widget class="QSpinBox" name="pilot_shield_spinbox">
+               <property name="specialValueText">
+                <string>none</string>
+               </property>
+               <property name="minimum">
+                <number>-1</number>
+               </property>
+               <property name="value">
+                <number>-1</number>
+               </property>
+              </widget>
              </item>
             </layout>
            </item>
@@ -580,7 +652,17 @@
               </widget>
              </item>
              <item>
-              <widget class="QSpinBox" name="pilot_shield_recharge_spinbox"/>
+              <widget class="QSpinBox" name="pilot_shield_recharge_spinbox">
+               <property name="specialValueText">
+                <string>none</string>
+               </property>
+               <property name="minimum">
+                <number>-1</number>
+               </property>
+               <property name="value">
+                <number>-1</number>
+               </property>
+              </widget>
              </item>
             </layout>
            </item>
@@ -596,7 +678,17 @@
             </widget>
            </item>
            <item>
-            <widget class="QSpinBox" name="pilot_shield_decharge_spinbox"/>
+            <widget class="QSpinBox" name="pilot_shield_decharge_spinbox">
+             <property name="specialValueText">
+              <string>none</string>
+             </property>
+             <property name="minimum">
+              <number>-1</number>
+             </property>
+             <property name="value">
+              <number>-1</number>
+             </property>
+            </widget>
            </item>
           </layout>
          </item>
@@ -612,7 +704,17 @@
               </widget>
              </item>
              <item>
-              <widget class="QSpinBox" name="pilot_force_spinbox"/>
+              <widget class="QSpinBox" name="pilot_force_spinbox">
+               <property name="specialValueText">
+                <string>none</string>
+               </property>
+               <property name="minimum">
+                <number>-1</number>
+               </property>
+               <property name="value">
+                <number>-1</number>
+               </property>
+              </widget>
              </item>
             </layout>
            </item>
@@ -626,7 +728,17 @@
               </widget>
              </item>
              <item>
-              <widget class="QSpinBox" name="pilot_force_recharge_spinbox"/>
+              <widget class="QSpinBox" name="pilot_force_recharge_spinbox">
+               <property name="specialValueText">
+                <string>none</string>
+               </property>
+               <property name="minimum">
+                <number>-1</number>
+               </property>
+               <property name="value">
+                <number>-1</number>
+               </property>
+              </widget>
              </item>
             </layout>
            </item>
@@ -642,7 +754,17 @@
             </widget>
            </item>
            <item>
-            <widget class="QSpinBox" name="pilot_force_decharge_spinbox"/>
+            <widget class="QSpinBox" name="pilot_force_decharge_spinbox">
+             <property name="specialValueText">
+              <string>none</string>
+             </property>
+             <property name="minimum">
+              <number>-1</number>
+             </property>
+             <property name="value">
+              <number>-1</number>
+             </property>
+            </widget>
            </item>
           </layout>
          </item>
@@ -658,7 +780,17 @@
               </widget>
              </item>
              <item>
-              <widget class="QSpinBox" name="pilot_energy_spinbox"/>
+              <widget class="QSpinBox" name="pilot_energy_spinbox">
+               <property name="specialValueText">
+                <string>none</string>
+               </property>
+               <property name="minimum">
+                <number>-1</number>
+               </property>
+               <property name="value">
+                <number>-1</number>
+               </property>
+              </widget>
              </item>
             </layout>
            </item>
@@ -672,7 +804,17 @@
               </widget>
              </item>
              <item>
-              <widget class="QSpinBox" name="pilot_energy_recharge_spinbox"/>
+              <widget class="QSpinBox" name="pilot_energy_recharge_spinbox">
+               <property name="specialValueText">
+                <string>none</string>
+               </property>
+               <property name="minimum">
+                <number>-1</number>
+               </property>
+               <property name="value">
+                <number>-1</number>
+               </property>
+              </widget>
              </item>
             </layout>
            </item>
@@ -688,7 +830,17 @@
             </widget>
            </item>
            <item>
-            <widget class="QSpinBox" name="pilot_energy_decharge_spinbox"/>
+            <widget class="QSpinBox" name="pilot_energy_decharge_spinbox">
+             <property name="specialValueText">
+              <string>none</string>
+             </property>
+             <property name="minimum">
+              <number>-1</number>
+             </property>
+             <property name="value">
+              <number>-1</number>
+             </property>
+            </widget>
            </item>
           </layout>
          </item>
@@ -704,7 +856,17 @@
               </widget>
              </item>
              <item>
-              <widget class="QSpinBox" name="pilot_charge_spinbox"/>
+              <widget class="QSpinBox" name="pilot_charge_spinbox">
+               <property name="specialValueText">
+                <string>none</string>
+               </property>
+               <property name="minimum">
+                <number>-1</number>
+               </property>
+               <property name="value">
+                <number>-1</number>
+               </property>
+              </widget>
              </item>
             </layout>
            </item>
@@ -718,7 +880,17 @@
               </widget>
              </item>
              <item>
-              <widget class="QSpinBox" name="pilot_charge_recharge_spinbox"/>
+              <widget class="QSpinBox" name="pilot_charge_recharge_spinbox">
+               <property name="specialValueText">
+                <string>none</string>
+               </property>
+               <property name="minimum">
+                <number>-1</number>
+               </property>
+               <property name="value">
+                <number>-1</number>
+               </property>
+              </widget>
              </item>
             </layout>
            </item>
@@ -734,7 +906,17 @@
             </widget>
            </item>
            <item>
-            <widget class="QSpinBox" name="pilot_charge_decharge_spinbox"/>
+            <widget class="QSpinBox" name="pilot_charge_decharge_spinbox">
+             <property name="specialValueText">
+              <string>none</string>
+             </property>
+             <property name="minimum">
+              <number>-1</number>
+             </property>
+             <property name="value">
+              <number>-1</number>
+             </property>
+            </widget>
            </item>
           </layout>
          </item>

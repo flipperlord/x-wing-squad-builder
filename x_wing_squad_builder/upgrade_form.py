@@ -35,6 +35,7 @@ class UpgradeForm(QtWidgets.QDialog):
 
     @property
     def ship_names(self) -> List[str]:
+        """This looks for ships already entered to check against upgrades, and uses the ship_icons directory as the source of truth."""
         ship_filepath = self.data_filepath.parent / "resources" / "ship_icons"
         ship_icon_paths = ship_filepath.glob("**/*")
         ship_names = [path.stem.lower() for path in ship_icon_paths]
@@ -85,36 +86,36 @@ class UpgradeForm(QtWidgets.QDialog):
             base_list = []
         return base_list
 
+    @staticmethod
+    def evaluate_attribute_range(low_spinbox: QtWidgets.QSpinBox, high_spinbox: QtWidgets.QSpinBox):
+        low = low_spinbox.value()
+        high = high_spinbox.value()
+        if low == -1:
+            low = None
+        if high == -1:
+            high = None
+        if low is not None and high is not None:
+            if low > high:
+                object_name = " ".join(low_spinbox.objectName().split("_")[:-2]).upper()
+                logging.warn(f"{object_name} low value is greater than the high value.")
+        return low, high
+
     @property
     def attacks(self):
-        attack_text = self.ui.attacks_line_edit.text()
-        if attack_text:
-            attack_list = prettify_definition_form_entry(attack_text)
-            try:
-                attack_list = [int(attack) for attack in attack_list]
-            except ValueError:
-                return INVALID
-        else:
-            attack_list = []
-        return attack_list
+        low, high = self.evaluate_attribute_range(self.ui.attack_low_spinbox, self.ui.attack_high_spinbox)
+        return {"low": low, "high": high}
 
     @property
     def arc_types(self):
         arc_type_text = self.ui.arc_types_line_edit.text()
         if arc_type_text:
             arc_types = DefinitionForm.parse_comma_separated_text(arc_type_text, ARC_TYPES_)
-            if len(arc_types) != len(self.attacks):
-                return INVALID
         else:
-            if self.attacks:
-                return INVALID
-            else:
-                arc_types = []
+            arc_types = []
         return arc_types
 
-    @property
-    def combined_attacks_arc_types(self) -> List[dict]:
-        return [{"attack": attack, "arc_type": arc_type} for attack, arc_type in zip(self.attacks, self.arc_types)]
+
+
 
     @staticmethod
     def evaluate_attribute_checkboxes(lt_checkbox: QtWidgets.QCheckBox, gt_checkbox:QtWidgets.QCheckBox, eq_checkbox:QtWidgets.QCheckBox):
@@ -132,108 +133,68 @@ class UpgradeForm(QtWidgets.QDialog):
 
     @property
     def agility(self):
-        inequality = self.evaluate_attribute_checkboxes(self.ui.agility_lt_checkbox, self.ui.agility_gt_checkbox, self.ui.agility_eq_checkbox)
-        if inequality is None:
-            return {}
-        else:
-            return {"agility": self.ui.agility_spinbox.value(), "inequality": inequality}
+        low, high = self.evaluate_attribute_range(self.ui.agility_low_spinbox, self.ui.agility_high_spinbox)
+        return {"low": low, "high": high}
 
     @property
     def hull(self):
-        inequality = self.evaluate_attribute_checkboxes(self.ui.hull_lt_checkbox, self.ui.hull_gt_checkbox, self.ui.hull_eq_checkbox)
-        if inequality is None:
-            return {}
-        else:
-            return {"hull": self.ui.agility_spinbox.value(), "inequality": inequality}
+        low, high = self.evaluate_attribute_range(self.ui.hull_low_spinbox, self.ui.hull_high_spinbox)
+        return {"low": low, "high": high}
 
-    def inquality_attribute_entry(self,
-                                  name: str,
-                                  lt_checkbox: QtWidgets.QCheckBox,
-                                  gt_checkbox: QtWidgets.QCheckBox,
-                                  eq_checkbox: QtWidgets.QCheckBox,
-                                  recharge_lt_checkbox: QtWidgets.QCheckBox,
-                                  recharge_gt_checkbox: QtWidgets.QCheckBox,
-                                  recharge_eq_checkbox: QtWidgets.QCheckBox,
-                                  decharge_lt_checkbox: QtWidgets.QCheckBox,
-                                  decharge_gt_checkbox: QtWidgets.QCheckBox,
-                                  decharge_eq_checkbox: QtWidgets.QCheckBox,
-                                  base_spinbox: QtWidgets.QSpinBox,
-                                  recharge_spinbox: QtWidgets.QSpinBox,
-                                  decharge_spinbox: QtWidgets.QSpinBox):
-        result = {}
-        inequality_base = self.evaluate_attribute_checkboxes(lt_checkbox, gt_checkbox, eq_checkbox)
-        inequality_recharge = self.evaluate_attribute_checkboxes(recharge_lt_checkbox, recharge_gt_checkbox, recharge_eq_checkbox)
-        inequality_decharge = self.evaluate_attribute_checkboxes(decharge_lt_checkbox, decharge_gt_checkbox, decharge_eq_checkbox)
-        if inequality_base:
-            result[name] = {name: base_spinbox.value(), "inequality": inequality_base}
-        if inequality_recharge:
-            result["recharge"] = {"recharge": recharge_spinbox.value(), "inequality": inequality_recharge}
-        if inequality_decharge:
-            result["decharge"] = {"decharge": decharge_spinbox.value(), "inequality": inequality_decharge}
-        return result
+
+
+    def attribute_entry_range(
+                        self,
+                        name: str,
+                        low_spinbox: QtWidgets.QSpinBox,
+                        high_spinbox: QtWidgets.QSpinBox,
+                        recharge_low_spinbox: QtWidgets.QSpinBox,
+                        recharge_high_spinbox: QtWidgets.QSpinBox,
+                        decharge_low_spinbox: QtWidgets.QSpinBox,
+                        decharge_high_spinbox: QtWidgets.QSpinBox):
+        base_low, base_high = self.evaluate_attribute_range(low_spinbox, high_spinbox)
+        recharge_low, recharge_high = self.evaluate_attribute_range(recharge_low_spinbox, recharge_high_spinbox)
+        decharge_low, decharge_high = self.evaluate_attribute_range(decharge_low_spinbox, decharge_high_spinbox)
+
+        return {name: {"low": base_low, "high": base_high}, "recharge": {"low": recharge_low, "high": recharge_high}, "decharge": {"low": decharge_low, "high": decharge_high}}
 
     @property
     def shield(self):
-        return self.inquality_attribute_entry("shield",
-                                              self.ui.shield_lt_checkbox,
-                                              self.ui.shield_gt_checkbox,
-                                              self.ui.shield_eq_checkbox,
-                                              self.ui.shield_recharge_lt_checkbox,
-                                              self.ui.shield_recharge_gt_checkbox,
-                                              self.ui.shield_recharge_eq_checkbox,
-                                              self.ui.shield_decharge_lt_checkbox,
-                                              self.ui.shield_decharge_gt_checkbox,
-                                              self.ui.shield_decharge_eq_checkbox,
-                                              self.ui.shield_spinbox,
-                                              self.ui.shield_recharge_spinbox,
-                                              self.ui.shield_decharge_spinbox)
-
+        return self.attribute_entry_range("shield",
+                                          self.ui.shield_low_spinbox,
+                                          self.ui.shield_high_spinbox,
+                                          self.ui.shield_recharge_low_spinbox,
+                                          self.ui.shield_recharge_high_spinbox,
+                                          self.ui.shield_decharge_low_spinbox,
+                                          self.ui.shield_decharge_high_spinbox)
     @property
     def force(self):
-        return self.inquality_attribute_entry("force",
-                                              self.ui.force_lt_checkbox,
-                                              self.ui.force_gt_checkbox,
-                                              self.ui.force_eq_checkbox,
-                                              self.ui.force_recharge_lt_checkbox,
-                                              self.ui.force_recharge_gt_checkbox,
-                                              self.ui.force_recharge_eq_checkbox,
-                                              self.ui.force_decharge_lt_checkbox,
-                                              self.ui.force_decharge_gt_checkbox,
-                                              self.ui.force_decharge_eq_checkbox,
-                                              self.ui.force_spinbox,
-                                              self.ui.force_recharge_spinbox,
-                                              self.ui.force_decharge_spinbox)
+        return self.attribute_entry_range("force",
+                                          self.ui.force_low_spinbox,
+                                          self.ui.force_high_spinbox,
+                                          self.ui.force_recharge_low_spinbox,
+                                          self.ui.force_recharge_high_spinbox,
+                                          self.ui.force_decharge_low_spinbox,
+                                          self.ui.force_decharge_high_spinbox)
     @property
     def energy(self):
-        return self.inquality_attribute_entry("energy",
-                                              self.ui.energy_lt_checkbox,
-                                              self.ui.energy_gt_checkbox,
-                                              self.ui.energy_eq_checkbox,
-                                              self.ui.energy_recharge_lt_checkbox,
-                                              self.ui.energy_recharge_gt_checkbox,
-                                              self.ui.energy_recharge_eq_checkbox,
-                                              self.ui.energy_decharge_lt_checkbox,
-                                              self.ui.energy_decharge_gt_checkbox,
-                                              self.ui.energy_decharge_eq_checkbox,
-                                              self.ui.energy_spinbox,
-                                              self.ui.energy_recharge_spinbox,
-                                              self.ui.energy_decharge_spinbox)
-
+        return self.attribute_entry_range("energy",
+                                          self.ui.energy_low_spinbox,
+                                          self.ui.energy_high_spinbox,
+                                          self.ui.energy_recharge_low_spinbox,
+                                          self.ui.energy_recharge_high_spinbox,
+                                          self.ui.energy_decharge_low_spinbox,
+                                          self.ui.energy_decharge_high_spinbox)
     @property
     def charge(self):
-        return self.inquality_attribute_entry("charge",
-                                              self.ui.charge_lt_checkbox,
-                                              self.ui.charge_gt_checkbox,
-                                              self.ui.charge_eq_checkbox,
-                                              self.ui.charge_recharge_lt_checkbox,
-                                              self.ui.charge_recharge_gt_checkbox,
-                                              self.ui.charge_recharge_eq_checkbox,
-                                              self.ui.charge_decharge_lt_checkbox,
-                                              self.ui.charge_decharge_gt_checkbox,
-                                              self.ui.charge_decharge_eq_checkbox,
-                                              self.ui.charge_spinbox,
-                                              self.ui.charge_recharge_spinbox,
-                                              self.ui.charge_decharge_spinbox)
+        return self.attribute_entry_range("charge",
+                                          self.ui.charge_low_spinbox,
+                                          self.ui.charge_high_spinbox,
+                                          self.ui.charge_recharge_low_spinbox,
+                                          self.ui.charge_recharge_high_spinbox,
+                                          self.ui.charge_decharge_low_spinbox,
+                                          self.ui.charge_decharge_high_spinbox)
+
 
     @property
     def actions(self):
@@ -288,9 +249,6 @@ class UpgradeForm(QtWidgets.QDialog):
         if self.base_sizes == INVALID:
             logging.info(f"Base sizes must be within the following: {BASE_SIZES}")
             valid = False
-        if self.attacks == INVALID:
-            logging.info("Attack entries must be numbers separated by commas.  Please try again.")
-            valid = False
         if self.arc_types == INVALID:
             logging.info(f"Arc types must have the same number of attacks.  Arc Types must be be within the following: {ARC_TYPES_}")
             valid = False
@@ -316,7 +274,8 @@ class UpgradeForm(QtWidgets.QDialog):
                 "factions": self.factions,
                 "ships": self.ships,
                 "base_sizes": self.base_sizes,
-                "attacks": self.combined_attacks_arc_types,
+                "attacks": self.attacks,
+                "arc_types": self.arc_types,
                 "agility": self.agility,
                 "hull": self.hull,
                 "shield": self.shield,
