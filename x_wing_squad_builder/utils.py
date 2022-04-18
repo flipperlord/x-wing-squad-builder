@@ -21,7 +21,16 @@ def change_action_image_color(image_path, color):
 
 def prettify_name(name: str) -> str:
     """Takes a lowercase string of a name and capitalizes it."""
-    return ' '.join([part.capitalize()for part in name.split()])
+    return ' '.join([part.capitalize()for part in name.split()]).replace("%", "/").replace("^", "\"")
+
+def gui_text_encode(text: str):
+    """In order to work with the Windows File System, we cannot have certain characters in file names.  This is the workaround."""
+    text = text.lower().replace("/", "%").replace("\"", "^")
+    return text
+
+def get_pilot_name_from_list_item_text(text: str):
+    pilot_name = gui_text_encode(" ".join(text.lower().split()[1:-1]))
+    return pilot_name
 
 def prettify_definition_form_entry(values: str) -> List[str]:
     """Takes a list of values separated by a comma, and returns a list of the values

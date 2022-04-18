@@ -64,3 +64,13 @@ class Ship:
     @property
     def ship_data(self):
         return self.__ship_data
+
+    def get_pilot_data(self, pilot_name: str):
+        for pilot in self.pilots:
+            if pilot.name == pilot_name:
+                return pilot
+        return None
+
+    def get_pilot_actions(self, pilot_name: str):
+        pilot = self.get_pilot_data(pilot_name)
+        return pilot.actions

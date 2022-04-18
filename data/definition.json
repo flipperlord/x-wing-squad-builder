@@ -4,7 +4,7 @@
             "name": "first order",
             "ships": [
                 {
-                    "name": "tieba interceptor",
+                    "name": "tie%ba interceptor",
                     "base": "small",
                     "statistics": [
                         {
@@ -136,7 +136,7 @@
                             ]
                         },
                         {
-                            "name": "holo",
+                            "name": "^holo^",
                             "limit": 1,
                             "initiative": 5,
                             "cost": 53,
@@ -186,7 +186,7 @@
                             ]
                         },
                         {
-                            "name": "ember",
+                            "name": "^ember^",
                             "limit": 1,
                             "initiative": 4,
                             "cost": 45,
@@ -288,7 +288,7 @@
                     ]
                 },
                 {
-                    "name": "tiefo fighter",
+                    "name": "tie%fo fighter",
                     "base": "small",
                     "statistics": [
                         {
@@ -612,7 +612,7 @@
                             ]
                         },
                         {
-                            "name": "null",
+                            "name": "^null^",
                             "limit": 1,
                             "initiative": 0,
                             "cost": 30,
@@ -662,7 +662,7 @@
                             ]
                         },
                         {
-                            "name": "muse",
+                            "name": "^muse^",
                             "limit": 1,
                             "initiative": 2,
                             "cost": 30,
@@ -712,7 +712,7 @@
                             ]
                         },
                         {
-                            "name": "longshot",
+                            "name": "^longshot^",
                             "limit": 1,
                             "initiative": 3,
                             "cost": 30,
@@ -762,7 +762,7 @@
                             ]
                         },
                         {
-                            "name": "static",
+                            "name": "^static^",
                             "limit": 1,
                             "initiative": 4,
                             "cost": 31,
@@ -866,7 +866,7 @@
                             ]
                         },
                         {
-                            "name": "scorch (tie fighter)",
+                            "name": "^scorch^ (tie fighter)",
                             "limit": 1,
                             "initiative": 4,
                             "cost": 33,
@@ -918,7 +918,7 @@
                             ]
                         },
                         {
-                            "name": "midnight",
+                            "name": "^midnight^",
                             "limit": 1,
                             "initiative": 6,
                             "cost": 35,
@@ -972,7 +972,7 @@
                     ]
                 },
                 {
-                    "name": "tiese bomber",
+                    "name": "tie%se bomber",
                     "base": "small",
                     "statistics": [
                         {
@@ -1159,7 +1159,7 @@
                             ]
                         },
                         {
-                            "name": "grudge",
+                            "name": "^grudge^",
                             "limit": 1,
                             "initiative": 2,
                             "cost": 36,
@@ -1209,7 +1209,7 @@
                             ]
                         },
                         {
-                            "name": "dread",
+                            "name": "^dread^",
                             "limit": 1,
                             "initiative": 3,
                             "cost": 32,
@@ -1259,7 +1259,7 @@
                             ]
                         },
                         {
-                            "name": "scorch (tie bomber)",
+                            "name": "^scorch^ (tie bomber)",
                             "limit": 1,
                             "initiative": 4,
                             "cost": 35,
@@ -1311,7 +1311,7 @@
                             ]
                         },
                         {
-                            "name": "breach",
+                            "name": "^breach^",
                             "limit": 1,
                             "initiative": 5,
                             "cost": 36,
@@ -1365,7 +1365,7 @@
                     ]
                 },
                 {
-                    "name": "tiesf fighter",
+                    "name": "tie%sf fighter",
                     "base": "small",
                     "statistics": [
                         {
@@ -1652,7 +1652,7 @@
                             ]
                         },
                         {
-                            "name": "backdraft",
+                            "name": "^backdraft^",
                             "limit": 1,
                             "initiative": 4,
                             "cost": 36,
@@ -1704,7 +1704,7 @@
                             ]
                         },
                         {
-                            "name": "quickdraw",
+                            "name": "^quickdraw^",
                             "limit": 1,
                             "initiative": 6,
                             "cost": 44,
@@ -1756,12 +1756,1901 @@
                             ]
                         }
                     ]
+                },
+                {
+                    "name": "tie%vn silencer",
+                    "base": "small",
+                    "statistics": [
+                        {
+                            "attacks": [
+                                {
+                                    "attack": 3,
+                                    "arc_type": "front"
+                                }
+                            ]
+                        },
+                        {
+                            "agility": 3
+                        },
+                        {
+                            "hull": 4
+                        },
+                        {
+                            "shield": {
+                                "shield": 2,
+                                "recharge": 0
+                            }
+                        },
+                        {
+                            "force": {
+                                "force": 0,
+                                "recharge": 0
+                            }
+                        },
+                        {
+                            "energy": {
+                                "energy": 0,
+                                "recharge": 0
+                            }
+                        },
+                        {
+                            "charge": {
+                                "charge": 0,
+                                "recharge": 0
+                            }
+                        }
+                    ],
+                    "actions": [
+                        {
+                            "action": "focus",
+                            "color": "white",
+                            "action_link": null,
+                            "color_link": null
+                        },
+                        {
+                            "action": "lock",
+                            "color": "white",
+                            "action_link": null,
+                            "color_link": null
+                        },
+                        {
+                            "action": "barrel roll",
+                            "color": "white",
+                            "action_link": null,
+                            "color_link": null
+                        },
+                        {
+                            "action": "boost",
+                            "color": "white",
+                            "action_link": null,
+                            "color_link": null
+                        }
+                    ],
+                    "upgrade_slots": [
+                        "tech",
+                        "torpedo",
+                        "missile",
+                        "configuration"
+                    ],
+                    "pilots": [
+                        {
+                            "name": "sienar-jaemus engineer",
+                            "limit": 0,
+                            "initiative": 1,
+                            "cost": 50,
+                            "statistics": [
+                                {
+                                    "attacks": []
+                                },
+                                {
+                                    "agility": null
+                                },
+                                {
+                                    "hull": null
+                                },
+                                {
+                                    "shield": {
+                                        "shield": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "force": {
+                                        "force": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "energy": {
+                                        "energy": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "charge": {
+                                        "charge": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                }
+                            ],
+                            "actions": [],
+                            "upgrade_slots": [],
+                            "keywords": [
+                                "tie"
+                            ]
+                        },
+                        {
+                            "name": "first order test pilot",
+                            "limit": 0,
+                            "initiative": 4,
+                            "cost": 56,
+                            "statistics": [
+                                {
+                                    "attacks": []
+                                },
+                                {
+                                    "agility": null
+                                },
+                                {
+                                    "hull": null
+                                },
+                                {
+                                    "shield": {
+                                        "shield": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "force": {
+                                        "force": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "energy": {
+                                        "energy": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "charge": {
+                                        "charge": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                }
+                            ],
+                            "actions": [],
+                            "upgrade_slots": [
+                                "talent"
+                            ],
+                            "keywords": [
+                                "tie"
+                            ]
+                        },
+                        {
+                            "name": "^avenger^",
+                            "limit": 1,
+                            "initiative": 3,
+                            "cost": 56,
+                            "statistics": [
+                                {
+                                    "attacks": []
+                                },
+                                {
+                                    "agility": null
+                                },
+                                {
+                                    "hull": null
+                                },
+                                {
+                                    "shield": {
+                                        "shield": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "force": {
+                                        "force": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "energy": {
+                                        "energy": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "charge": {
+                                        "charge": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                }
+                            ],
+                            "actions": [],
+                            "upgrade_slots": [
+                                "talent"
+                            ],
+                            "keywords": [
+                                "tie"
+                            ]
+                        },
+                        {
+                            "name": "^rush^",
+                            "limit": 1,
+                            "initiative": 2,
+                            "cost": 57,
+                            "statistics": [
+                                {
+                                    "attacks": []
+                                },
+                                {
+                                    "agility": null
+                                },
+                                {
+                                    "hull": null
+                                },
+                                {
+                                    "shield": {
+                                        "shield": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "force": {
+                                        "force": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "energy": {
+                                        "energy": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "charge": {
+                                        "charge": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                }
+                            ],
+                            "actions": [],
+                            "upgrade_slots": [],
+                            "keywords": [
+                                "tie"
+                            ]
+                        },
+                        {
+                            "name": "^recoil^",
+                            "limit": 1,
+                            "initiative": 4,
+                            "cost": 56,
+                            "statistics": [
+                                {
+                                    "attacks": []
+                                },
+                                {
+                                    "agility": null
+                                },
+                                {
+                                    "hull": null
+                                },
+                                {
+                                    "shield": {
+                                        "shield": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "force": {
+                                        "force": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "energy": {
+                                        "energy": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "charge": {
+                                        "charge": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                }
+                            ],
+                            "actions": [],
+                            "upgrade_slots": [
+                                "talent"
+                            ],
+                            "keywords": [
+                                "tie"
+                            ]
+                        },
+                        {
+                            "name": "^blackout^",
+                            "limit": 1,
+                            "initiative": 5,
+                            "cost": 61,
+                            "statistics": [
+                                {
+                                    "attacks": []
+                                },
+                                {
+                                    "agility": null
+                                },
+                                {
+                                    "hull": null
+                                },
+                                {
+                                    "shield": {
+                                        "shield": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "force": {
+                                        "force": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "energy": {
+                                        "energy": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "charge": {
+                                        "charge": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                }
+                            ],
+                            "actions": [],
+                            "upgrade_slots": [
+                                "talent"
+                            ],
+                            "keywords": [
+                                "tie"
+                            ]
+                        },
+                        {
+                            "name": "kylo ren (tormented apprentice)",
+                            "limit": 1,
+                            "initiative": 5,
+                            "cost": 77,
+                            "statistics": [
+                                {
+                                    "attacks": []
+                                },
+                                {
+                                    "agility": null
+                                },
+                                {
+                                    "hull": null
+                                },
+                                {
+                                    "shield": {
+                                        "shield": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "force": {
+                                        "force": 2,
+                                        "recharge": 1,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "energy": {
+                                        "energy": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "charge": {
+                                        "charge": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                }
+                            ],
+                            "actions": [],
+                            "upgrade_slots": [
+                                "force"
+                            ],
+                            "keywords": [
+                                "dark side",
+                                "tie"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "tie%wi whisper modified interceptor",
+                    "base": "small",
+                    "statistics": [
+                        {
+                            "attacks": [
+                                {
+                                    "attack": 3,
+                                    "arc_type": "bullseye"
+                                },
+                                {
+                                    "attack": 2,
+                                    "arc_type": "turret"
+                                }
+                            ]
+                        },
+                        {
+                            "agility": 2
+                        },
+                        {
+                            "hull": 3
+                        },
+                        {
+                            "shield": {
+                                "shield": 2,
+                                "recharge": 0
+                            }
+                        },
+                        {
+                            "force": {
+                                "force": 0,
+                                "recharge": 0
+                            }
+                        },
+                        {
+                            "energy": {
+                                "energy": 0,
+                                "recharge": 0
+                            }
+                        },
+                        {
+                            "charge": {
+                                "charge": 0,
+                                "recharge": 0
+                            }
+                        }
+                    ],
+                    "actions": [
+                        {
+                            "action": "focus",
+                            "color": "white",
+                            "action_link": "rotate",
+                            "color_link": "white"
+                        },
+                        {
+                            "action": "evade",
+                            "color": "white",
+                            "action_link": null,
+                            "color_link": null
+                        },
+                        {
+                            "action": "lock",
+                            "color": "white",
+                            "action_link": null,
+                            "color_link": null
+                        },
+                        {
+                            "action": "barrel roll",
+                            "color": "white",
+                            "action_link": "rotate",
+                            "color_link": "white"
+                        },
+                        {
+                            "action": "boost",
+                            "color": "white",
+                            "action_link": "rotate",
+                            "color_link": "white"
+                        }
+                    ],
+                    "upgrade_slots": [
+                        "talent",
+                        "missile",
+                        "tech",
+                        "tech",
+                        "configuration"
+                    ],
+                    "pilots": [
+                        {
+                            "name": "red fury zealot",
+                            "limit": 0,
+                            "initiative": 2,
+                            "cost": 44,
+                            "statistics": [
+                                {
+                                    "attacks": []
+                                },
+                                {
+                                    "agility": null
+                                },
+                                {
+                                    "hull": null
+                                },
+                                {
+                                    "shield": {
+                                        "shield": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "force": {
+                                        "force": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "energy": {
+                                        "energy": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "charge": {
+                                        "charge": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                }
+                            ],
+                            "actions": [],
+                            "upgrade_slots": [],
+                            "keywords": [
+                                "tie"
+                            ]
+                        },
+                        {
+                            "name": "709th legion ace",
+                            "limit": 0,
+                            "initiative": 4,
+                            "cost": 47,
+                            "statistics": [
+                                {
+                                    "attacks": []
+                                },
+                                {
+                                    "agility": null
+                                },
+                                {
+                                    "hull": null
+                                },
+                                {
+                                    "shield": {
+                                        "shield": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "force": {
+                                        "force": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "energy": {
+                                        "energy": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "charge": {
+                                        "charge": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                }
+                            ],
+                            "actions": [],
+                            "upgrade_slots": [
+                                "talent"
+                            ],
+                            "keywords": [
+                                "tie"
+                            ]
+                        },
+                        {
+                            "name": "^whirlwind^",
+                            "limit": 1,
+                            "initiative": 3,
+                            "cost": 47,
+                            "statistics": [
+                                {
+                                    "attacks": []
+                                },
+                                {
+                                    "agility": null
+                                },
+                                {
+                                    "hull": null
+                                },
+                                {
+                                    "shield": {
+                                        "shield": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "force": {
+                                        "force": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "energy": {
+                                        "energy": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "charge": {
+                                        "charge": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                }
+                            ],
+                            "actions": [],
+                            "upgrade_slots": [
+                                "talent"
+                            ],
+                            "keywords": [
+                                "tie"
+                            ]
+                        },
+                        {
+                            "name": "^nightfall^",
+                            "limit": 1,
+                            "initiative": 4,
+                            "cost": 49,
+                            "statistics": [
+                                {
+                                    "attacks": []
+                                },
+                                {
+                                    "agility": null
+                                },
+                                {
+                                    "hull": null
+                                },
+                                {
+                                    "shield": {
+                                        "shield": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "force": {
+                                        "force": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "energy": {
+                                        "energy": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "charge": {
+                                        "charge": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                }
+                            ],
+                            "actions": [],
+                            "upgrade_slots": [
+                                "talent"
+                            ],
+                            "keywords": [
+                                "tie"
+                            ]
+                        },
+                        {
+                            "name": "^wrath^",
+                            "limit": 1,
+                            "initiative": 5,
+                            "cost": 53,
+                            "statistics": [
+                                {
+                                    "attacks": []
+                                },
+                                {
+                                    "agility": null
+                                },
+                                {
+                                    "hull": null
+                                },
+                                {
+                                    "shield": {
+                                        "shield": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "force": {
+                                        "force": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "energy": {
+                                        "energy": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "charge": {
+                                        "charge": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                }
+                            ],
+                            "actions": [],
+                            "upgrade_slots": [],
+                            "keywords": [
+                                "tie"
+                            ]
+                        },
+                        {
+                            "name": "kylo ren (supreme leader of the first order)",
+                            "limit": 1,
+                            "initiative": 5,
+                            "cost": 63,
+                            "statistics": [
+                                {
+                                    "attacks": []
+                                },
+                                {
+                                    "agility": null
+                                },
+                                {
+                                    "hull": null
+                                },
+                                {
+                                    "shield": {
+                                        "shield": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "force": {
+                                        "force": 3,
+                                        "recharge": 1,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "energy": {
+                                        "energy": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "charge": {
+                                        "charge": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                }
+                            ],
+                            "actions": [],
+                            "upgrade_slots": [
+                                "force"
+                            ],
+                            "keywords": [
+                                "dark side",
+                                "tie"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "upsilon-class command shuttle",
+                    "base": "large",
+                    "statistics": [
+                        {
+                            "attacks": [
+                                {
+                                    "attack": 4,
+                                    "arc_type": "front"
+                                }
+                            ]
+                        },
+                        {
+                            "agility": 1
+                        },
+                        {
+                            "hull": 6
+                        },
+                        {
+                            "shield": {
+                                "shield": 6,
+                                "recharge": 0
+                            }
+                        },
+                        {
+                            "force": {
+                                "force": 0,
+                                "recharge": 0
+                            }
+                        },
+                        {
+                            "energy": {
+                                "energy": 0,
+                                "recharge": 0
+                            }
+                        },
+                        {
+                            "charge": {
+                                "charge": 0,
+                                "recharge": 0
+                            }
+                        }
+                    ],
+                    "actions": [
+                        {
+                            "action": "focus",
+                            "color": "white",
+                            "action_link": null,
+                            "color_link": null
+                        },
+                        {
+                            "action": "lock",
+                            "color": "white",
+                            "action_link": null,
+                            "color_link": null
+                        },
+                        {
+                            "action": "reinforce",
+                            "color": "white",
+                            "action_link": null,
+                            "color_link": null
+                        },
+                        {
+                            "action": "coordinate",
+                            "color": "white",
+                            "action_link": null,
+                            "color_link": null
+                        },
+                        {
+                            "action": "jam",
+                            "color": "white",
+                            "action_link": null,
+                            "color_link": null
+                        }
+                    ],
+                    "upgrade_slots": [
+                        "sensor",
+                        "tech",
+                        "tech",
+                        "cannon",
+                        "crew",
+                        "crew",
+                        "crew",
+                        "modification"
+                    ],
+                    "pilots": [
+                        {
+                            "name": "starkiller base pilot",
+                            "limit": 0,
+                            "initiative": 2,
+                            "cost": 58,
+                            "statistics": [
+                                {
+                                    "attacks": []
+                                },
+                                {
+                                    "agility": null
+                                },
+                                {
+                                    "hull": null
+                                },
+                                {
+                                    "shield": {
+                                        "shield": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "force": {
+                                        "force": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "energy": {
+                                        "energy": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "charge": {
+                                        "charge": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                }
+                            ],
+                            "actions": [],
+                            "upgrade_slots": [],
+                            "keywords": []
+                        },
+                        {
+                            "name": "petty officer thanisson",
+                            "limit": 0,
+                            "initiative": 1,
+                            "cost": 59,
+                            "statistics": [
+                                {
+                                    "attacks": []
+                                },
+                                {
+                                    "agility": null
+                                },
+                                {
+                                    "hull": null
+                                },
+                                {
+                                    "shield": {
+                                        "shield": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "force": {
+                                        "force": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "energy": {
+                                        "energy": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "charge": {
+                                        "charge": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                }
+                            ],
+                            "actions": [],
+                            "upgrade_slots": [],
+                            "keywords": []
+                        },
+                        {
+                            "name": "major stridan",
+                            "limit": 1,
+                            "initiative": 1,
+                            "cost": 61,
+                            "statistics": [
+                                {
+                                    "attacks": []
+                                },
+                                {
+                                    "agility": null
+                                },
+                                {
+                                    "hull": null
+                                },
+                                {
+                                    "shield": {
+                                        "shield": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "force": {
+                                        "force": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "energy": {
+                                        "energy": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "charge": {
+                                        "charge": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                }
+                            ],
+                            "actions": [],
+                            "upgrade_slots": [],
+                            "keywords": []
+                        },
+                        {
+                            "name": "captain cardinal",
+                            "limit": 1,
+                            "initiative": 4,
+                            "cost": 62,
+                            "statistics": [
+                                {
+                                    "attacks": []
+                                },
+                                {
+                                    "agility": null
+                                },
+                                {
+                                    "hull": null
+                                },
+                                {
+                                    "shield": {
+                                        "shield": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "force": {
+                                        "force": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "energy": {
+                                        "energy": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "charge": {
+                                        "charge": 2,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                }
+                            ],
+                            "actions": [],
+                            "upgrade_slots": [],
+                            "keywords": []
+                        },
+                        {
+                            "name": "lieutenant tavson",
+                            "limit": 1,
+                            "initiative": 3,
+                            "cost": 64,
+                            "statistics": [
+                                {
+                                    "attacks": []
+                                },
+                                {
+                                    "agility": null
+                                },
+                                {
+                                    "hull": null
+                                },
+                                {
+                                    "shield": {
+                                        "shield": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "force": {
+                                        "force": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "energy": {
+                                        "energy": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "charge": {
+                                        "charge": 2,
+                                        "recharge": 1,
+                                        "dicharge": null
+                                    }
+                                }
+                            ],
+                            "actions": [],
+                            "upgrade_slots": [],
+                            "keywords": []
+                        },
+                        {
+                            "name": "lieutenant dormitz",
+                            "limit": 1,
+                            "initiative": 2,
+                            "cost": 73,
+                            "statistics": [
+                                {
+                                    "attacks": []
+                                },
+                                {
+                                    "agility": null
+                                },
+                                {
+                                    "hull": null
+                                },
+                                {
+                                    "shield": {
+                                        "shield": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "force": {
+                                        "force": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "energy": {
+                                        "energy": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "charge": {
+                                        "charge": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                }
+                            ],
+                            "actions": [],
+                            "upgrade_slots": [],
+                            "keywords": []
+                        }
+                    ]
+                },
+                {
+                    "name": "xi-class light shuttle",
+                    "base": "medium",
+                    "statistics": [
+                        {
+                            "attacks": [
+                                {
+                                    "attack": 2,
+                                    "arc_type": "front"
+                                }
+                            ]
+                        },
+                        {
+                            "agility": 2
+                        },
+                        {
+                            "hull": 5
+                        },
+                        {
+                            "shield": {
+                                "shield": 2,
+                                "recharge": 0
+                            }
+                        },
+                        {
+                            "force": {
+                                "force": 0,
+                                "recharge": 0
+                            }
+                        },
+                        {
+                            "energy": {
+                                "energy": 0,
+                                "recharge": 0
+                            }
+                        },
+                        {
+                            "charge": {
+                                "charge": 0,
+                                "recharge": 0
+                            }
+                        }
+                    ],
+                    "actions": [
+                        {
+                            "action": "focus",
+                            "color": "white",
+                            "action_link": null,
+                            "color_link": null
+                        },
+                        {
+                            "action": "lock",
+                            "color": "red",
+                            "action_link": null,
+                            "color_link": null
+                        },
+                        {
+                            "action": "coordinate",
+                            "color": "red",
+                            "action_link": null,
+                            "color_link": null
+                        },
+                        {
+                            "action": "jam",
+                            "color": "white",
+                            "action_link": null,
+                            "color_link": null
+                        }
+                    ],
+                    "upgrade_slots": [
+                        "tech",
+                        "tech",
+                        "crew",
+                        "crew",
+                        "modification"
+                    ],
+                    "pilots": [
+                        {
+                            "name": "first order courier",
+                            "limit": 0,
+                            "initiative": 2,
+                            "cost": 35,
+                            "statistics": [
+                                {
+                                    "attacks": []
+                                },
+                                {
+                                    "agility": null
+                                },
+                                {
+                                    "hull": null
+                                },
+                                {
+                                    "shield": {
+                                        "shield": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "force": {
+                                        "force": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "energy": {
+                                        "energy": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "charge": {
+                                        "charge": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                }
+                            ],
+                            "actions": [],
+                            "upgrade_slots": [],
+                            "keywords": []
+                        },
+                        {
+                            "name": "agent terex",
+                            "limit": 1,
+                            "initiative": 3,
+                            "cost": 38,
+                            "statistics": [
+                                {
+                                    "attacks": []
+                                },
+                                {
+                                    "agility": null
+                                },
+                                {
+                                    "hull": null
+                                },
+                                {
+                                    "shield": {
+                                        "shield": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "force": {
+                                        "force": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "energy": {
+                                        "energy": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "charge": {
+                                        "charge": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                }
+                            ],
+                            "actions": [],
+                            "upgrade_slots": [
+                                "talent",
+                                "illicit",
+                                "illicit",
+                                "illicit"
+                            ],
+                            "keywords": []
+                        },
+                        {
+                            "name": "gideon hask (xi shuttle)",
+                            "limit": 1,
+                            "initiative": 4,
+                            "cost": 40,
+                            "statistics": [
+                                {
+                                    "attacks": []
+                                },
+                                {
+                                    "agility": null
+                                },
+                                {
+                                    "hull": null
+                                },
+                                {
+                                    "shield": {
+                                        "shield": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "force": {
+                                        "force": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "energy": {
+                                        "energy": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "charge": {
+                                        "charge": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                }
+                            ],
+                            "actions": [],
+                            "upgrade_slots": [
+                                "talent"
+                            ],
+                            "keywords": []
+                        },
+                        {
+                            "name": "commander malarus (xi shuttle)",
+                            "limit": 1,
+                            "initiative": 5,
+                            "cost": 44,
+                            "statistics": [
+                                {
+                                    "attacks": []
+                                },
+                                {
+                                    "agility": null
+                                },
+                                {
+                                    "hull": null
+                                },
+                                {
+                                    "shield": {
+                                        "shield": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "force": {
+                                        "force": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "energy": {
+                                        "energy": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "charge": {
+                                        "charge": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                }
+                            ],
+                            "actions": [],
+                            "upgrade_slots": [
+                                "talent"
+                            ],
+                            "keywords": []
+                        }
+                    ]
+                },
+                {
+                    "name": "raider-class corvette",
+                    "base": "huge",
+                    "statistics": [
+                        {
+                            "attacks": [
+                                {
+                                    "attack": 4,
+                                    "arc_type": "full front"
+                                }
+                            ]
+                        },
+                        {
+                            "agility": 0
+                        },
+                        {
+                            "hull": 20
+                        },
+                        {
+                            "shield": {
+                                "shield": 8,
+                                "recharge": 2
+                            }
+                        },
+                        {
+                            "force": {
+                                "force": 0,
+                                "recharge": 0
+                            }
+                        },
+                        {
+                            "energy": {
+                                "energy": 6,
+                                "recharge": 2
+                            }
+                        },
+                        {
+                            "charge": {
+                                "charge": 0,
+                                "recharge": 0
+                            }
+                        }
+                    ],
+                    "actions": [
+                        {
+                            "action": "focus",
+                            "color": "white",
+                            "action_link": null,
+                            "color_link": null
+                        },
+                        {
+                            "action": "reinforce",
+                            "color": "white",
+                            "action_link": null,
+                            "color_link": null
+                        },
+                        {
+                            "action": "lock",
+                            "color": "white",
+                            "action_link": null,
+                            "color_link": null
+                        },
+                        {
+                            "action": "coordinate",
+                            "color": "white",
+                            "action_link": null,
+                            "color_link": null
+                        },
+                        {
+                            "action": "jam",
+                            "color": "white",
+                            "action_link": null,
+                            "color_link": null
+                        }
+                    ],
+                    "upgrade_slots": [
+                        "command",
+                        "torpedo",
+                        "missile",
+                        "hardpoint",
+                        "hardpoint",
+                        "crew",
+                        "crew",
+                        "team",
+                        "team",
+                        "cargo"
+                    ],
+                    "pilots": [
+                        {
+                            "name": "first order collaborators",
+                            "limit": 0,
+                            "initiative": 8,
+                            "cost": 131,
+                            "statistics": [
+                                {
+                                    "attacks": []
+                                },
+                                {
+                                    "agility": null
+                                },
+                                {
+                                    "hull": null
+                                },
+                                {
+                                    "shield": {
+                                        "shield": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "force": {
+                                        "force": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "energy": {
+                                        "energy": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "charge": {
+                                        "charge": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                }
+                            ],
+                            "actions": [],
+                            "upgrade_slots": [],
+                            "keywords": [
+                                "corvette"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "gozanti-class cruiser",
+                    "base": "huge",
+                    "statistics": [
+                        {
+                            "attacks": [
+                                {
+                                    "attack": 3,
+                                    "arc_type": "front"
+                                }
+                            ]
+                        },
+                        {
+                            "agility": 0
+                        },
+                        {
+                            "hull": 11
+                        },
+                        {
+                            "shield": {
+                                "shield": 5,
+                                "recharge": 1
+                            }
+                        },
+                        {
+                            "force": {
+                                "force": 0,
+                                "recharge": 0
+                            }
+                        },
+                        {
+                            "energy": {
+                                "energy": 3,
+                                "recharge": 1
+                            }
+                        },
+                        {
+                            "charge": {
+                                "charge": 0,
+                                "recharge": 0
+                            }
+                        }
+                    ],
+                    "actions": [
+                        {
+                            "action": "focus",
+                            "color": "white",
+                            "action_link": null,
+                            "color_link": null
+                        },
+                        {
+                            "action": "reinforce",
+                            "color": "white",
+                            "action_link": null,
+                            "color_link": null
+                        },
+                        {
+                            "action": "lock",
+                            "color": "white",
+                            "action_link": null,
+                            "color_link": null
+                        },
+                        {
+                            "action": "coordinate",
+                            "color": "white",
+                            "action_link": null,
+                            "color_link": null
+                        },
+                        {
+                            "action": "jam",
+                            "color": "white",
+                            "action_link": null,
+                            "color_link": null
+                        }
+                    ],
+                    "upgrade_slots": [
+                        "command",
+                        "hardpoint",
+                        "crew",
+                        "crew",
+                        "gunner",
+                        "team",
+                        "cargo",
+                        "cargo"
+                    ],
+                    "pilots": [
+                        {
+                            "name": "first order sympathizers",
+                            "limit": 0,
+                            "initiative": 7,
+                            "cost": 67,
+                            "statistics": [
+                                {
+                                    "attacks": []
+                                },
+                                {
+                                    "agility": null
+                                },
+                                {
+                                    "hull": null
+                                },
+                                {
+                                    "shield": {
+                                        "shield": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "force": {
+                                        "force": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "energy": {
+                                        "energy": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "charge": {
+                                        "charge": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                }
+                            ],
+                            "actions": [],
+                            "upgrade_slots": [],
+                            "keywords": [
+                                "cruiser"
+                            ]
+                        }
+                    ]
                 }
             ]
         },
         {
             "name": "galactic empire",
-            "ships": []
+            "ships": [
+                {
+                    "name": "tie%ln fighter",
+                    "base": "medium",
+                    "statistics": [
+                        {
+                            "attacks": [
+                                {
+                                    "attack": 2,
+                                    "arc_type": "front"
+                                }
+                            ]
+                        },
+                        {
+                            "agility": 2
+                        },
+                        {
+                            "hull": 3
+                        },
+                        {
+                            "shield": {
+                                "shield": 0,
+                                "recharge": 0
+                            }
+                        },
+                        {
+                            "force": {
+                                "force": 0,
+                                "recharge": 0
+                            }
+                        },
+                        {
+                            "energy": {
+                                "energy": 0,
+                                "recharge": 0
+                            }
+                        },
+                        {
+                            "charge": {
+                                "charge": 0,
+                                "recharge": 0
+                            }
+                        }
+                    ],
+                    "actions": [
+                        {
+                            "action": "focus",
+                            "color": "white",
+                            "action_link": null,
+                            "color_link": null
+                        },
+                        {
+                            "action": "evade",
+                            "color": "white",
+                            "action_link": null,
+                            "color_link": null
+                        },
+                        {
+                            "action": "barrel roll",
+                            "color": "white",
+                            "action_link": null,
+                            "color_link": null
+                        }
+                    ],
+                    "upgrade_slots": [
+                        "astromech"
+                    ],
+                    "pilots": [
+                        {
+                            "name": "black squadron ace",
+                            "limit": 0,
+                            "initiative": 3,
+                            "cost": 30,
+                            "statistics": [
+                                {
+                                    "attacks": []
+                                },
+                                {
+                                    "agility": null
+                                },
+                                {
+                                    "hull": null
+                                },
+                                {
+                                    "shield": {
+                                        "shield": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "force": {
+                                        "force": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "energy": {
+                                        "energy": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "charge": {
+                                        "charge": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                }
+                            ],
+                            "actions": [],
+                            "upgrade_slots": [],
+                            "keywords": []
+                        }
+                    ]
+                }
+            ]
         },
         {
             "name": "grand army of the republic",

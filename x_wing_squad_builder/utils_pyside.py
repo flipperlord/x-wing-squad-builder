@@ -23,15 +23,16 @@ def populate_list_widget(arr: List[str], list_widget: QtWidgets.QListWidget, ima
             list_widget_item.setIcon(pixmap)
         list_widget.addItem(list_widget_item)
 
-def create_image_label(action_name, action_color, action_dir):
+def create_image_label(item_name, item_color, item_dir):
+    """Creates an image QLabel to insert into a layout.  The color should be set to None if not color manipulation is needed."""
     image_label = QtWidgets.QLabel()
-    image_path = action_dir / f"{action_name}.png"
-    image_label.setPixmap(image_path_to_qpixmap(image_path, action_color))
+    image_path = item_dir / f"{item_name}.png"
+    image_label.setPixmap(image_path_to_qpixmap(image_path, item_color))
     return image_label
 
-def update_action_layout(layout: QtWidgets.QLayout, ship: Ship, action_dir: Path):
+def update_action_layout(layout: QtWidgets.QLayout, action_list, action_dir: Path):
     clear_ship_layout(layout)
-    for action_item in ship.actions:
+    for action_item in action_list:
         image_label = create_image_label(action_item.action, action_item.color, action_dir)
         layout.addWidget(image_label)
         if action_item.action_link is not None:
@@ -40,6 +41,16 @@ def update_action_layout(layout: QtWidgets.QLayout, ship: Ship, action_dir: Path
             layout.addWidget(arrow_label)
             image_label = create_image_label(action_item.action_link, action_item.color_link, action_dir)
             layout.addWidget(image_label)
+    spacer = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+    layout.addItem(spacer)
+
+def update_upgrade_slot_layout(layout: QtWidgets.QLayout, upgrade_slot_list, upgrade_slot_dir):
+    clear_ship_layout(layout)
+    for upgrade_slot in upgrade_slot_list:
+        image_label = create_image_label(upgrade_slot, None, upgrade_slot_dir)
+        layout.addWidget(image_label)
+    spacer = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+    layout.addItem(spacer)
 
 def clear_ship_layout(layout: QtWidgets.QLayout):
     while layout.count():
