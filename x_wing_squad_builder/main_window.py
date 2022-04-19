@@ -71,8 +71,6 @@ class MainWindow(QtWidgets.QMainWindow):
 
         # Initialize Factions
         self.file_path = self.data_dir / "definition.json"
-        self.reload_data()
-
 
         # Set up definition form for adding to definition file.
         self.definition_form = DefinitionForm(self.file_path)
@@ -86,6 +84,8 @@ class MainWindow(QtWidgets.QMainWindow):
 
         self.ui.action_reload_data.triggered.connect(self.reload_data)
 
+        self.reload_data()
+
         self.showMaximized()
 
 
@@ -96,6 +96,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.reload_data()
 
     def reload_data(self):
+        self.definition_form.load_data()
         self.ui.ship_list_widget.clear()
         self.ui.pilot_list_widget.clear()
         self.ui.faction_list_widget.clear()

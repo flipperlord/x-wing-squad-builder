@@ -19,13 +19,49 @@ def change_action_image_color(image_path, color):
         im_arr[im_arr[:, :, 0] > 0, 1] = 0
     return Image.fromarray(im_arr).toqimage()
 
+def contains_number(text):
+    return any([char.isnumeric() for char in text])
+
+def process_part(part: str, symbol: str):
+    sub_parts = part.split(symbol)
+    sub_processed = []
+    for sub_part in sub_parts:
+        if contains_number(sub_part):
+            sub_part = sub_part.upper()
+        elif len(sub_part) <= 3:
+            sub_part = sub_part.upper()
+        elif len(sub_part) > 3:
+            sub_part = sub_part.capitalize()
+        sub_processed.append(sub_part)
+    part = symbol.join(sub_processed)
+    return part
+
 def prettify_name(name: str) -> str:
     """Takes a lowercase string of a name and capitalizes it."""
-    return ' '.join([part.capitalize()for part in name.split()]).replace("%", "/").replace("^", "\"")
+    text = gui_text_decode(name)
+    parts = text.split()
+    processed = []
+    for part in parts:
+        if "-" in part:
+            part = process_part(part, "-")
+        elif "(" in part:
+            part = process_part(part, "(")
+        elif "/" in part:
+            part = process_part(part, "/")
+        elif "\"" in part:
+            part = process_part(part, "\"")
+        else:
+            part = part.capitalize()
+        processed.append(part)
+    return " ".join(processed)
 
 def gui_text_encode(text: str):
     """In order to work with the Windows File System, we cannot have certain characters in file names.  This is the workaround."""
     text = text.lower().replace("/", "%").replace("\"", "^")
+    return text
+
+def gui_text_decode(text: str):
+    text = text.lower().replace("%", "/").replace("^", "\"")
     return text
 
 def get_pilot_name_from_list_item_text(text: str):

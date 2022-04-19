@@ -20,8 +20,7 @@ class DefinitionForm(QtWidgets.QDialog):
         self.ui.setupUi(self)
 
         self.data_filepath = data_filepath
-        with open(data_filepath) as file:
-            self.data = json.load(file)
+        self.load_data()
 
         self.ui.faction_name_line_edit.setText("great slayers")
         self.ui.ship_name_line_edit.setText("will-d-beast")
@@ -39,6 +38,10 @@ class DefinitionForm(QtWidgets.QDialog):
 
 
         self.accepted.connect(self.handle_ok_pressed)
+
+    def load_data(self):
+        with open(self.data_filepath) as file:
+            self.data = json.load(file)
 
     def check_ship_name(self):
         faction_idx = self.get_faction_index(self.faction_name)
@@ -428,14 +431,14 @@ class DefinitionForm(QtWidgets.QDialog):
                 self, title, msg, QtWidgets.QMessageBox.Ok | QtWidgets.QMessageBox.Cancel)
             if reply == QtWidgets.QMessageBox.Ok:
                 self.data["upgrades"].append(upgrade_entry)
-                logging.info(f"Upgrade data for <{new_upgrade_name}> successfully overwritten.")
+                logging.info(f"Attempting to overwrite data for <{new_upgrade_name}>.")
             else:
                 logging.info(f"Upgrade data for <{new_upgrade_name}> not overwritten.")
                 # returning true is what we use to open the upgrade form again
                 return True
         else:
             self.data["upgrades"].append(upgrade_entry)
-            logging.info(f"Upgrade data for <{new_upgrade_name}> successfully inserted.")
+            logging.info(f"Attempting to insert upgrade data for <{new_upgrade_name}>.")
         self.write_data()
 
     def insert_new_entry(self) -> bool:
@@ -487,12 +490,12 @@ class DefinitionForm(QtWidgets.QDialog):
             'ships': []
         }
         self.data['factions'].append(new_faction)
-        logging.info(f"New faction <{faction_name}> successfully inserted.")
+        logging.info(f"Attempting to insert new faction <{faction_name}>.")
 
     def insert_ship(self, faction_name:str, ship_data: dict):
         faction_idx = self.get_faction_index(faction_name)
         self.data['factions'][faction_idx]['ships'].append(ship_data)
-        logging.info(f"New ship <{ship_data['name']}> successfully inserted into faction <{faction_name}>.")
+        logging.info(f"Attempting to insert new ship <{ship_data['name']}> into faction <{faction_name}>.")
 
 
     def insert_pilot(self, faction_name: str, ship_name: str, pilot_data: dict, overwrite=False):
@@ -502,9 +505,9 @@ class DefinitionForm(QtWidgets.QDialog):
             for k, pilot in enumerate(self.data['factions'][faction_idx]['ships'][ship_idx]['pilots']):
                 if pilot['name'] == pilot_data['name']:
                     removed = self.data['factions'][faction_idx]['ships'][ship_idx]['pilots'].pop(k)
-                    logging.info(f"Updated pilot info for {removed['name']}")
+                    logging.info(f"Attempting to update pilot info for {removed['name']}")
         self.data['factions'][faction_idx]['ships'][ship_idx]['pilots'].append(pilot_data)
-        logging.info(f"Successfully inserted pilot <{pilot_data['name']}> under ship <{ship_name}> under faction <{faction_name}>.")
+        logging.info(f"Attempting to insert pilot <{pilot_data['name']}> under ship <{ship_name}> under faction <{faction_name}>.")
 
     def write_data(self):
 

@@ -3649,6 +3649,236 @@
                             "keywords": []
                         }
                     ]
+                },
+                {
+                    "name": "test",
+                    "base": "large",
+                    "statistics": [
+                        {
+                            "attacks": [
+                                {
+                                    "attack": 99,
+                                    "arc_type": "full rear"
+                                },
+                                {
+                                    "attack": 99,
+                                    "arc_type": "full front"
+                                }
+                            ]
+                        },
+                        {
+                            "agility": 0
+                        },
+                        {
+                            "hull": 0
+                        },
+                        {
+                            "shield": {
+                                "shield": 0,
+                                "recharge": 0
+                            }
+                        },
+                        {
+                            "force": {
+                                "force": 0,
+                                "recharge": 0
+                            }
+                        },
+                        {
+                            "energy": {
+                                "energy": 0,
+                                "recharge": 0
+                            }
+                        },
+                        {
+                            "charge": {
+                                "charge": 0,
+                                "recharge": 0
+                            }
+                        }
+                    ],
+                    "actions": [
+                        {
+                            "action": "focus",
+                            "color": "red",
+                            "action_link": null,
+                            "color_link": null
+                        },
+                        {
+                            "action": "evade",
+                            "color": "white",
+                            "action_link": null,
+                            "color_link": null
+                        }
+                    ],
+                    "upgrade_slots": [
+                        "astromech"
+                    ],
+                    "pilots": [
+                        {
+                            "name": "el solverdor",
+                            "limit": 0,
+                            "initiative": 0,
+                            "cost": 6969,
+                            "statistics": [
+                                {
+                                    "attacks": []
+                                },
+                                {
+                                    "agility": null
+                                },
+                                {
+                                    "hull": null
+                                },
+                                {
+                                    "shield": {
+                                        "shield": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "force": {
+                                        "force": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "energy": {
+                                        "energy": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "charge": {
+                                        "charge": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                }
+                            ],
+                            "actions": [],
+                            "upgrade_slots": [],
+                            "keywords": []
+                        }
+                    ]
+                },
+                {
+                    "name": "will-d-beast",
+                    "base": "large",
+                    "statistics": [
+                        {
+                            "attacks": [
+                                {
+                                    "attack": 99,
+                                    "arc_type": "full rear"
+                                },
+                                {
+                                    "attack": 99,
+                                    "arc_type": "full front"
+                                }
+                            ]
+                        },
+                        {
+                            "agility": 0
+                        },
+                        {
+                            "hull": 0
+                        },
+                        {
+                            "shield": {
+                                "shield": 0,
+                                "recharge": 0
+                            }
+                        },
+                        {
+                            "force": {
+                                "force": 0,
+                                "recharge": 0
+                            }
+                        },
+                        {
+                            "energy": {
+                                "energy": 0,
+                                "recharge": 0
+                            }
+                        },
+                        {
+                            "charge": {
+                                "charge": 0,
+                                "recharge": 0
+                            }
+                        }
+                    ],
+                    "actions": [
+                        {
+                            "action": "focus",
+                            "color": "red",
+                            "action_link": null,
+                            "color_link": null
+                        },
+                        {
+                            "action": "evade",
+                            "color": "white",
+                            "action_link": null,
+                            "color_link": null
+                        }
+                    ],
+                    "upgrade_slots": [
+                        "astromech"
+                    ],
+                    "pilots": [
+                        {
+                            "name": "el solverdor",
+                            "limit": 0,
+                            "initiative": 0,
+                            "cost": 6969,
+                            "statistics": [
+                                {
+                                    "attacks": []
+                                },
+                                {
+                                    "agility": null
+                                },
+                                {
+                                    "hull": null
+                                },
+                                {
+                                    "shield": {
+                                        "shield": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "force": {
+                                        "force": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "energy": {
+                                        "energy": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                },
+                                {
+                                    "charge": {
+                                        "charge": null,
+                                        "recharge": null,
+                                        "dicharge": null
+                                    }
+                                }
+                            ],
+                            "actions": [],
+                            "upgrade_slots": [],
+                            "keywords": []
+                        }
+                    ]
                 }
             ]
         },

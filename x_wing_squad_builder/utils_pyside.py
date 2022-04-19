@@ -3,7 +3,7 @@ from PySide6 import QtWidgets, QtGui, QtCore
 
 from typing import List, Optional
 
-from .utils import change_action_image_color
+from .utils import change_action_image_color, gui_text_encode
 from .model import Ship
 
 def image_path_to_qpixmap(image_path: Path, color=None) -> QtGui.QPixmap:
@@ -19,7 +19,7 @@ def populate_list_widget(arr: List[str], list_widget: QtWidgets.QListWidget, ima
         list_widget_item = QtWidgets.QListWidgetItem()
         list_widget_item.setText(s)
         if image_path:
-            pixmap = image_path_to_qpixmap(image_path / f"{s}.png")
+            pixmap = image_path_to_qpixmap(image_path / f"{gui_text_encode(s)}.png")
             list_widget_item.setIcon(pixmap)
         list_widget.addItem(list_widget_item)
 
@@ -59,9 +59,6 @@ def clear_ship_layout(layout: QtWidgets.QLayout):
         if widget is not None:
             widget.deleteLater()
 
-def get_pilot_name_from_list_item(item: QtWidgets.QListWidgetItem):
-    pilot_name = " ".join(item.text().lower().split()[1:-1])
-    return pilot_name
 
 def detect_pyside_widget(pyside_object, target_widget):
     """Recursively generates a list of the desired widget type within a given layout."""
