@@ -249,7 +249,7 @@ class DefinitionForm(QtWidgets.QDialog):
         pilot_colors_text = self.ui.pilot_colors_line_edit.text()
         if pilot_colors_text:
             colors, color_links = self.parse_actions_and_colors(pilot_colors_text, ACTION_COLORS)
-            actions, _ = self.actions
+            actions, _ = self.pilot_actions
             if len(colors) != len(actions):
                 return INVALID
             return colors, color_links
