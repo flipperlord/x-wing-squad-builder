@@ -126,10 +126,8 @@ class UpgradeForm(QtWidgets.QDialog):
 
     @property
     def pilot_initiative(self):
-        val = self.ui.initiative_spinbox.value()
-        if val == -1:
-            return None
-        return val
+        low, high = self.evaluate_attribute_range(self.ui.initiative_low_spinbox, self.ui.initiative_high_spinbox)
+        return {"low": low, "high": high}
 
     def attribute_entry_range(
                         self,
@@ -220,6 +218,12 @@ class UpgradeForm(QtWidgets.QDialog):
         return traits
 
     @property
+    def other_equipped_upgrades(self):
+        text = self.ui.other_equipped_upgrades_line_edit.text()
+        text_list = text.split(",")
+        return [item.strip().lower() for item in text_list]
+
+    @property
     def autoinclude(self):
         return str(self.ui.autoinclude_checkbox.isChecked())
 
@@ -277,7 +281,8 @@ class UpgradeForm(QtWidgets.QDialog):
                 "energy": self.energy,
                 "charge": self.charge,
                 "actions": self.combined_actions_and_colors,
-                "keywords": self.traits
+                "keywords": self.traits,
+                "other_equipped_upgrades": self.other_equipped_upgrades
             }
         }
         return new_entry

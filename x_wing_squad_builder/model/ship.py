@@ -32,8 +32,17 @@ class Ship:
 
     @property
     def pilot_names_cost_initiative(self):
-        arr = [(pilot.initiative, pilot.cost, pilot.name) for pilot in self.pilots]
-        arr = sorted(arr, key= lambda x: (x[0], x[1], x[2]))
+        arr_0 = []
+        arr_1 = []
+        for pilot in self.pilots:
+            pilot_tuple = (pilot.initiative, pilot.cost, pilot.name)
+            if pilot.limit == 0:
+                arr_0.append(pilot_tuple)
+            else:
+                arr_1.append(pilot_tuple)
+        arr_0 = sorted(arr_0, key= lambda x: (x[0], x[1], x[2]))
+        arr_1 = sorted(arr_1, key= lambda x: (x[0], x[1], x[2]))
+        arr = arr_0 + arr_1
         return arr
 
     @property

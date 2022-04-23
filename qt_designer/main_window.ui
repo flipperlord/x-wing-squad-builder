@@ -61,7 +61,8 @@
       <item>
        <widget class="QListWidget" name="upgrade_list_widget">
         <property name="toolTip">
-         <string>Upgrade List</string>
+         <string>Upgrade List
+Upgrade Name (Cost)</string>
         </property>
        </widget>
       </item>

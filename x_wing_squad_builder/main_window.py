@@ -16,7 +16,7 @@ from .settings_window import SettingsWindow
 from .model import XWing, Faction, Ship
 from .utils_pyside import (image_path_to_qpixmap, populate_list_widget, update_action_layout,
                            update_upgrade_slot_layout)
-from .utils import prettify_name, gui_text_encode, get_pilot_name_from_list_item_text
+from .utils import prettify_name, gui_text_encode, get_pilot_name_from_list_item_text, get_upgrade_name_from_list_item_text
 
 from pathlib import Path
 
@@ -146,11 +146,11 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.pilot_image_label.setPixmap(image_path_to_qpixmap(self.pilots_dir / f"{pilot_name}.jpg"))
 
         self.ui.upgrade_list_widget.clear()
-        upgrade_names = [prettify_name(name) for name in self.xwing.upgrade_names]
+        upgrade_names = [f"{prettify_name(name)} ({cost})" for name, cost in self.xwing.upgrade_name_cost]
         populate_list_widget(upgrade_names, self.ui.upgrade_list_widget)
 
     def update_upgrade(self, item):
-        upgrade_name = gui_text_encode(item.text().lower())
+        upgrade_name = get_upgrade_name_from_list_item_text(item.text())
         self.ui.upgrade_image_label.setPixmap(image_path_to_qpixmap(self.upgrades_dir / f"{upgrade_name}.jpg"))
 
     @property
