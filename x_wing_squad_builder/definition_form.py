@@ -417,10 +417,19 @@ class DefinitionForm(QtWidgets.QDialog):
         return new_entry
 
     @property
+    def upgrade_list(self):
+        return self.data.get("upgrades")
+
+    @property
     def current_upgrade_names(self):
-        upgrade_list = self.data["upgrades"]
-        upgrade_name_list = [upgrade["name"] for upgrade in upgrade_list]
+        upgrade_name_list = [upgrade["name"] for upgrade in self.upgrade_list]
         return upgrade_name_list
+
+    def get_upgrade_idx(self, upgrade_name):
+        for i, upgrade in enumerate(self.upgrade_list):
+            if upgrade["name"] == upgrade_name:
+                return i
+        return None
 
     def insert_new_upgrade_entry(self, upgrade_entry):
         new_upgrade_name = upgrade_entry["name"]
@@ -430,7 +439,8 @@ class DefinitionForm(QtWidgets.QDialog):
             reply = QtWidgets.QMessageBox.warning(
                 self, title, msg, QtWidgets.QMessageBox.Ok | QtWidgets.QMessageBox.Cancel)
             if reply == QtWidgets.QMessageBox.Ok:
-                self.data["upgrades"].append(upgrade_entry)
+                upgrade_idx = self.get_upgrade_idx(new_upgrade_name)
+                self.upgrade_list[upgrade_idx] = upgrade_entry
                 logging.info(f"Attempting to overwrite data for <{new_upgrade_name}>.")
             else:
                 logging.info(f"Upgrade data for <{new_upgrade_name}> not overwritten.")

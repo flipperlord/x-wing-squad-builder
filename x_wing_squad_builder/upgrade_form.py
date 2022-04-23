@@ -114,23 +114,6 @@ class UpgradeForm(QtWidgets.QDialog):
             arc_types = []
         return arc_types
 
-
-
-
-    @staticmethod
-    def evaluate_attribute_checkboxes(lt_checkbox: QtWidgets.QCheckBox, gt_checkbox:QtWidgets.QCheckBox, eq_checkbox:QtWidgets.QCheckBox):
-        if sum([1 for checkbox in [lt_checkbox, gt_checkbox, eq_checkbox] if checkbox.isChecked()]) > 1:
-            logging.warn("More than one category checkbox checked!")
-        if lt_checkbox.isChecked():
-            inequality = "less than"
-        elif gt_checkbox.isChecked():
-            inequality = "greater than"
-        elif eq_checkbox.isChecked():
-            inequality = "equal to"
-        else:
-            inequality = None
-        return inequality
-
     @property
     def agility(self):
         low, high = self.evaluate_attribute_range(self.ui.agility_low_spinbox, self.ui.agility_high_spinbox)
@@ -141,7 +124,12 @@ class UpgradeForm(QtWidgets.QDialog):
         low, high = self.evaluate_attribute_range(self.ui.hull_low_spinbox, self.ui.hull_high_spinbox)
         return {"low": low, "high": high}
 
-
+    @property
+    def pilot_initiative(self):
+        val = self.ui.initiative_spinbox.value()
+        if val == -1:
+            return None
+        return val
 
     def attribute_entry_range(
                         self,
@@ -276,6 +264,7 @@ class UpgradeForm(QtWidgets.QDialog):
             "autoinclude": self.autoinclude,
             "restrictions":{
                 "limit": self.limit,
+                "pilot_initiative": self.pilot_initiative,
                 "factions": self.factions,
                 "ships": self.ships,
                 "base_sizes": self.base_sizes,

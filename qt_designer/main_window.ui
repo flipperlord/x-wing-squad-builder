@@ -78,8 +78,24 @@
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
        <layout class="QVBoxLayout" name="ship_aggregate">
+        <property name="spacing">
+         <number>6</number>
+        </property>
+        <item>
+         <widget class="QLabel" name="ship_name_label">
+          <property name="text">
+           <string>TextLabel</string>
+          </property>
+         </widget>
+        </item>
         <item>
          <layout class="QGridLayout" name="ship_information_2">
+          <property name="bottomMargin">
+           <number>6</number>
+          </property>
+          <property name="verticalSpacing">
+           <number>10</number>
+          </property>
           <item row="6" column="0">
            <widget class="QLabel" name="label_9">
             <property name="text">
@@ -125,13 +141,6 @@
             </property>
            </widget>
           </item>
-          <item row="0" column="0">
-           <widget class="QLabel" name="ship_name_label">
-            <property name="text">
-             <string>TextLabel</string>
-            </property>
-           </widget>
-          </item>
           <item row="4" column="0">
            <widget class="QLabel" name="label_7">
             <property name="text">
@@ -167,7 +176,11 @@
            </widget>
           </item>
           <item row="7" column="1">
-           <layout class="QHBoxLayout" name="pilot_upgrade_slot_layout"/>
+           <layout class="QHBoxLayout" name="pilot_upgrade_slot_layout">
+            <property name="bottomMargin">
+             <number>0</number>
+            </property>
+           </layout>
           </item>
          </layout>
         </item>
@@ -182,6 +195,12 @@
       </item>
       <item>
        <widget class="QLabel" name="pilot_image_label">
+        <property name="maximumSize">
+         <size>
+          <width>1000</width>
+          <height>1000</height>
+         </size>
+        </property>
         <property name="text">
          <string>TextLabel</string>
         </property>
@@ -189,6 +208,12 @@
       </item>
       <item>
        <widget class="QLabel" name="upgrade_image_label">
+        <property name="maximumSize">
+         <size>
+          <width>1000</width>
+          <height>1000</height>
+         </size>
+        </property>
         <property name="text">
          <string>TextLabel</string>
         </property>

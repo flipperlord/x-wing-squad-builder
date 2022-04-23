@@ -125,7 +125,9 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.points_label.setText(f"{low} - {high}")
         self.ui.maneuver_image_label.setPixmap(image_path_to_qpixmap(self.maneuvers_dir / f"{ship_name}.png"))
         update_action_layout(self.ui.ship_action_layout, ship.actions, self.actions_dir)
+        update_action_layout(self.ui.pilot_action_layout, [], self.actions_dir)
         update_upgrade_slot_layout(self.ui.ship_upgrade_slot_layout, ship.upgrade_slots, self.upgrade_slots_dir)
+        update_upgrade_slot_layout(self.ui.pilot_upgrade_slot_layout, [], self.upgrade_slots_dir)
 
 
         # Populate the pilot list
@@ -133,16 +135,22 @@ class MainWindow(QtWidgets.QMainWindow):
         pilot_names = [f"({init}) {prettify_name(name)} ({cost})" for init, cost, name in ship.pilot_names_cost_initiative]
         populate_list_widget(pilot_names, self.ui.pilot_list_widget)
 
+        self.ui.upgrade_list_widget.clear()
+        self.ui.upgrade_image_label.clear()
+
     def update_pilot(self, item):
         pilot_name = get_pilot_name_from_list_item_text(item.text())
         pilot = self.xwing.get_pilot(self.faction_selected, self.ship_selected, pilot_name)
         update_action_layout(self.ui.pilot_action_layout, pilot.actions, self.actions_dir)
         update_upgrade_slot_layout(self.ui.pilot_upgrade_slot_layout, pilot.upgrade_slots, self.upgrade_slots_dir)
         self.ui.pilot_image_label.setPixmap(image_path_to_qpixmap(self.pilots_dir / f"{pilot_name}.jpg"))
-        populate_list_widget(self.xwing.upgrade_names, self.ui.upgrade_list_widget)
+
+        self.ui.upgrade_list_widget.clear()
+        upgrade_names = [prettify_name(name) for name in self.xwing.upgrade_names]
+        populate_list_widget(upgrade_names, self.ui.upgrade_list_widget)
 
     def update_upgrade(self, item):
-        upgrade_name = item.text().lower()
+        upgrade_name = gui_text_encode(item.text().lower())
         self.ui.upgrade_image_label.setPixmap(image_path_to_qpixmap(self.upgrades_dir / f"{upgrade_name}.jpg"))
 
     @property

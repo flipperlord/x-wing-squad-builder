@@ -122,3 +122,5 @@ tempCodeRunnerFile.py
 
 # Local test folder
 local_testing/
+
+*.ipynb
