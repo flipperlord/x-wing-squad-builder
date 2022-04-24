@@ -135,15 +135,21 @@ class DefinitionForm(QtWidgets.QDialog):
 
     @property
     def actions(self):
-        return self.parse_actions_and_colors(self.ui.actions_line_edit.text(), ACTIONS_)
+        actions_text = self.ui.actions_line_edit.text()
+        if actions_text:
+            return self.parse_actions_and_colors(actions_text, ACTIONS_)
+        return [], []
 
     @property
     def colors(self):
-        colors, color_links = self.parse_actions_and_colors(self.ui.colors_line_edit.text(), ACTION_COLORS)
-        actions, _ = self.actions
-        if len(colors) != len(actions):
-            return INVALID
-        return colors, color_links
+        colors_text = self.ui.colors_line_edit.text()
+        if colors_text:
+            colors, color_links = self.parse_actions_and_colors(self.ui.colors_line_edit.text(), ACTION_COLORS)
+            actions, _ = self.actions
+            if len(colors) != len(actions):
+                return INVALID
+            return colors, color_links
+        return [], []
 
     @property
     def combined_actions_and_colors(self) -> List[dict]:
@@ -177,7 +183,10 @@ class DefinitionForm(QtWidgets.QDialog):
 
     @property
     def upgrade_slots(self) -> Union[List[str], str]:
-        return self.parse_comma_separated_text(self.ui.upgrade_slots_line_edit.text(), UPGRADE_SLOTS_)
+        upgrade_slot_text = self.ui.upgrade_slots_line_edit.text()
+        if upgrade_slot_text:
+            return self.parse_comma_separated_text(self.ui.upgrade_slots_line_edit.text(), UPGRADE_SLOTS_)
+        return []
 
     @property
     def pilot_name(self) -> str:

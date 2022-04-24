@@ -31,8 +31,16 @@ class UpgradeForm(QtWidgets.QDialog):
         self.ui.upgrade_slot_line_edit.setText("bull, shit")
         self.ui.upgrade_cost_spinbox.setValue(-1)
 
+        self.ui.upgrade_cost_spinbox.valueChanged.connect(self.variable_cost_check)
+
         self.accepted.connect(self.handle_ok_pressed)
 
+
+    def variable_cost_check(self):
+        if self.ui.upgrade_cost_spinbox.value() == -1:
+            self.ui.variable_cost_frame.setVisible(True)
+        else:
+            self.ui.variable_cost_frame.setVisible(False)
 
     @property
     def ship_names(self) -> List[str]:
@@ -58,21 +66,29 @@ class UpgradeForm(QtWidgets.QDialog):
             return self.ui.upgrade_cost_spinbox.value()
         else:
             cost = {}
-            cost["attribute"], cost["attribute_list"] = self.variable_attribute_list
-            cost["cost_list"] = self.variable_costs
+            attribute, attribute_list = self.variable_attribute_list
+            cost["attribute"] = attribute
+            for attribute, val in zip(attribute_list, self.variable_costs):
+                cost[str(attribute)] = val
+            return cost
 
     @property
     def variable_costs(self):
-        cost_list = prettify_definition_form_entry(self.ui.variable_cost_line_edit.text())
-        if cost_list:
+        cost_text = self.ui.variable_cost_line_edit.text()
+        if cost_text:
+            cost_list = prettify_definition_form_entry(self.ui.variable_cost_line_edit.text())
             try:
                 cost_list = [int(val) for val in cost_list]
             except ValueError:
                 return INVALID
-            _, variable_list = self.variable_attribute_list
+            try:
+                _, variable_list = self.variable_attribute_list
+            except ValueError:
+                return INVALID
             if len(cost_list) != len(variable_list):
                 return INVALID
-        return cost_list
+            return cost_list
+        return []
 
     @property
     def variable_attribute_list(self):
@@ -177,6 +193,11 @@ class UpgradeForm(QtWidgets.QDialog):
         low, high = self.evaluate_attribute_range(self.ui.initiative_low_spinbox, self.ui.initiative_high_spinbox)
         return {"low": low, "high": high}
 
+    @property
+    def pilot_limit(self):
+        low, high = self.evaluate_attribute_range(self.ui.pilot_limit_low_spinbox, self.ui.pilot_limit_high_spinbox)
+        return {"low": low, "high": high}
+
     def attribute_entry_range(
                         self,
                         name: str,
@@ -268,8 +289,10 @@ class UpgradeForm(QtWidgets.QDialog):
     @property
     def other_equipped_upgrades(self):
         text = self.ui.other_equipped_upgrades_line_edit.text()
-        text_list = text.split(",")
-        return [item.strip().lower() for item in text_list]
+        if text:
+            text_list = prettify_definition_form_entry(text)
+            return text_list
+        return []
 
     @property
     def autoinclude(self):
@@ -278,6 +301,10 @@ class UpgradeForm(QtWidgets.QDialog):
     @property
     def epic(self):
         return str(self.ui.epic_checkbox.isChecked())
+
+    @property
+    def solitary(self):
+        return str(self.ui.solitary_checkbox.isChecked())
 
     @property
     def valid_entry(self):
@@ -325,9 +352,11 @@ class UpgradeForm(QtWidgets.QDialog):
             "cost": self.cost,
             "autoinclude": self.autoinclude,
             "epic": self.epic,
+            "solitary": self.solitary,
             "restrictions":{
                 "limit": self.limit,
                 "pilot_initiative": self.pilot_initiative,
+                "pilot_limit": self.pilot_limit,
                 "factions": self.factions,
                 "ships": self.ships,
                 "base_sizes": self.base_sizes,
