@@ -6,6 +6,11 @@ from typing import List, Optional
 from .utils import change_action_image_color, gui_text_encode
 from .model import Ship
 
+def treewidget_item_is_top_level(item: QtWidgets.QTreeWidgetItem):
+    if item.childCount() == 0:
+        return False
+    return True
+
 def image_path_to_qpixmap(image_path: Path, color=None) -> QtGui.QPixmap:
     if color is not None:
         qimage = change_action_image_color(image_path, color)
@@ -33,13 +38,13 @@ def create_image_label(item_name, item_color, item_dir):
 def update_action_layout(layout: QtWidgets.QLayout, action_list, action_dir: Path):
     clear_ship_layout(layout)
     for action_item in action_list:
-        image_label = create_image_label(action_item.action, action_item.color, action_dir)
+        image_label = create_image_label(action_item.get("action"), action_item.get("color"), action_dir)
         layout.addWidget(image_label)
-        if action_item.action_link is not None:
+        if action_item.get("action_link") is not None:
             arrow_label = QtWidgets.QLabel()
             arrow_label.setText(">")
             layout.addWidget(arrow_label)
-            image_label = create_image_label(action_item.action_link, action_item.color_link, action_dir)
+            image_label = create_image_label(action_item.get("action_link"), action_item.get("color_link"), action_dir)
             layout.addWidget(image_label)
     spacer = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
     layout.addItem(spacer)

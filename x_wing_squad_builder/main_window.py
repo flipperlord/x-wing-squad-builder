@@ -13,9 +13,9 @@ from .ui.main_window_ui import Ui_MainWindow
 from .about_window import AboutWindow
 from .settings_window import SettingsWindow
 
-from .model import XWing, Faction, Ship
+from .model import XWing, Faction, Ship, PilotEquip, Squad
 from .utils_pyside import (image_path_to_qpixmap, populate_list_widget, update_action_layout,
-                           update_upgrade_slot_layout)
+                           update_upgrade_slot_layout, treewidget_item_is_top_level)
 from .utils import prettify_name, gui_text_encode, get_pilot_name_from_list_item_text, get_upgrade_name_from_list_item_text
 
 from pathlib import Path
@@ -72,6 +72,18 @@ class MainWindow(QtWidgets.QMainWindow):
         # Initialize Factions
         self.file_path = self.data_dir / "definition.json"
 
+        # Initialize widgets
+        self.ui.ship_name_label.clear()
+        self.ui.base_label.clear()
+        self.ui.initiative_label.clear()
+        self.ui.points_label.clear()
+        self.ui.maneuver_image_label.clear()
+        self.ui.pilot_image_label.clear()
+        self.ui.upgrade_image_label.clear()
+        self.ui.total_pilot_cost_label.clear()
+        self.ui.total_upgrade_cost.clear()
+        self.ui.total_cost_label.clear()
+
         # Set up definition form for adding to definition file.
         self.definition_form = DefinitionForm(self.file_path)
         self.ui.action_definition_form.triggered.connect(self.definition_form.show)
@@ -84,9 +96,64 @@ class MainWindow(QtWidgets.QMainWindow):
 
         self.ui.action_reload_data.triggered.connect(self.reload_data)
 
+        self.ui.equip_pilot_push_button.clicked.connect(self.equip_pilot)
+        self.ui.unequip_pilot_push_button.clicked.connect(self.unequip_pilot)
+        self.ui.squad_tree_widget.itemClicked.connect(self.handle_squad_click)
+
+        self.squad = Squad()
+
         self.reload_data()
 
         self.showMaximized()
+
+
+    def handle_squad_click(self, item, column):
+        if treewidget_item_is_top_level(item):
+            pilot_data = self.squad.get_pilot_data(item)
+            # logging.info(pilot_data.data)
+
+    def equip_pilot(self):
+        faction_name = self.faction_selected
+        ship_name = self.ship_selected_encoded
+        pilot = self.xwing.get_pilot(faction_name, ship_name, self.pilot_name_selected)
+        ship = self.xwing.get_ship(faction_name, ship_name)
+        pilot_data = PilotEquip(ship, pilot)
+        item = QtWidgets.QTreeWidgetItem([self.pilot_selected_decoded])
+        for slot in pilot_data.upgrade_slots:
+            child = QtWidgets.QTreeWidgetItem([prettify_name(slot), "Not equipped"])
+            pixmap = image_path_to_qpixmap(self.upgrade_slots_dir / f"{slot}.png")
+            child.setIcon(0, pixmap)
+            item.addChild(child)
+
+        self.squad.add_pilot(item, pilot_data)
+        self.ui.squad_tree_widget.insertTopLevelItem(self.squad_tree_bottom_index, item)
+        self.ui.squad_tree_widget.resizeColumnToContents(0)
+        self.update_costs()
+
+    def unequip_pilot(self):
+        top_level_idx = self.ui.squad_tree_widget.indexOfTopLevelItem(self.squad_tree_selection)
+        item = self.ui.squad_tree_widget.takeTopLevelItem(top_level_idx)
+        self.squad.remove_pilot(item)
+        self.update_costs()
+
+    def update_costs(self):
+        self.ui.total_pilot_cost_label.setText(str(self.total_pilot_cost))
+
+    @property
+    def total_pilot_cost(self):
+        total = 0
+        for _, v in self.squad.squad_dict.items():
+            total += v.cost
+        return total
+
+    @property
+    def squad_tree_bottom_index(self):
+        return self.ui.squad_tree_widget.topLevelItemCount()
+
+    @property
+    def squad_tree_selection(self):
+        return self.ui.squad_tree_widget.selectedItems()[0]
+
 
 
     def handle_new_upgrade_data(self, data):
@@ -101,7 +168,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.pilot_list_widget.clear()
         self.ui.faction_list_widget.clear()
         self.xwing = XWing.launch_xwing_data(self.file_path)
-        faction_names = [prettify_name(faction) for faction in self.xwing.factions]
+        faction_names = [prettify_name(faction) for faction in self.xwing.faction_names]
         populate_list_widget(faction_names, self.ui.faction_list_widget, self.factions_dir)
 
 
@@ -140,9 +207,9 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def update_pilot(self, item):
         pilot_name = get_pilot_name_from_list_item_text(item.text())
-        pilot = self.xwing.get_pilot(self.faction_selected, self.ship_selected, pilot_name)
-        update_action_layout(self.ui.pilot_action_layout, pilot.actions, self.actions_dir)
-        update_upgrade_slot_layout(self.ui.pilot_upgrade_slot_layout, pilot.upgrade_slots, self.upgrade_slots_dir)
+        pilot = self.xwing.get_pilot(self.faction_selected, self.ship_selected_encoded, pilot_name)
+        update_action_layout(self.ui.pilot_action_layout, pilot["actions"], self.actions_dir)
+        update_upgrade_slot_layout(self.ui.pilot_upgrade_slot_layout, pilot["upgrade_slots"], self.upgrade_slots_dir)
         self.ui.pilot_image_label.setPixmap(image_path_to_qpixmap(self.pilots_dir / f"{pilot_name}.jpg"))
 
         self.ui.upgrade_list_widget.clear()
@@ -158,12 +225,20 @@ class MainWindow(QtWidgets.QMainWindow):
         return self.ui.faction_list_widget.selectedItems()[0].text().lower()
 
     @property
-    def ship_selected(self) -> str:
+    def ship_selected_encoded(self) -> str:
         return gui_text_encode(self.ui.ship_list_widget.selectedItems()[0].text())
 
     @property
-    def pilot_selected(self) -> str:
-        return gui_text_encode(self.ui.pilot_list_widget.selectedItems()[0].text())
+    def pilot_selected_encoded(self) -> str:
+        return gui_text_encode(self.pilot_selected_decoded)
+
+    @property
+    def pilot_selected_decoded(self) -> str:
+        return self.ui.pilot_list_widget.selectedItems()[0].text()
+
+    @property
+    def pilot_name_selected(self) -> str:
+        return get_pilot_name_from_list_item_text(self.ui.pilot_list_widget.selectedItems()[0].text())
 
     @property
     def data_dir(self) -> Path:

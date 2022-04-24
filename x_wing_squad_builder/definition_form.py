@@ -11,6 +11,8 @@ from pathlib import Path
 
 from typing import List, Optional, Union
 
+from enum import Enum
+
 
 class DefinitionForm(QtWidgets.QDialog):
     update_signal = QtCore.Signal()
@@ -289,7 +291,7 @@ class DefinitionForm(QtWidgets.QDialog):
     def evaluate_attributes(self, name, base_spinbox, recharge_spinbox, decharge_spinbox):
         return {name: self.evaluate_none_spinbox(base_spinbox),
                 "recharge": self.evaluate_none_spinbox(recharge_spinbox),
-                "dicharge": self.evaluate_none_spinbox(decharge_spinbox)}
+                "decharge": self.evaluate_none_spinbox(decharge_spinbox)}
     @property
     def pilot_shield(self) -> dict:
         return self.evaluate_attributes("shield", self.ui.pilot_shield_spinbox, self.ui.pilot_shield_recharge_spinbox, self.ui.pilot_shield_decharge_spinbox)
@@ -455,7 +457,7 @@ class DefinitionForm(QtWidgets.QDialog):
         self.xwing = XWing.launch_xwing_data(self.data_filepath)
         entry = self.data_entry_template()
         new_faction_name = entry['name']
-        if new_faction_name in self.xwing.factions:
+        if new_faction_name in self.xwing.faction_names:
             new_ship_name = entry['ship']['name']
             current_ship_data = self.xwing.get_ship(new_faction_name, new_ship_name)
             if current_ship_data:

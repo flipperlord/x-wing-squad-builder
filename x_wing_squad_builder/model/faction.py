@@ -1,5 +1,3 @@
-from types import SimpleNamespace
-
 from typing import List, Tuple, Optional
 from .ship import Ship
 
@@ -17,7 +15,7 @@ class Faction:
 
     @property
     def faction_ships(self) -> List[Ship]:
-        return [Ship(self.faction_name, ship.__dict__) for ship in self.faction_data['ships']]
+        return [Ship(self.faction_name, ship) for ship in self.faction_data['ships']]
 
     def get_ship(self, ship_name: str) -> Optional[Ship]:
         for ship in self.faction_ships:

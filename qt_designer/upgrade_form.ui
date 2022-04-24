@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>417</width>
-    <height>650</height>
+    <width>560</width>
+    <height>680</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -86,8 +86,17 @@
        </item>
        <item>
         <widget class="QSpinBox" name="upgrade_cost_spinbox">
+         <property name="specialValueText">
+          <string>variable</string>
+         </property>
+         <property name="minimum">
+          <number>-1</number>
+         </property>
          <property name="maximum">
           <number>9999</number>
+         </property>
+         <property name="value">
+          <number>-1</number>
          </property>
         </widget>
        </item>
@@ -115,12 +124,69 @@
            <item>
             <widget class="QLabel" name="label_26">
              <property name="text">
-              <string>Limit:</string>
+              <string>Upgrade Limit:</string>
              </property>
             </widget>
            </item>
            <item>
             <widget class="QSpinBox" name="upgrade_limit_spinbox"/>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_36">
+           <item>
+            <widget class="QLabel" name="label_50">
+             <property name="text">
+              <string>Pilot Limit:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="horizontalSpacer_7">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QSpinBox" name="pilot_limit_low_spinbox">
+             <property name="specialValueText">
+              <string>none</string>
+             </property>
+             <property name="minimum">
+              <number>-1</number>
+             </property>
+             <property name="value">
+              <number>-1</number>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_51">
+             <property name="text">
+              <string>to</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QSpinBox" name="pilot_limit_high_spinbox">
+             <property name="specialValueText">
+              <string>none</string>
+             </property>
+             <property name="minimum">
+              <number>-1</number>
+             </property>
+             <property name="value">
+              <number>-1</number>
+             </property>
+            </widget>
            </item>
           </layout>
          </item>
@@ -355,6 +421,172 @@
               </size>
              </property>
             </spacer>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_31">
+           <item>
+            <widget class="QCheckBox" name="epic_checkbox">
+             <property name="layoutDirection">
+              <enum>Qt::RightToLeft</enum>
+             </property>
+             <property name="text">
+              <string>Epic</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="horizontalSpacer_4">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_35">
+           <item>
+            <widget class="QCheckBox" name="solitary_checkbox">
+             <property name="layoutDirection">
+              <enum>Qt::RightToLeft</enum>
+             </property>
+             <property name="text">
+              <string>Solitary</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="horizontalSpacer_6">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_39">
+           <property name="font">
+            <font>
+             <pointsize>9</pointsize>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>Variable Cost</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_32">
+           <item>
+            <widget class="QCheckBox" name="variable_agility_checkbox">
+             <property name="layoutDirection">
+              <enum>Qt::RightToLeft</enum>
+             </property>
+             <property name="text">
+              <string>Agility</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="variable_base_checkbox">
+             <property name="layoutDirection">
+              <enum>Qt::RightToLeft</enum>
+             </property>
+             <property name="text">
+              <string>Base</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="variable_initiative_checkbox">
+             <property name="layoutDirection">
+              <enum>Qt::RightToLeft</enum>
+             </property>
+             <property name="text">
+              <string>Initiative</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="variable_attack_checkbox">
+             <property name="layoutDirection">
+              <enum>Qt::RightToLeft</enum>
+             </property>
+             <property name="text">
+              <string>Attack (Highest)</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="horizontalSpacer_5">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_33">
+           <item>
+            <widget class="QLabel" name="label_48">
+             <property name="text">
+              <string>Attribute Value:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="variable_attribute_line_edit">
+             <property name="text">
+              <string/>
+             </property>
+             <property name="placeholderText">
+              <string/>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_34">
+           <item>
+            <widget class="QLabel" name="label_49">
+             <property name="text">
+              <string>Cost:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="variable_cost_line_edit">
+             <property name="text">
+              <string/>
+             </property>
+             <property name="placeholderText">
+              <string/>
+             </property>
+            </widget>
            </item>
           </layout>
          </item>

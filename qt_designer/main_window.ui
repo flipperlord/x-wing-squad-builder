@@ -18,9 +18,9 @@
     <normaloff>:/images/icon.png</normaloff>:/images/icon.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QGridLayout" name="gridLayout">
+   <layout class="QGridLayout" name="gridLayout" rowstretch="6,5,0">
     <item row="0" column="0">
-     <layout class="QHBoxLayout" name="data_view_layout" stretch="0,0,0,0">
+     <layout class="QHBoxLayout" name="data_view_layout" stretch="0,0,0,0,0,0">
       <item>
        <widget class="QListWidget" name="faction_list_widget">
         <property name="toolTip">
@@ -56,6 +56,64 @@
         <property name="modelColumn">
          <number>0</number>
         </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <spacer name="verticalSpacer">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QPushButton" name="equip_pilot_push_button">
+          <property name="text">
+           <string>Equip Pilot</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="unequip_pilot_push_button">
+          <property name="text">
+           <string>Unequip Pilot</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="verticalSpacer_2">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QTreeWidget" name="squad_tree_widget">
+        <column>
+         <property name="text">
+          <string>Squad</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Upgrade</string>
+         </property>
+        </column>
        </widget>
       </item>
       <item>
@@ -192,6 +250,19 @@ Upgrade Name (Cost)</string>
           </property>
          </widget>
         </item>
+        <item>
+         <spacer name="verticalSpacer_4">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
        </layout>
       </item>
       <item>
@@ -232,6 +303,77 @@ Upgrade Name (Cost)</string>
          </size>
         </property>
        </spacer>
+      </item>
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <item>
+           <widget class="QLabel" name="label">
+            <property name="text">
+             <string>Pilot Cost:</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="total_pilot_cost_label">
+            <property name="text">
+             <string>pilot_cost</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_3">
+          <item>
+           <widget class="QLabel" name="label_2">
+            <property name="text">
+             <string>Upgrade Cost:</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="total_upgrade_cost">
+            <property name="text">
+             <string>upgrade_cost</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_4">
+          <item>
+           <widget class="QLabel" name="label_3">
+            <property name="text">
+             <string>Total Cost:</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="total_cost_label">
+            <property name="text">
+             <string>total_cost</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <spacer name="verticalSpacer_3">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
       </item>
      </layout>
     </item>

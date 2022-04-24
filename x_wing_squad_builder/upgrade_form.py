@@ -1,3 +1,4 @@
+from multiprocessing.sharedctypes import Value
 from PySide6 import QtWidgets, QtCore, QtGui
 from .ui.upgrade_form_ui import Ui_UpgradeForm
 
@@ -28,7 +29,7 @@ class UpgradeForm(QtWidgets.QDialog):
 
         self.ui.upgrade_name_line_edit.setText("pikachu's tractor beam")
         self.ui.upgrade_slot_line_edit.setText("bull, shit")
-        self.ui.upgrade_cost_spinbox.setValue(1337)
+        self.ui.upgrade_cost_spinbox.setValue(-1)
 
         self.accepted.connect(self.handle_ok_pressed)
 
@@ -52,8 +53,55 @@ class UpgradeForm(QtWidgets.QDialog):
         return upgrade_slot_list
 
     @property
-    def cost(self) -> int:
-        return self.ui.upgrade_cost_spinbox.value()
+    def cost(self):
+        if self.ui.upgrade_cost_spinbox.value() > -1:
+            return self.ui.upgrade_cost_spinbox.value()
+        else:
+            cost = {}
+            cost["attribute"], cost["attribute_list"] = self.variable_attribute_list
+            cost["cost_list"] = self.variable_costs
+
+    @property
+    def variable_costs(self):
+        cost_list = prettify_definition_form_entry(self.ui.variable_cost_line_edit.text())
+        if cost_list:
+            try:
+                cost_list = [int(val) for val in cost_list]
+            except ValueError:
+                return INVALID
+            _, variable_list = self.variable_attribute_list
+            if len(cost_list) != len(variable_list):
+                return INVALID
+        return cost_list
+
+    @property
+    def variable_attribute_list(self):
+        variable_list = self.ui.variable_attribute_line_edit.text()
+        if variable_list:
+            if self.ui.variable_agility_checkbox.isChecked():
+                attribute = "agility"
+                restrictions = [str(i) for i in range(100)]
+            elif self.ui.variable_attack_checkbox.isChecked():
+                attribute = "attacks"
+                restrictions = [str(i) for i in range(100)]
+            elif self.ui.variable_base_checkbox.isChecked():
+                attribute = "base"
+                restrictions = BASE_SIZES
+            else:
+                attribute = "initiative"
+                restrictions = [str(i) for i in range(100)]
+            variable_list = DefinitionForm.parse_comma_separated_text(variable_list, restrictions)
+            if variable_list == INVALID:
+                return INVALID
+            if attribute in ["agility", "attacks", "initiative"]:
+                try:
+                    variable_list = [int(val) for val in variable_list]
+                except ValueError:
+                    return INVALID
+            return attribute, variable_list
+
+        else:
+            return (None, [])
 
     @property
     def limit(self) -> int:
@@ -228,6 +276,10 @@ class UpgradeForm(QtWidgets.QDialog):
         return str(self.ui.autoinclude_checkbox.isChecked())
 
     @property
+    def epic(self):
+        return str(self.ui.epic_checkbox.isChecked())
+
+    @property
     def valid_entry(self):
         valid = True
         if not self.upgrade_name:
@@ -257,6 +309,12 @@ class UpgradeForm(QtWidgets.QDialog):
         if self.traits == INVALID:
             logging.info(f"Keywords must either be empty, or one of the following: {KEYWORDS}")
             valid = False
+        if self.variable_costs == INVALID:
+            logging.info(f"There was a problem with the variable cost entry.")
+            valid = False
+        if self.variable_attribute_list == INVALID:
+            logging.info(f"There was a problem with the variable cost attribute entry.")
+            valid = False
 
         return valid
 
@@ -266,6 +324,7 @@ class UpgradeForm(QtWidgets.QDialog):
             "upgrade_slot_types": self.upgrade_slot_types,
             "cost": self.cost,
             "autoinclude": self.autoinclude,
+            "epic": self.epic,
             "restrictions":{
                 "limit": self.limit,
                 "pilot_initiative": self.pilot_initiative,
