@@ -17,16 +17,6 @@ class XWing:
     def upgrades(self):
         return self.data["upgrades"]
 
-    @property
-    def upgrade_names(self):
-        return [upgrade["name"] for upgrade in self.upgrades]
-
-    @property
-    def upgrade_name_cost(self):
-        arr = [(upgrade["name"], upgrade["cost"]) for upgrade in self.upgrades]
-        arr = sorted(arr, key= lambda x: (x[1], x[0]))
-        return arr
-
     def get_faction(self, faction_name: str) -> Faction:
         for i, test_faction in enumerate(self.data["factions"]):
             if faction_name == test_faction["name"]:

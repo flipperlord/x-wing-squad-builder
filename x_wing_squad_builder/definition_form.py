@@ -317,6 +317,9 @@ class DefinitionForm(QtWidgets.QDialog):
     def pilot_charge(self) -> dict:
         return self.evaluate_attributes("charge", self.ui.pilot_charge_spinbox, self.ui.pilot_charge_recharge_spinbox, self.ui.pilot_charge_decharge_spinbox)
 
+    @property
+    def epic(self):
+        return str(self.ui.epic_checkbox.isChecked())
 
     @property
     def valid_entry(self):
@@ -389,6 +392,7 @@ class DefinitionForm(QtWidgets.QDialog):
                     ],
                     "actions": self.combined_actions_and_colors,
                     "upgrade_slots": self.upgrade_slots,
+                    "epic": self.epic,
                     "pilots": []
                 },
             "pilot":

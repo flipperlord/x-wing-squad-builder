@@ -13,7 +13,8 @@ from .ui.main_window_ui import Ui_MainWindow
 from .about_window import AboutWindow
 from .settings_window import SettingsWindow
 
-from .model import XWing, Faction, Ship, PilotEquip, Squad
+from .model import XWing, Faction, Ship, PilotEquip, Squad, Upgrades
+
 from .utils_pyside import (image_path_to_qpixmap, populate_list_widget, update_action_layout,
                            update_upgrade_slot_layout, treewidget_item_is_top_level)
 from .utils import prettify_name, gui_text_encode, get_pilot_name_from_list_item_text, get_upgrade_name_from_list_item_text
@@ -167,9 +168,12 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.ship_list_widget.clear()
         self.ui.pilot_list_widget.clear()
         self.ui.faction_list_widget.clear()
+        self.ui.upgrade_list_widget.clear()
         self.xwing = XWing.launch_xwing_data(self.file_path)
+        self.upgrades = Upgrades(self.xwing.upgrades)
         faction_names = [prettify_name(faction) for faction in self.xwing.faction_names]
         populate_list_widget(faction_names, self.ui.faction_list_widget, self.factions_dir)
+        populate_list_widget(self.upgrades.all_upgrades_for_gui, self.ui.upgrade_list_widget)
 
 
     def update_faction(self, item):
@@ -202,9 +206,6 @@ class MainWindow(QtWidgets.QMainWindow):
         pilot_names = [f"({init}) {prettify_name(name)} ({cost})" for init, cost, name in ship.pilot_names_cost_initiative]
         populate_list_widget(pilot_names, self.ui.pilot_list_widget)
 
-        self.ui.upgrade_list_widget.clear()
-        self.ui.upgrade_image_label.clear()
-
     def update_pilot(self, item):
         pilot_name = get_pilot_name_from_list_item_text(item.text())
         pilot = self.xwing.get_pilot(self.faction_selected, self.ship_selected_encoded, pilot_name)
@@ -213,8 +214,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.pilot_image_label.setPixmap(image_path_to_qpixmap(self.pilots_dir / f"{pilot_name}.jpg"))
 
         self.ui.upgrade_list_widget.clear()
-        upgrade_names = [f"{prettify_name(name)} ({cost})" for name, cost in self.xwing.upgrade_name_cost]
-        populate_list_widget(upgrade_names, self.ui.upgrade_list_widget)
+        populate_list_widget(self.upgrades.all_upgrades_for_gui, self.ui.upgrade_list_widget)
 
     def update_upgrade(self, item):
         upgrade_name = get_upgrade_name_from_list_item_text(item.text())
