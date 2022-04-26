@@ -17,6 +17,7 @@ from typing import List, Optional, Union
 from .model.constants import BASE_SIZES, ARC_TYPES_, ACTION_COLORS, ACTIONS_, UPGRADE_SLOTS_, FACTION_NAMES, KEYWORDS, INVALID
 
 
+
 class UpgradeForm(QtWidgets.QDialog):
     update_signal = QtCore.Signal(dict)
     def __init__(self, data_filepath: Path, parent=None):

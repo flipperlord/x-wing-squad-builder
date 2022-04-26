@@ -1,6 +1,5 @@
-from types import SimpleNamespace
-
 from typing import List, Tuple
+from ..utils import prettify_name
 
 class Ship:
     def __init__(self, faction_name: str, ship_data: dict):
@@ -44,6 +43,10 @@ class Ship:
         arr_1 = sorted(arr_1, key= lambda x: (x[0], x[1], x[2]))
         arr = arr_0 + arr_1
         return arr
+
+    @property
+    def pilot_names_for_gui(self):
+        return [f"({init}) {prettify_name(name)} ({cost})" for init, cost, name in self.pilot_names_cost_initiative]
 
     @property
     def initiative_list(self) -> List[int]:

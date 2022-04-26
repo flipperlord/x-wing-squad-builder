@@ -3,11 +3,16 @@ from types import SimpleNamespace
 
 from enum import Enum
 
+import logging
+
+from typing import List, Dict
+
 class PilotEquip:
     def __init__(self, ship: Ship, pilot: SimpleNamespace):
         self.ship = ship
         self.pilot = pilot
         self.data = self.__synthesize_ship_and_pilot()
+        self.__filtered_upgrades = []
 
     def __synthesize_ship_and_pilot(self):
         d = {}
@@ -24,6 +29,43 @@ class PilotEquip:
         d["keywords"] = self.pilot["keywords"]
         return d
 
+    @property
+    def filtered_upgrades(self):
+        return self.__filtered_upgrades
+
+    @filtered_upgrades.setter
+    def filtered_upgrades(self, val: List[Dict]):
+        self.__filtered_upgrades = val
+
+    @property
+    def base_size(self):
+        return self.data.get("base")
+
+    @property
+    def faction_name(self):
+        return self.data.get("faction_name")
+
+    @property
+    def ship_name(self):
+        return self.data.get("ship_name")
+
+    @property
+    def statistics(self):
+        return self.data.get("statistics")
+
+    @property
+    def keywords(self):
+        return self.data.get("keywords")
+
+    @property
+    def arc_types(self) -> list:
+        return [attack.get("arc_type") for attack in self.attacks]
+
+    @property
+    def attacks(self):
+        attacks = self.get_statistic(self.statistics, "attacks")
+        return attacks.get("attacks")
+
     @staticmethod
     def get_statistic(statistics_list, statistic_name):
         for statistic in statistics_list:
@@ -31,6 +73,16 @@ class PilotEquip:
             if name == statistic_name:
                 return statistic
         return None
+
+    def get_attribute(self, attribute):
+        if (attribute == "base") or (attribute == "initiative"):
+            return self.data.get(attribute)
+        elif attribute == "agility":
+            statistic = self.get_statistic(self.statistics, attribute)
+            return statistic.get(attribute)
+        else:
+            max_attack = max([attack.get("attack") for attack in self.attacks])
+            return max_attack
 
     def __combine_statistics(self):
         ship_statistics = self.ship.statistics

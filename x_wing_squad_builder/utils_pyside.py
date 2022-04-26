@@ -28,6 +28,7 @@ def populate_list_widget(arr: List[str], list_widget: QtWidgets.QListWidget, ima
             list_widget_item.setIcon(pixmap)
         list_widget.addItem(list_widget_item)
 
+
 def create_image_label(item_name, item_color, item_dir):
     """Creates an image QLabel to insert into a layout.  The color should be set to None if not color manipulation is needed."""
     image_label = QtWidgets.QLabel()

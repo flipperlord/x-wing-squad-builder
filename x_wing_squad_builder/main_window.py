@@ -108,10 +108,27 @@ class MainWindow(QtWidgets.QMainWindow):
         self.showMaximized()
 
 
-    def handle_squad_click(self, item, column):
+    def reload_data(self):
+        self.definition_form.load_data()
+        self.ui.ship_list_widget.clear()
+        self.ui.pilot_list_widget.clear()
+        self.ui.faction_list_widget.clear()
+        self.ui.upgrade_list_widget.clear()
+        self.xwing = XWing.launch_xwing_data(self.file_path)
+        self.upgrades = Upgrades(self.xwing.upgrades)
+        faction_names = [prettify_name(faction) for faction in self.xwing.faction_names]
+        populate_list_widget(faction_names, self.ui.faction_list_widget, self.factions_dir)
+        populate_list_widget(self.upgrades.all_upgrades_for_gui, self.ui.upgrade_list_widget)
+
+    def handle_squad_click(self, item: QtWidgets.QTreeWidgetItem, column):
+        pilot_name = get_pilot_name_from_list_item_text(item.text(0))
+        self.pilot_image_label = pilot_name
+        self.ui.upgrade_list_widget.clear()
+        self.ui.pilot_image_label.setPixmap
         if treewidget_item_is_top_level(item):
             pilot_data = self.squad.get_pilot_data(item)
-            # logging.info(pilot_data.data)
+            populate_list_widget(self.upgrades.filtered_upgrades_for_gui(pilot_data.filtered_upgrades), self.ui.upgrade_list_widget)
+
 
     def equip_pilot(self):
         faction_name = self.faction_selected
@@ -119,9 +136,10 @@ class MainWindow(QtWidgets.QMainWindow):
         pilot = self.xwing.get_pilot(faction_name, ship_name, self.pilot_name_selected)
         ship = self.xwing.get_ship(faction_name, ship_name)
         pilot_data = PilotEquip(ship, pilot)
+        pilot_data.filtered_upgrades = self.upgrades.filtered_upgrades_by_pilot(pilot_data)
         item = QtWidgets.QTreeWidgetItem([self.pilot_selected_decoded])
         for slot in pilot_data.upgrade_slots:
-            child = QtWidgets.QTreeWidgetItem([prettify_name(slot), "Not equipped"])
+            child = QtWidgets.QTreeWidgetItem([prettify_name(slot)])
             pixmap = image_path_to_qpixmap(self.upgrade_slots_dir / f"{slot}.png")
             child.setIcon(0, pixmap)
             item.addChild(child)
@@ -163,26 +181,12 @@ class MainWindow(QtWidgets.QMainWindow):
             self.upgrade_form.show()
         self.reload_data()
 
-    def reload_data(self):
-        self.definition_form.load_data()
-        self.ui.ship_list_widget.clear()
-        self.ui.pilot_list_widget.clear()
-        self.ui.faction_list_widget.clear()
-        self.ui.upgrade_list_widget.clear()
-        self.xwing = XWing.launch_xwing_data(self.file_path)
-        self.upgrades = Upgrades(self.xwing.upgrades)
-        faction_names = [prettify_name(faction) for faction in self.xwing.faction_names]
-        populate_list_widget(faction_names, self.ui.faction_list_widget, self.factions_dir)
-        populate_list_widget(self.upgrades.all_upgrades_for_gui, self.ui.upgrade_list_widget)
-
-
     def update_faction(self, item):
         self.ui.ship_list_widget.clear()
         self.ui.pilot_list_widget.clear()
         faction_name = item.text().lower()
         faction = self.xwing.get_faction(faction_name)
-        ship_names = sorted([prettify_name(ship.ship_name) for ship in faction.faction_ships])
-        populate_list_widget(ship_names, self.ui.ship_list_widget, self.ship_icons_dir)
+        populate_list_widget(faction.ship_names_for_gui, self.ui.ship_list_widget, self.ship_icons_dir)
 
     def update_ship(self, item):
         self.ui.pilot_image_label.clear()
@@ -203,15 +207,22 @@ class MainWindow(QtWidgets.QMainWindow):
 
         # Populate the pilot list
         self.ui.pilot_list_widget.clear()
-        pilot_names = [f"({init}) {prettify_name(name)} ({cost})" for init, cost, name in ship.pilot_names_cost_initiative]
-        populate_list_widget(pilot_names, self.ui.pilot_list_widget)
+        populate_list_widget(ship.pilot_names_for_gui, self.ui.pilot_list_widget)
+
+    @property
+    def pilot_image_label(self):
+        return self.ui.pilot_image_label
+
+    @pilot_image_label.setter
+    def pilot_image_label(self, pilot_name: str):
+        self.pilot_image_label.setPixmap(image_path_to_qpixmap(self.pilots_dir / f"{pilot_name}.jpg"))
 
     def update_pilot(self, item):
         pilot_name = get_pilot_name_from_list_item_text(item.text())
+        self.pilot_image_label = pilot_name
         pilot = self.xwing.get_pilot(self.faction_selected, self.ship_selected_encoded, pilot_name)
         update_action_layout(self.ui.pilot_action_layout, pilot["actions"], self.actions_dir)
         update_upgrade_slot_layout(self.ui.pilot_upgrade_slot_layout, pilot["upgrade_slots"], self.upgrade_slots_dir)
-        self.ui.pilot_image_label.setPixmap(image_path_to_qpixmap(self.pilots_dir / f"{pilot_name}.jpg"))
 
         self.ui.upgrade_list_widget.clear()
         populate_list_widget(self.upgrades.all_upgrades_for_gui, self.ui.upgrade_list_widget)
