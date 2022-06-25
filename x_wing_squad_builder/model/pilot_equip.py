@@ -1,18 +1,20 @@
 from .ship import Ship
 from types import SimpleNamespace
 
-from enum import Enum
-
-import logging
-
 from typing import List, Dict
+
+from collections import namedtuple, Counter
+
+Upgrade = namedtuple('Upgrade', ['slot', 'name', 'cost'])
 
 class PilotEquip:
     def __init__(self, ship: Ship, pilot: SimpleNamespace):
         self.ship = ship
         self.pilot = pilot
-        self.data = self.__synthesize_ship_and_pilot()
         self.__filtered_upgrades = []
+        self.__equipped_upgrades = []
+
+        self.data = self.__synthesize_ship_and_pilot()
 
     def __synthesize_ship_and_pilot(self):
         d = {}
@@ -27,10 +29,14 @@ class PilotEquip:
         d["initiative"] = self.pilot["initiative"]
         d["cost"] = self.pilot["cost"]
         d["keywords"] = self.pilot["keywords"]
+
         return d
 
     @property
     def filtered_upgrades(self):
+        """
+        These are calculated when a pilot is equipped.
+        """
         return self.__filtered_upgrades
 
     @filtered_upgrades.setter
@@ -48,6 +54,10 @@ class PilotEquip:
     @property
     def ship_name(self):
         return self.data.get("ship_name")
+
+    @property
+    def pilot_name(self):
+        return self.data.get("pilot_name")
 
     @property
     def statistics(self):
@@ -85,7 +95,7 @@ class PilotEquip:
             return max_attack
 
     def __combine_statistics(self):
-        ship_statistics = self.ship.statistics
+        ship_statistics = self.ship.statistics.copy()
         pilot_statistics = self.pilot["statistics"]
         combined = []
         for statistic in pilot_statistics:
@@ -112,14 +122,14 @@ class PilotEquip:
 
     def __combine_actions(self):
         """For actions, we take all the ship actions, and see if any additional pilot actions are specified."""
-        combined = self.ship.actions
+        combined = self.ship.actions.copy()
         pilot_actions = self.pilot.get("actions")
         for action in pilot_actions:
                 combined.append(action)
         return combined
 
     def __combine_upgrade_slots(self):
-        combined = self.ship.upgrade_slots
+        combined = self.ship.upgrade_slots.copy()
         pilot_slots = self.pilot.get("upgrade_slots")
         for slot in pilot_slots:
             combined.append(slot)
@@ -132,6 +142,34 @@ class PilotEquip:
     @property
     def cost(self):
         return self.data.get("cost")
+
+    @property
+    def equipped_upgrades(self) -> List[Upgrade]:
+        return self.__equipped_upgrades
+
+    @property
+    def available_upgrade_slots(self) -> Counter:
+        """Returns all remaining upgrade slots available for an equipped pilot."""
+        upgrade_slots = self.upgrade_slots.copy()
+        for upgrade in self.equipped_upgrades:
+            upgrade_slots.pop(upgrade.slot)
+        return Counter(upgrade_slots)
+
+    def n_slots_available(self, upgrade_slot: str) -> int:
+        """Returns the number of slots available for a given upgrade slot type"""
+        return self.available_upgrade_slots[upgrade_slot]
+
+    def slots_are_available(self, upgrade_slots: List[str]) -> bool:
+        slot_counts = Counter(upgrade_slots)
+        for slot in slot_counts:
+            if slot_counts[slot] > self.n_slots_available(slot):
+                return False
+        return True
+
+
+    def equip_upgrade(self, upgrade_slot: str, upgrade_name: str, upgrade_cost: int):
+        self.__equipped_upgrades.append(Upgrade(upgrade_slot, upgrade_name, upgrade_cost))
+
 
 
 

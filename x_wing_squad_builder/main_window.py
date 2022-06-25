@@ -17,7 +17,7 @@ from .model import XWing, Faction, Ship, PilotEquip, Squad, Upgrades
 
 from .utils_pyside import (image_path_to_qpixmap, populate_list_widget, update_action_layout,
                            update_upgrade_slot_layout, treewidget_item_is_top_level)
-from .utils import prettify_name, gui_text_encode, get_pilot_name_from_list_item_text, get_upgrade_name_from_list_item_text
+from .utils import get_upgrade_slot_from_list_item_text, prettify_name, gui_text_encode, get_pilot_name_from_list_item_text, get_upgrade_name_from_list_item_text
 
 from pathlib import Path
 
@@ -121,16 +121,26 @@ class MainWindow(QtWidgets.QMainWindow):
         populate_list_widget(self.upgrades.all_upgrades_for_gui, self.ui.upgrade_list_widget)
 
     def handle_squad_click(self, item: QtWidgets.QTreeWidgetItem, column):
-        pilot_name = get_pilot_name_from_list_item_text(item.text(0))
-        self.pilot_image_label = pilot_name
         self.ui.upgrade_list_widget.clear()
-        self.ui.pilot_image_label.setPixmap
+
+        # If you click on a pilot...
         if treewidget_item_is_top_level(item):
             pilot_data = self.squad.get_pilot_data(item)
-            populate_list_widget(self.upgrades.filtered_upgrades_for_gui(pilot_data.filtered_upgrades), self.ui.upgrade_list_widget)
+            filtered_for_gui = self.upgrades.filtered_upgrades_for_gui(pilot_data.filtered_upgrades)
+        # If you click on an upgrade slot...
+        else:
+            pilot_data = self.squad.get_pilot_data(item.parent())
+            upgrade_slot = get_upgrade_slot_from_list_item_text(item.text(0))
+            filtered_upgrades = self.upgrades.filtered_upgrades_by_pilot_and_slot(pilot_data, upgrade_slot)
+            filtered_for_gui = self.upgrades.filtered_upgrades_for_gui(filtered_upgrades)
+
+        populate_list_widget(filtered_for_gui, self.ui.upgrade_list_widget)
+        self.pilot_image_label = pilot_data.pilot_name
+
 
 
     def equip_pilot(self):
+        # TODO: Add logic so you cannot equip a pilot that has a limit, or if you do not have enough money
         faction_name = self.faction_selected
         ship_name = self.ship_selected_encoded
         pilot = self.xwing.get_pilot(faction_name, ship_name, self.pilot_name_selected)
@@ -155,6 +165,14 @@ class MainWindow(QtWidgets.QMainWindow):
         self.squad.remove_pilot(item)
         self.update_costs()
 
+
+    def equip_upgrade(self):
+        """
+        TODO: When equipping an upgrade, account for adding additional slots.
+        A good example card for testing is the OS-1 Arsenal Loadout
+        """
+        pass
+
     def update_costs(self):
         self.ui.total_pilot_cost_label.setText(str(self.total_pilot_cost))
 
@@ -172,8 +190,6 @@ class MainWindow(QtWidgets.QMainWindow):
     @property
     def squad_tree_selection(self):
         return self.ui.squad_tree_widget.selectedItems()[0]
-
-
 
     def handle_new_upgrade_data(self, data):
         insert_flag = self.definition_form.insert_new_upgrade_entry(data)

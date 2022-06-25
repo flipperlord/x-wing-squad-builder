@@ -1,15 +1,17 @@
 from .pilot_equip import PilotEquip
 from ..utils import prettify_name
 
-import logging
-
-import enum as Enum
+from typing import List
 
 class Upgrades:
-    def __init__(self, upgrades: list):
+    """
+    Contains all the upgrades from the definition.json.  This class can be used to generate
+    filtered lists of upgrades based on pilot and upgrade slot.
+    """
+    def __init__(self, upgrades: List[dict]):
         self.__upgrades_list = upgrades
 
-    def filtered_upgrades_by_pilot(self, pilot: PilotEquip):
+    def filtered_upgrades_by_pilot(self, pilot: PilotEquip) -> List[dict]:
         filtered = []
         for upgrade in self.__upgrades_list:
             valid = True
@@ -18,10 +20,10 @@ class Upgrades:
                     valid = False
 
             restrictions = self.get_upgrade_restrictions(upgrade)
+            # TODO: Fill in the rest of the conditionals
             for key, value in restrictions.items():
                 if key == "limit":
-                    pass
-                elif key == "pilot_initiative":
+                    # NOTE: electro-chaff missiles good example
                     pass
                 elif key == "pilot_limit":
                     pass
@@ -57,6 +59,7 @@ class Upgrades:
                 elif key == "charge":
                     pass
                 elif key == "actions":
+                    # NOTE: Filter based on action type and color.  "Engine Upgrade" is a good example.
                     pass
                 elif key == "keywords":
                     if value:
@@ -72,13 +75,39 @@ class Upgrades:
 
         return filtered
 
+    def filtered_upgrades_by_pilot_and_slot(self, pilot: PilotEquip, slot: str) -> List[dict]:
+        filtered = []
+        for upgrade in pilot.filtered_upgrades:
+            valid = True
+            upgrade_slots = self.get_upgrade_slots(upgrade)
+
+            # Test that slots are available for every slot the upgrade needs
+            valid = pilot.slots_are_available(upgrade_slots)
+
+            # Now filter the list for the slot we are actually interested in
+            valid_slots = []
+            for slot_type in upgrade_slots:
+                if slot_type != slot:
+                    valid_slots.append(False)
+                else:
+                    valid_slots.append(True)
+            if not any(valid_slots):
+                valid = False
+
+            if valid:
+                # Create a copy so updated variable costs do not change in the full list.
+                upgrade_copy = upgrade.copy()
+                upgrade_copy["cost"] = self.get_filtered_upgrade_cost(upgrade, pilot)
+                filtered.append(upgrade_copy)
+        return filtered
+
+
     @staticmethod
     def get_upgrade_restrictions(upgrade: dict):
         return upgrade.get("restrictions")
 
     @staticmethod
     def get_filtered_upgrade_cost(upgrade: dict, pilot: PilotEquip):
-        name = upgrade["name"]
         cost = upgrade.get("cost")
         if type(cost) is int:
             return cost
@@ -98,7 +127,7 @@ class Upgrades:
             return "Variable"
 
     @staticmethod
-    def get_upgrade_slots(upgrade: dict):
+    def get_upgrade_slots(upgrade: dict) -> List[str]:
         return upgrade.get("upgrade_slot_types")
 
     @staticmethod
@@ -124,5 +153,6 @@ class Upgrades:
     def all_upgrades_for_gui(self):
         return [f"{prettify_name(name)} ({cost})" for name, cost in self.upgrade_name_cost(self.__upgrades_list)]
 
-    def filtered_upgrades_for_gui(self, filtered_upgrade_list):
+    def filtered_upgrades_for_gui(self, filtered_upgrade_list: List[dict]) -> List[str]:
+        """Takes a list of upgrade dictionaries and returns a list of strings for the gui."""
         return [f"{prettify_name(name)} ({cost})" for name, cost in self.upgrade_name_cost(filtered_upgrade_list)]

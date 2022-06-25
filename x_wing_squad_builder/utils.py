@@ -68,6 +68,10 @@ def get_pilot_name_from_list_item_text(text: str):
     pilot_name = gui_text_encode(" ".join(text.lower().split()[1:-1]))
     return pilot_name
 
+def get_upgrade_slot_from_list_item_text(text:str):
+    upgrade_name = text.lower()
+    return upgrade_name
+
 def get_upgrade_name_from_list_item_text(text:str):
     upgrade_name = gui_text_encode(" ".join(text.lower().split()[:-1]))
     return upgrade_name
