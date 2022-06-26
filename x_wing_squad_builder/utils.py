@@ -8,8 +8,10 @@ from typing import List
 from PIL import Image
 import numpy as np
 
+from PySide6.QtGui import QImage
 
-def change_action_image_color(image_path, color):
+
+def change_action_image_color(image_path, color) -> QImage:
     im = Image.open(image_path)
     im_arr = np.array(im).astype('uint8')
     if color == "red":
@@ -19,8 +21,10 @@ def change_action_image_color(image_path, color):
         im_arr[im_arr[:, :, 0] > 0, 1] = 0
     return Image.fromarray(im_arr).toqimage()
 
+
 def contains_number(text):
     return any([char.isnumeric() for char in text])
+
 
 def process_part(part: str, symbol: str):
     sub_parts = part.split(symbol)
@@ -35,6 +39,7 @@ def process_part(part: str, symbol: str):
         sub_processed.append(sub_part)
     part = symbol.join(sub_processed)
     return part
+
 
 def prettify_name(name: str) -> str:
     """Takes a lowercase string of a name and capitalizes it."""
@@ -55,26 +60,32 @@ def prettify_name(name: str) -> str:
         processed.append(part)
     return " ".join(processed)
 
+
 def gui_text_encode(text: str):
     """In order to work with the Windows File System, we cannot have certain characters in file names.  This is the workaround."""
     text = text.lower().replace("/", "%").replace("\"", "^")
     return text
 
+
 def gui_text_decode(text: str):
     text = text.lower().replace("%", "/").replace("^", "\"")
     return text
+
 
 def get_pilot_name_from_list_item_text(text: str):
     pilot_name = gui_text_encode(" ".join(text.lower().split()[1:-1]))
     return pilot_name
 
-def get_upgrade_slot_from_list_item_text(text:str):
+
+def get_upgrade_slot_from_list_item_text(text: str):
     upgrade_name = text.lower()
     return upgrade_name
 
-def get_upgrade_name_from_list_item_text(text:str):
+
+def get_upgrade_name_from_list_item_text(text: str):
     upgrade_name = gui_text_encode(" ".join(text.lower().split()[:-1]))
     return upgrade_name
+
 
 def prettify_definition_form_entry(values: str) -> List[str]:
     """Takes a list of values separated by a comma, and returns a list of the values
@@ -121,6 +132,7 @@ def create_log_level_parser():
         group.add_argument(key, help=value, action='none')
 
     return parser
+
 
 class NoIndent(object):
     """ Value wrapper. """

@@ -1,15 +1,16 @@
 from pathlib import Path
-from PySide6 import QtWidgets, QtGui, QtCore
+from PySide6 import QtWidgets, QtGui
 
 from typing import List, Optional
 
 from .utils import change_action_image_color, gui_text_encode
-from .model import Ship
+
 
 def treewidget_item_is_top_level(item: QtWidgets.QTreeWidgetItem):
     if item.childCount() == 0:
         return False
     return True
+
 
 def image_path_to_qpixmap(image_path: Path, color=None) -> QtGui.QPixmap:
     if color is not None:
@@ -18,6 +19,7 @@ def image_path_to_qpixmap(image_path: Path, color=None) -> QtGui.QPixmap:
         qimage = QtGui.QImage(image_path)
     pixmap = QtGui.QPixmap.fromImage(qimage)
     return pixmap
+
 
 def populate_list_widget(arr: List[str], list_widget: QtWidgets.QListWidget, image_path: Optional[Path] = None) -> None:
     for s in arr:
@@ -29,12 +31,13 @@ def populate_list_widget(arr: List[str], list_widget: QtWidgets.QListWidget, ima
         list_widget.addItem(list_widget_item)
 
 
-def create_image_label(item_name, item_color, item_dir):
+def create_image_label(item_name, item_color, item_dir) -> QtWidgets.QLabel:
     """Creates an image QLabel to insert into a layout.  The color should be set to None if not color manipulation is needed."""
     image_label = QtWidgets.QLabel()
     image_path = item_dir / f"{item_name}.png"
     image_label.setPixmap(image_path_to_qpixmap(image_path, item_color))
     return image_label
+
 
 def update_action_layout(layout: QtWidgets.QLayout, action_list, action_dir: Path):
     clear_ship_layout(layout)
@@ -50,6 +53,7 @@ def update_action_layout(layout: QtWidgets.QLayout, action_list, action_dir: Pat
     spacer = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
     layout.addItem(spacer)
 
+
 def update_upgrade_slot_layout(layout: QtWidgets.QLayout, upgrade_slot_list, upgrade_slot_dir):
     clear_ship_layout(layout)
     for upgrade_slot in upgrade_slot_list:
@@ -57,6 +61,7 @@ def update_upgrade_slot_layout(layout: QtWidgets.QLayout, upgrade_slot_list, upg
         layout.addWidget(image_label)
     spacer = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
     layout.addItem(spacer)
+
 
 def clear_ship_layout(layout: QtWidgets.QLayout):
     while layout.count():
@@ -85,4 +90,3 @@ def detect_pyside_widget(pyside_object, target_widget):
         else:
             widgets.extend(detect_pyside_widget(new_object, target_widget))
     return widgets
-

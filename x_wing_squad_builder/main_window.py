@@ -51,7 +51,6 @@ class MainWindow(QtWidgets.QMainWindow):
         self.settings_window.ui.theme_combo_box.currentTextChanged.connect(
             self.check_theme)
 
-
         # Add widgets with icon paths here to be inverted on a theme change.
         self.widgets_with_icons = {
             self.ui.action_open_settings_window: IconPath.SETTINGS.value,
@@ -107,7 +106,6 @@ class MainWindow(QtWidgets.QMainWindow):
 
         self.showMaximized()
 
-
     def reload_data(self):
         self.definition_form.load_data()
         self.ui.ship_list_widget.clear()
@@ -137,8 +135,6 @@ class MainWindow(QtWidgets.QMainWindow):
         populate_list_widget(filtered_for_gui, self.ui.upgrade_list_widget)
         self.pilot_image_label = pilot_data.pilot_name
 
-
-
     def equip_pilot(self):
         # TODO: Add logic so you cannot equip a pilot that has a limit, or if you do not have enough money
         faction_name = self.faction_selected
@@ -164,7 +160,6 @@ class MainWindow(QtWidgets.QMainWindow):
         item = self.ui.squad_tree_widget.takeTopLevelItem(top_level_idx)
         self.squad.remove_pilot(item)
         self.update_costs()
-
 
     def equip_upgrade(self):
         """
@@ -219,7 +214,6 @@ class MainWindow(QtWidgets.QMainWindow):
         update_action_layout(self.ui.pilot_action_layout, [], self.actions_dir)
         update_upgrade_slot_layout(self.ui.ship_upgrade_slot_layout, ship.upgrade_slots, self.upgrade_slots_dir)
         update_upgrade_slot_layout(self.ui.pilot_upgrade_slot_layout, [], self.upgrade_slots_dir)
-
 
         # Populate the pilot list
         self.ui.pilot_list_widget.clear()

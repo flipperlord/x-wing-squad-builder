@@ -23,7 +23,6 @@ class Faction:
     def ship_names_for_gui(self):
         return sorted([prettify_name(ship.ship_name) for ship in self.faction_ships])
 
-
     def get_ship(self, ship_name: str) -> Optional[Ship]:
         for ship in self.faction_ships:
             if ship_name == ship.ship_name:

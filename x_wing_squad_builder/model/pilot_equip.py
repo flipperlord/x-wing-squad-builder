@@ -1,5 +1,4 @@
 from .ship import Ship
-from types import SimpleNamespace
 
 from typing import List, Dict
 
@@ -7,8 +6,9 @@ from collections import namedtuple, Counter
 
 Upgrade = namedtuple('Upgrade', ['slot', 'name', 'cost'])
 
+
 class PilotEquip:
-    def __init__(self, ship: Ship, pilot: SimpleNamespace):
+    def __init__(self, ship: Ship, pilot: dict):
         self.ship = ship
         self.pilot = pilot
         self.__filtered_upgrades = []
@@ -125,7 +125,7 @@ class PilotEquip:
         combined = self.ship.actions.copy()
         pilot_actions = self.pilot.get("actions")
         for action in pilot_actions:
-                combined.append(action)
+            combined.append(action)
         return combined
 
     def __combine_upgrade_slots(self):
@@ -148,29 +148,12 @@ class PilotEquip:
         return self.__equipped_upgrades
 
     @property
-    def available_upgrade_slots(self) -> Counter:
+    def available_upgrade_slots(self) -> List[str]:
         """Returns all remaining upgrade slots available for an equipped pilot."""
         upgrade_slots = self.upgrade_slots.copy()
         for upgrade in self.equipped_upgrades:
             upgrade_slots.pop(upgrade.slot)
-        return Counter(upgrade_slots)
-
-    def n_slots_available(self, upgrade_slot: str) -> int:
-        """Returns the number of slots available for a given upgrade slot type"""
-        return self.available_upgrade_slots[upgrade_slot]
-
-    def slots_are_available(self, upgrade_slots: List[str]) -> bool:
-        slot_counts = Counter(upgrade_slots)
-        for slot in slot_counts:
-            if slot_counts[slot] > self.n_slots_available(slot):
-                return False
-        return True
-
+        return upgrade_slots
 
     def equip_upgrade(self, upgrade_slot: str, upgrade_name: str, upgrade_cost: int):
         self.__equipped_upgrades.append(Upgrade(upgrade_slot, upgrade_name, upgrade_cost))
-
-
-
-
-

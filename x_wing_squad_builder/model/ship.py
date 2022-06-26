@@ -1,5 +1,6 @@
-from typing import List, Tuple
+from typing import List, Tuple, Optional
 from ..utils import prettify_name
+
 
 class Ship:
     def __init__(self, faction_name: str, ship_data: dict):
@@ -39,8 +40,8 @@ class Ship:
                 arr_0.append(pilot_tuple)
             else:
                 arr_1.append(pilot_tuple)
-        arr_0 = sorted(arr_0, key= lambda x: (x[0], x[1], x[2]))
-        arr_1 = sorted(arr_1, key= lambda x: (x[0], x[1], x[2]))
+        arr_0 = sorted(arr_0, key=lambda x: (x[0], x[1], x[2]))
+        arr_1 = sorted(arr_1, key=lambda x: (x[0], x[1], x[2]))
         arr = arr_0 + arr_1
         return arr
 
@@ -77,7 +78,7 @@ class Ship:
     def ship_data(self):
         return self.__ship_data
 
-    def get_pilot_data(self, pilot_name: str):
+    def get_pilot_data(self, pilot_name: str) -> Optional[dict]:
         for pilot in self.pilots:
             if pilot["name"] == pilot_name:
                 return pilot

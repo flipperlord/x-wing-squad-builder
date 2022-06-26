@@ -1,23 +1,36 @@
 from .pilot_equip import PilotEquip
 from ..utils import prettify_name
+from .upgrade_filters import (upgrade_slot_filter, name_filter, multiple_name_filter)
 
-from typing import List
+from typing import List, Optional
+
 
 class Upgrades:
     """
     Contains all the upgrades from the definition.json.  This class can be used to generate
     filtered lists of upgrades based on pilot and upgrade slot.
     """
+
     def __init__(self, upgrades: List[dict]):
         self.__upgrades_list = upgrades
 
+    def __iter__(self):
+        return (upgrade for upgrade in self.upgrades_list)
+
+    @property
+    def upgrades_list(self) -> List[dict]:
+        return self.__upgrades_list
+
+    def get_upgrade(self, upgrade_name: str) -> Optional[dict]:
+        for upgrade in self.upgrades_list:
+            if self.get_upgrade_name(upgrade) == upgrade_name:
+                return upgrade
+        return None
+
     def filtered_upgrades_by_pilot(self, pilot: PilotEquip) -> List[dict]:
         filtered = []
-        for upgrade in self.__upgrades_list:
-            valid = True
-            for upgrade_slot in self.get_upgrade_slots(upgrade):
-                if upgrade_slot not in pilot.upgrade_slots:
-                    valid = False
+        for upgrade in self.upgrades_list:
+            valid = upgrade_slot_filter(self.get_upgrade_slots(upgrade), pilot.upgrade_slots)
 
             restrictions = self.get_upgrade_restrictions(upgrade)
             # TODO: Fill in the rest of the conditionals
@@ -30,22 +43,19 @@ class Upgrades:
                 elif key == "pilot_initiative":
                     pass
                 elif key == "factions":
-                    if value:
-                        if pilot.faction_name not in value:
-                            valid = False
+                    if not name_filter(value, pilot.faction_name):
+                        valid = False
                 elif key == "ships":
-                    if value:
-                        if pilot.ship_name not in value:
-                            valid = False
+                    if not name_filter(value, pilot.ship_name):
+                        valid = False
                 elif key == "base_sizes":
-                    if value:
-                        if pilot.base_size not in value:
-                            valid = False
+                    if not name_filter(value, pilot.base_size):
+                        valid = False
                 elif key == "attacks":
                     pass
                 elif key == "arc_types":
-                    if value:
-                        valid = any([arc_type in value for arc_type in pilot.arc_types])
+                    if not multiple_name_filter(value, pilot.arc_types):
+                        valid = False
                 elif key == "agility":
                     pass
                 elif key == "hull":
@@ -62,8 +72,8 @@ class Upgrades:
                     # NOTE: Filter based on action type and color.  "Engine Upgrade" is a good example.
                     pass
                 elif key == "keywords":
-                    if value:
-                        valid = any([keyword in value for keyword in pilot.keywords])
+                    if not multiple_name_filter(value, pilot.keywords):
+                        valid = False
                 elif key == "other_equipped_upgrades":
                     pass
 
@@ -82,7 +92,7 @@ class Upgrades:
             upgrade_slots = self.get_upgrade_slots(upgrade)
 
             # Test that slots are available for every slot the upgrade needs
-            valid = pilot.slots_are_available(upgrade_slots)
+            valid = upgrade_slot_filter(upgrade_slots, pilot.available_upgrade_slots)
 
             # Now filter the list for the slot we are actually interested in
             valid_slots = []
@@ -100,7 +110,6 @@ class Upgrades:
                 upgrade_copy["cost"] = self.get_filtered_upgrade_cost(upgrade, pilot)
                 filtered.append(upgrade_copy)
         return filtered
-
 
     @staticmethod
     def get_upgrade_restrictions(upgrade: dict):
@@ -131,7 +140,7 @@ class Upgrades:
         return upgrade.get("upgrade_slot_types")
 
     @staticmethod
-    def get_upgrade_name(upgrade:dict):
+    def get_upgrade_name(upgrade: dict):
         return upgrade.get("name")
 
     def upgrade_name_cost(self, upgrade_list):
@@ -145,8 +154,8 @@ class Upgrades:
                 std.append((name, cost))
             else:
                 var.append((name, cost))
-        std = sorted(std, key= lambda x: (x[1], x[0]))
-        var = sorted(var, key= lambda x: (x[1], x[0]))
+        std = sorted(std, key=lambda x: (x[1], x[0]))
+        var = sorted(var, key=lambda x: (x[1], x[0]))
         return std + var
 
     @property

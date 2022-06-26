@@ -1,6 +1,6 @@
 import json
 
-from typing import List
+from typing import List, Optional
 
 from .faction import Faction
 from .ship import Ship
@@ -17,13 +17,13 @@ class XWing:
     def upgrades(self):
         return self.data["upgrades"]
 
-    def get_faction(self, faction_name: str) -> Faction:
+    def get_faction(self, faction_name: str) -> Optional[Faction]:
         for i, test_faction in enumerate(self.data["factions"]):
             if faction_name == test_faction["name"]:
                 return Faction(test_faction)
         return None
 
-    def get_ship(self, faction_name: str, ship_name: str) -> Ship:
+    def get_ship(self, faction_name: str, ship_name: str) -> Optional[Ship]:
         faction = self.get_faction(faction_name)
         ship = faction.get_ship(ship_name)
         return ship
