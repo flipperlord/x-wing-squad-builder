@@ -3,6 +3,7 @@ import json
 from pathlib import Path
 from x_wing_squad_builder.model.xwing import XWing
 from x_wing_squad_builder.model.pilot_equip import PilotEquip
+from x_wing_squad_builder.model.upgrade import Upgrades
 
 
 @pytest.fixture(scope="session")
@@ -29,3 +30,8 @@ def pilot_equip(xwing: XWing):
     ship = xwing.get_ship(faction_name, ship_name)
     pilot = ship.get_pilot_data("major vonreg")
     return PilotEquip(ship, pilot)
+
+
+@pytest.fixture(scope="module")
+def upgrades(xwing: XWing):
+    return Upgrades(xwing.upgrades)

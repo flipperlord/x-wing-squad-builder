@@ -1,8 +1,9 @@
 from .pilot_equip import PilotEquip
 from ..utils import prettify_name
-from .upgrade_filters import (upgrade_slot_filter, name_filter, multiple_name_filter)
+from .upgrade_filters import (upgrade_slot_filter, name_filter, multiple_name_filter, actions_filter,
+                              statistics_filter_simple, statistics_filter_adv, limit_filter)
 
-from typing import List, Optional
+from typing import List, Optional, Union
 
 
 class Upgrades:
@@ -36,12 +37,16 @@ class Upgrades:
             # TODO: Fill in the rest of the conditionals
             for key, value in restrictions.items():
                 if key == "limit":
-                    # NOTE: electro-chaff missiles good example
-                    pass
+                    restriction = {upgrade["name"]: value}
+                    upgrade_arr = [upgrade.name for upgrade in pilot.equipped_upgrades]
+                    if not limit_filter(restriction, upgrade_arr):
+                        valid = False
                 elif key == "pilot_limit":
                     pass
                 elif key == "pilot_initiative":
-                    pass
+                    initiative_stat = {key: pilot.initiative}
+                    if not statistics_filter_simple(value, initiative_stat):
+                        valid = False
                 elif key == "factions":
                     if not name_filter(value, pilot.faction_name):
                         valid = False
@@ -52,30 +57,29 @@ class Upgrades:
                     if not name_filter(value, pilot.base_size):
                         valid = False
                 elif key == "attacks":
-                    pass
+                    # NOTE: we decoupled attacks and arc_types in the filtering.  This may need to be changed in the future.
+                    attacks_stat = {key: pilot.max_attack}
+                    if not statistics_filter_simple(value, attacks_stat):
+                        valid = False
                 elif key == "arc_types":
                     if not multiple_name_filter(value, pilot.arc_types):
                         valid = False
-                elif key == "agility":
-                    pass
-                elif key == "hull":
-                    pass
-                elif key == "shield":
-                    pass
-                elif key == "force":
-                    pass
-                elif key == "energy":
-                    pass
-                elif key == "charge":
-                    pass
+                elif key in ["agility", "hull"]:
+                    if not statistics_filter_simple(value, pilot.get_statistic(pilot.statistics, key)):
+                        valid = False
+                elif key in ["shield", "force", "energy", "charge"]:
+                    test_statistic = pilot.get_statistic(pilot.statistics, key)
+                    if not statistics_filter_adv(value, test_statistic[key]):
+                        valid = False
                 elif key == "actions":
-                    # NOTE: Filter based on action type and color.  "Engine Upgrade" is a good example.
-                    pass
+                    if not actions_filter(value, pilot.actions):
+                        valid = False
                 elif key == "keywords":
                     if not multiple_name_filter(value, pilot.keywords):
                         valid = False
                 elif key == "other_equipped_upgrades":
-                    pass
+                    if not name_filter(value, pilot.equipped_upgrades):
+                        valid = False
 
             if valid:
                 # Create a copy so updated variable costs do not change in the full list.
@@ -90,9 +94,6 @@ class Upgrades:
         for upgrade in pilot.filtered_upgrades:
             valid = True
             upgrade_slots = self.get_upgrade_slots(upgrade)
-
-            # Test that slots are available for every slot the upgrade needs
-            valid = upgrade_slot_filter(upgrade_slots, pilot.available_upgrade_slots)
 
             # Now filter the list for the slot we are actually interested in
             valid_slots = []
@@ -116,7 +117,10 @@ class Upgrades:
         return upgrade.get("restrictions")
 
     @staticmethod
-    def get_filtered_upgrade_cost(upgrade: dict, pilot: PilotEquip):
+    def get_filtered_upgrade_cost(upgrade: dict, pilot: PilotEquip) -> int:
+        """
+        Returns the final cost of an upgrade based on the equipped pilot
+        """
         cost = upgrade.get("cost")
         if type(cost) is int:
             return cost
@@ -127,8 +131,11 @@ class Upgrades:
             return cost_int
 
     @staticmethod
-    def get_upgrade_cost(upgrade: dict):
-        """Returns the cost of an unfiltered upgrade"""
+    def get_upgrade_cost(upgrade: dict) -> Union[int, str]:
+        """Returns the cost of an unfiltered upgrade
+        WARNING: this sometimes returns "variable"
+        Use get_filtered_upgrade_cost when needing the cost for equipping upgrades
+        """
         cost = upgrade.get("cost")
         if type(cost) is int:
             return cost

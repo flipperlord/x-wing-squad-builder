@@ -3,8 +3,9 @@ from .ship import Ship
 from typing import List, Dict
 
 from collections import namedtuple, Counter
+from .upgrade_filters import upgrade_slot_filter
 
-Upgrade = namedtuple('Upgrade', ['slot', 'name', 'cost'])
+Upgrade = namedtuple('Upgrade', ['slots', 'name', 'cost'])
 
 
 class PilotEquip:
@@ -48,6 +49,14 @@ class PilotEquip:
         return self.data.get("base")
 
     @property
+    def limit(self):
+        return self.data.get("limit")
+
+    @property
+    def initiative(self):
+        return self.data.get("initiative")
+
+    @property
     def faction_name(self):
         return self.data.get("faction_name")
 
@@ -64,6 +73,23 @@ class PilotEquip:
         return self.data.get("statistics")
 
     @property
+    def actions(self) -> List[dict]:
+        """
+        returns a list of pilot action dictionaries of the form:
+        [
+            ...
+            {
+                'action': <action>,
+                'color': <color>,
+                'action_link': <action_link>,
+                'color_link': <color_link>
+            }
+            ...
+        ]
+        """
+        return self.data.get("actions")
+
+    @property
     def keywords(self):
         return self.data.get("keywords")
 
@@ -76,6 +102,10 @@ class PilotEquip:
         attacks = self.get_statistic(self.statistics, "attacks")
         return attacks.get("attacks")
 
+    @property
+    def max_attack(self):
+        return max([attack.get("attack") for attack in self.attacks])
+
     @staticmethod
     def get_statistic(statistics_list, statistic_name):
         for statistic in statistics_list:
@@ -85,14 +115,16 @@ class PilotEquip:
         return None
 
     def get_attribute(self, attribute):
+        """
+        This function is used to assess attributes that impact variable cost.
+        """
         if (attribute == "base") or (attribute == "initiative"):
             return self.data.get(attribute)
         elif attribute == "agility":
             statistic = self.get_statistic(self.statistics, attribute)
             return statistic.get(attribute)
         else:
-            max_attack = max([attack.get("attack") for attack in self.attacks])
-            return max_attack
+            return self.max_attack
 
     def __combine_statistics(self):
         ship_statistics = self.ship.statistics.copy()
@@ -148,12 +180,35 @@ class PilotEquip:
         return self.__equipped_upgrades
 
     @property
+    def total_equipped_upgrade_cost(self) -> int:
+        return sum([upgrade.cost for upgrade in self.equipped_upgrades])
+
+    @property
     def available_upgrade_slots(self) -> List[str]:
         """Returns all remaining upgrade slots available for an equipped pilot."""
         upgrade_slots = self.upgrade_slots.copy()
         for upgrade in self.equipped_upgrades:
-            upgrade_slots.pop(upgrade.slot)
+            for slot in upgrade.slots:
+                upgrade_slots.pop(upgrade_slots.index(slot))
         return upgrade_slots
 
-    def equip_upgrade(self, upgrade_slot: str, upgrade_name: str, upgrade_cost: int):
-        self.__equipped_upgrades.append(Upgrade(upgrade_slot, upgrade_name, upgrade_cost))
+    def equip_upgrade(self, upgrade_slots: List[str], upgrade_name: str, upgrade_cost: int) -> bool:
+        """adds upgrade to the equipped upgrades
+        returns true if upgrade equipped
+        """
+        # Test that slots are available for every slot the upgrade needs
+        valid = upgrade_slot_filter(upgrade_slots, self.available_upgrade_slots)
+        if valid:
+            self.__equipped_upgrades.append(Upgrade(upgrade_slots, upgrade_name, upgrade_cost))
+        return valid
+
+    def unequip_upgrade(self, upgrade_name):
+        """removes an equipped upgrade.
+        returns false if upgrade unequipped"""
+        unequipped = False
+        for upgrade in self.equipped_upgrades:
+            if upgrade.name == upgrade_name:
+                self.__equipped_upgrades.pop(self.__equipped_upgrades.index(upgrade))
+                unequipped = True
+                break
+        return unequipped

@@ -7,6 +7,10 @@ from .utils import change_action_image_color, gui_text_encode
 
 
 def treewidget_item_is_top_level(item: QtWidgets.QTreeWidgetItem):
+    """
+    This can be used to navigate the squad tree widget.  Returns false if
+    an upgrade, otherwise returns True if a pilot.
+    """
     if item.childCount() == 0:
         return False
     return True

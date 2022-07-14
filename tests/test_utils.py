@@ -1,5 +1,8 @@
+import pytest
+
 from x_wing_squad_builder.utils import (contains_number, process_part, prettify_name,
-                                        gui_text_encode, gui_text_decode)
+                                        gui_text_encode, gui_text_decode,
+                                        get_pilot_name_from_list_item_text, get_upgrade_name_from_list_item_text, get_upgrade_slot_from_list_item_text)
 
 
 def test_contains_number():
@@ -45,3 +48,13 @@ def test_process_part():
 def test_prettify_name():
     test_case = "this be tn-3645 ^null^"
     assert prettify_name(test_case) == "This Be TN-3645 \"Null\""
+
+
+@pytest.mark.parametrize(
+    "list_item_text, expected", [
+        pytest.param("Collision Detector (6)", "collision detector"),
+    ]
+)
+def test_get_upgrade_name_from_list_item_text(list_item_text, expected):
+    extracted_name = get_upgrade_name_from_list_item_text(list_item_text)
+    assert extracted_name == expected

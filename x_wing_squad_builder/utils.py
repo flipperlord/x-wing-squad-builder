@@ -19,6 +19,9 @@ def change_action_image_color(image_path, color) -> QImage:
         im_arr[im_arr[:, :, 0] > 0, 2] = 0
     elif color == "purple":
         im_arr[im_arr[:, :, 0] > 0, 1] = 0
+    elif color == "green":
+        im_arr[im_arr[:, :, 0] > 0, 0] = 0
+        im_arr[im_arr[:, :, 0] > 0, 2] = 0
     return Image.fromarray(im_arr).toqimage()
 
 
@@ -73,16 +76,19 @@ def gui_text_decode(text: str):
 
 
 def get_pilot_name_from_list_item_text(text: str):
+    """returns encoded version of highlighted pilot name"""
     pilot_name = gui_text_encode(" ".join(text.lower().split()[1:-1]))
     return pilot_name
 
 
 def get_upgrade_slot_from_list_item_text(text: str):
+    """returns lowercase version of the text selected"""
     upgrade_name = text.lower()
     return upgrade_name
 
 
 def get_upgrade_name_from_list_item_text(text: str):
+    """returns encoded version of selected upgrade name"""
     upgrade_name = gui_text_encode(" ".join(text.lower().split()[:-1]))
     return upgrade_name
 
