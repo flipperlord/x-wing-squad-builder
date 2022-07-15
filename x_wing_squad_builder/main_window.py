@@ -5,6 +5,7 @@ from PySide6 import QtWidgets, QtCore, QtGui
 
 from x_wing_squad_builder.definition_form import DefinitionForm
 from x_wing_squad_builder.upgrade_form import UpgradeForm
+from x_wing_squad_builder.viewer import Viewer
 from .settings import Settings
 from .worker import Worker
 from .root_logger_handler import RootLoggerHandler
@@ -17,7 +18,8 @@ from .model import XWing, Faction, Ship, PilotEquip, Squad, Upgrades
 
 from .utils_pyside import (image_path_to_qpixmap, populate_list_widget, update_action_layout,
                            update_upgrade_slot_layout, treewidget_item_is_top_level)
-from .utils import get_upgrade_slot_from_list_item_text, gui_text_decode, prettify_name, gui_text_encode, get_pilot_name_from_list_item_text, get_upgrade_name_from_list_item_text
+from .utils import (get_upgrade_slot_from_list_item_text, gui_text_decode, prettify_name, gui_text_encode,
+                    get_pilot_name_from_list_item_text, get_upgrade_name_from_list_item_text)
 
 from pathlib import Path
 
@@ -105,6 +107,11 @@ class MainWindow(QtWidgets.QMainWindow):
         self.squad = Squad()
 
         self.reload_data()
+
+        # Set up upgrade viewer
+        self.viewer = Viewer(self.xwing, self.upgrades, self.upgrade_slots_dir,
+                             self.upgrades_dir, self.factions_dir, self.ship_icons_dir, self.pilots_dir)
+        self.ui.action_viewer.triggered.connect(self.viewer.show)
 
         self.showMaximized()
 

@@ -3,7 +3,9 @@ from ..utils import prettify_name
 from .upgrade_filters import (upgrade_slot_filter, name_filter, multiple_name_filter, actions_filter,
                               statistics_filter_simple, statistics_filter_adv, limit_filter)
 
-from typing import List, Optional, Union
+from typing import List, Optional, Union, Dict
+
+from collections import defaultdict
 
 
 class Upgrades:
@@ -21,6 +23,33 @@ class Upgrades:
     @property
     def upgrades_list(self) -> List[dict]:
         return self.__upgrades_list
+
+    @property
+    def upgrade_slot_types(self) -> List[str]:
+        """returns all upgrade slot types"""
+        slots = []
+        for upgrade in self.upgrades_list:
+            slot_types = self.get_upgrade_slots(upgrade)
+            for slot in slot_types:
+                if slot not in slots:
+                    slots.append(slot)
+        return slots
+
+    @property
+    def upgrade_slot_dict(self) -> Dict[str, List[str]]:
+        """returns a dictionary with upgrade slots as the keys and all upgrades consuming
+        the given slot as values, with the upgrades names decoded and sorted for GUI presentation."""
+
+        d = defaultdict(list)
+        for upgrade in self.upgrades_list:
+            slots = self.get_upgrade_slots(upgrade)
+            for slot in slots:
+                d[slot].append(upgrade)
+
+        for k, v in d.items():
+            d[k] = self.filtered_upgrades_for_gui(v)
+
+        return dict(d)
 
     def get_upgrade(self, upgrade_name: str) -> Optional[dict]:
         for upgrade in self.upgrades_list:

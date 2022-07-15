@@ -5,7 +5,13 @@ from typing import List, Optional
 from .faction import Faction
 from .ship import Ship
 
+from ..utils import prettify_name
+
+from collections import defaultdict
+
+
 class XWing:
+
     def __init__(self, data):
         self.data = data
 
@@ -39,9 +45,12 @@ class XWing:
         ship = faction.get_ship(ship_name)
         return ship.get_pilot_data(pilot_name)
 
-
-
-
-
-
-
+    @property
+    def faction_ship_pilot_dict(self):
+        d = defaultdict(lambda: defaultdict(list))
+        for faction_name in self.faction_names:
+            faction = self.get_faction(faction_name)
+            for ship in faction.faction_ships:
+                for pilot_name in ship.pilot_names_for_gui:
+                    d[faction_name][ship.ship_name].append(pilot_name)
+        return d

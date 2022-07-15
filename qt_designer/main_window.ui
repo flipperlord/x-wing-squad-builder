@@ -18,148 +18,7 @@
     <normaloff>:/images/icon.png</normaloff>:/images/icon.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QGridLayout" name="gridLayout" rowstretch="6,5,0">
-    <item row="0" column="0">
-     <layout class="QHBoxLayout" name="data_view_layout" stretch="0,0,0,0,0,0">
-      <item>
-       <widget class="QListWidget" name="faction_list_widget">
-        <property name="toolTip">
-         <string>Faction list</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QListWidget" name="ship_list_widget">
-        <property name="toolTip">
-         <string>Ship List</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QListWidget" name="pilot_list_widget">
-        <property name="toolTip">
-         <string>Pilot List
-(Initiative) Pilot Name (Cost)</string>
-        </property>
-        <property name="dragEnabled">
-         <bool>false</bool>
-        </property>
-        <property name="dragDropMode">
-         <enum>QAbstractItemView::NoDragDrop</enum>
-        </property>
-        <property name="alternatingRowColors">
-         <bool>false</bool>
-        </property>
-        <property name="selectionBehavior">
-         <enum>QAbstractItemView::SelectItems</enum>
-        </property>
-        <property name="modelColumn">
-         <number>0</number>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <layout class="QVBoxLayout" name="verticalLayout">
-        <item>
-         <spacer name="verticalSpacer">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>40</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item>
-         <widget class="QPushButton" name="equip_pilot_push_button">
-          <property name="text">
-           <string>Equip Pilot</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="unequip_pilot_push_button">
-          <property name="text">
-           <string>Unequip Pilot</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <spacer name="verticalSpacer_2">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>40</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item>
-         <widget class="QPushButton" name="equip_upgrade_push_button">
-          <property name="text">
-           <string>Equip Upgrade</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="unequip_upgrade_push_button">
-          <property name="text">
-           <string>Unequip Upgrade</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <spacer name="verticalSpacer_5">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>40</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <widget class="QTreeWidget" name="squad_tree_widget">
-        <column>
-         <property name="text">
-          <string>Squad</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Upgrade</string>
-         </property>
-        </column>
-       </widget>
-      </item>
-      <item>
-       <widget class="QListWidget" name="upgrade_list_widget">
-        <property name="toolTip">
-         <string>Upgrade List
-Upgrade Name (Cost)</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
-    <item row="2" column="0">
-     <widget class="QPlainTextEdit" name="logging_plain_text_edit">
-      <property name="readOnly">
-       <bool>true</bool>
-      </property>
-     </widget>
-    </item>
+   <layout class="QGridLayout" name="gridLayout" rowstretch="6,0,0">
     <item row="1" column="0">
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
@@ -404,6 +263,147 @@ Upgrade Name (Cost)</string>
       </item>
      </layout>
     </item>
+    <item row="2" column="0">
+     <widget class="QPlainTextEdit" name="logging_plain_text_edit">
+      <property name="readOnly">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0">
+     <layout class="QHBoxLayout" name="data_view_layout" stretch="0,0,0,0,0,0">
+      <item>
+       <widget class="QListWidget" name="faction_list_widget">
+        <property name="toolTip">
+         <string>Faction list</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QListWidget" name="ship_list_widget">
+        <property name="toolTip">
+         <string>Ship List</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QListWidget" name="pilot_list_widget">
+        <property name="toolTip">
+         <string>Pilot List
+(Initiative) Pilot Name (Cost)</string>
+        </property>
+        <property name="dragEnabled">
+         <bool>false</bool>
+        </property>
+        <property name="dragDropMode">
+         <enum>QAbstractItemView::NoDragDrop</enum>
+        </property>
+        <property name="alternatingRowColors">
+         <bool>false</bool>
+        </property>
+        <property name="selectionBehavior">
+         <enum>QAbstractItemView::SelectItems</enum>
+        </property>
+        <property name="modelColumn">
+         <number>0</number>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <spacer name="verticalSpacer">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QPushButton" name="equip_pilot_push_button">
+          <property name="text">
+           <string>Equip Pilot</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="unequip_pilot_push_button">
+          <property name="text">
+           <string>Unequip Pilot</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="verticalSpacer_2">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QPushButton" name="equip_upgrade_push_button">
+          <property name="text">
+           <string>Equip Upgrade</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="unequip_upgrade_push_button">
+          <property name="text">
+           <string>Unequip Upgrade</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="verticalSpacer_5">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QTreeWidget" name="squad_tree_widget">
+        <column>
+         <property name="text">
+          <string>Squad</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Upgrade</string>
+         </property>
+        </column>
+       </widget>
+      </item>
+      <item>
+       <widget class="QListWidget" name="upgrade_list_widget">
+        <property name="toolTip">
+         <string>Upgrade List
+Upgrade Name (Cost)</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -433,6 +433,7 @@ Upgrade Name (Cost)</string>
     <property name="title">
      <string>Tools</string>
     </property>
+    <addaction name="action_viewer"/>
     <addaction name="action_definition_form"/>
     <addaction name="action_upgrade_form"/>
     <addaction name="action_reload_data"/>
@@ -479,6 +480,19 @@ Upgrade Name (Cost)</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+R</string>
+   </property>
+  </action>
+  <action name="action_viewer">
+   <property name="text">
+    <string>Card Viewer</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+V</string>
+   </property>
+  </action>
+  <action name="action_pilot_viewer">
+   <property name="text">
+    <string>Pilot Viewer</string>
    </property>
   </action>
  </widget>
