@@ -1,14 +1,26 @@
+import logging
+from collections import namedtuple
+
 from .ship import Ship
+from .upgrade_filters import upgrade_slot_filter
+
+from ..settings import Settings
+from ..utils import prettify_name
 
 from typing import List, Dict
 
-from collections import namedtuple, Counter
-from .upgrade_filters import upgrade_slot_filter
 
 Upgrade = namedtuple('Upgrade', ['slots', 'name', 'cost'])
 
 
 class PilotEquip:
+    """
+    This class is used for managing equipped pilot data.
+
+    Note that filtered upgrades are intended to be updated from the Upgrades class.
+    """
+    settings = Settings()
+
     def __init__(self, ship: Ship, pilot: dict):
         self.ship = ship
         self.pilot = pilot
@@ -50,7 +62,13 @@ class PilotEquip:
 
     @property
     def limit(self):
-        return self.data.get("limit")
+        temp = self.data.get("limit")
+        val = None
+        if temp is None or temp == 0:
+            val = 99
+        else:
+            val = temp
+        return val
 
     @property
     def initiative(self):
@@ -169,7 +187,15 @@ class PilotEquip:
 
     @property
     def upgrade_slots(self):
-        return self.data.get("upgrade_slots")
+        """
+        returns upgrade slots
+        adds a command slot if the mode is epic
+        """
+        slots = self.data.get("upgrade_slots").copy()
+        if self.settings.mode == Settings.Mode.EPIC and self.base_size != "huge":
+            slots.append("command")
+
+        return slots
 
     @property
     def cost(self):
@@ -197,10 +223,16 @@ class PilotEquip:
         returns true if upgrade equipped
         """
         # Test that slots are available for every slot the upgrade needs
-        valid = upgrade_slot_filter(upgrade_slots, self.available_upgrade_slots)
-        if valid:
-            self.__equipped_upgrades.append(Upgrade(upgrade_slots, upgrade_name, upgrade_cost))
-        return valid
+        if not upgrade_slot_filter(upgrade_slots, self.available_upgrade_slots):
+            logging.info(
+                f"Insufficient upgrade slots to equip {prettify_name(upgrade_name)} to {prettify_name(self.pilot_name)}")
+            return False
+        for upgrade in self.equipped_upgrades:
+            if upgrade.name == upgrade_name:
+                logging.info("Unable to equip more than one of an upgrade to the same pilot instance.")
+                return False
+        self.__equipped_upgrades.append(Upgrade(upgrade_slots, upgrade_name, upgrade_cost))
+        return True
 
     def unequip_upgrade(self, upgrade_name):
         """removes an equipped upgrade.

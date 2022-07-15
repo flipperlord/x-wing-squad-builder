@@ -20,6 +20,7 @@ class Settings:
     class Key(Enum):
         LOG_FILE_DIR = "log_file_dir"
         THEME = "theme"
+        MODE = "mode"
 
         def __str__(self) -> str:
             return self.value
@@ -31,9 +32,15 @@ class Settings:
         def __str__(self) -> str:
             return self.value
 
+    class Mode(Enum):
+        STANDARD = "Standard"
+        EPIC = "Epic"
+        FREEDOM = "Freedom"
+
     defaults = {
         Key.LOG_FILE_DIR: Path(os.getenv("LOCALAPPDATA")) / organization_name / application_name,
-        Key.THEME: Theme.LIGHT
+        Key.THEME: Theme.LIGHT,
+        Key.MODE: Mode.STANDARD,
     }
 
     def __init__(self, scope=QtCore.QSettings.UserScope):
@@ -70,3 +77,11 @@ class Settings:
     @theme.setter
     def theme(self, val: Theme):
         self.q_settings.setValue(self.Key.THEME.value, val.value)
+
+    @property
+    def mode(self) -> Mode:
+        return self.Mode(self.q_settings.value(self.Key.MODE.value, self.defaults[self.Key.MODE]))
+
+    @mode.setter
+    def mode(self, val: Mode):
+        self.q_settings.setValue(self.Key.MODE.value, val.value)

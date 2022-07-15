@@ -1,10 +1,14 @@
 from typing import List, Tuple, Optional
 from .ship import Ship
 
+from ..settings import Settings
+
 from ..utils import prettify_name
 
 
 class Faction:
+    settings = Settings()
+
     def __init__(self, data: dict):
         self.faction_data = data
 
@@ -17,7 +21,14 @@ class Faction:
 
     @property
     def faction_ships(self) -> List[Ship]:
-        return [Ship(self.faction_name, ship) for ship in self.faction_data['ships']]
+        ships = []
+        for ship in self.faction_data['ships']:
+            new_ship = Ship(self.faction_name, ship)
+            if self.settings.mode != Settings.Mode.EPIC:
+                if new_ship.base == "huge":
+                    continue
+            ships.append(new_ship)
+        return ships
 
     @property
     def ship_names_for_gui(self):

@@ -3,6 +3,13 @@ from collections import Counter, defaultdict
 from typing import List
 
 
+def bool_string_filter(test_case: str) -> bool:
+    """returns false if False string, otherwise True"""
+    if test_case == "False":
+        return False
+    return True
+
+
 def upgrade_slot_filter(upgrade_slots: List[str], pilot_slots: List[str]) -> bool:
     """Returns True if the pilot has enough slots available, false otherwise"""
     upgrade_counts = Counter(upgrade_slots)

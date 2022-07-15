@@ -1,7 +1,8 @@
 from .pilot_equip import PilotEquip
 from ..utils import prettify_name
+from ..settings import Settings
 from .upgrade_filters import (upgrade_slot_filter, name_filter, multiple_name_filter, actions_filter,
-                              statistics_filter_simple, statistics_filter_adv, limit_filter)
+                              statistics_filter_simple, statistics_filter_adv, limit_filter, bool_string_filter)
 
 from typing import List, Optional, Union, Dict
 
@@ -13,6 +14,8 @@ class Upgrades:
     Contains all the upgrades from the definition.json.  This class can be used to generate
     filtered lists of upgrades based on pilot and upgrade slot.
     """
+
+    settings = Settings()
 
     def __init__(self, upgrades: List[dict]):
         self.__upgrades_list = upgrades
@@ -61,6 +64,8 @@ class Upgrades:
         filtered = []
         for upgrade in self.upgrades_list:
             valid = upgrade_slot_filter(self.get_upgrade_slots(upgrade), pilot.upgrade_slots)
+            if bool_string_filter(upgrade["epic"]) and self.settings.mode != Settings.Mode.EPIC:
+                valid = False
 
             restrictions = self.get_upgrade_restrictions(upgrade)
             # TODO: Fill in the rest of the conditionals

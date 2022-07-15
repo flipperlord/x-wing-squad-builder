@@ -6,6 +6,8 @@ from .settings import Settings
 
 
 class SettingsWindow(QtWidgets.QDialog):
+    saved_signal = QtCore.Signal()
+
     def __init__(self):
         QtWidgets.QDialog.__init__(self)
         self.ui = Ui_SettingsWindow()
@@ -29,6 +31,8 @@ class SettingsWindow(QtWidgets.QDialog):
     def populate_combo_boxes(self):
         self.ui.theme_combo_box.addItems(
             [theme.value for theme in Settings.Theme])
+        self.ui.mode_combo_box.addItems(
+            [mode.value for mode in Settings.Mode])
 
     def populate_values(self):
         for key in Settings.Key:
@@ -50,6 +54,7 @@ class SettingsWindow(QtWidgets.QDialog):
                 'An format error occured while attempting to save settings')
         else:
             logging.info('Settings saved successfully')
+            self.saved_signal.emit()
 
     def restore_defaults(self):
         for key in Settings.Key:
@@ -78,3 +83,11 @@ class SettingsWindow(QtWidgets.QDialog):
     @theme.setter
     def theme(self, val: Settings.Theme):
         self.ui.theme_combo_box.setCurrentText(val.value)
+
+    @property
+    def mode(self) -> Settings.Mode:
+        return Settings.Mode(self.ui.mode_combo_box.currentText())
+
+    @mode.setter
+    def mode(self, val: Settings.Mode):
+        self.ui.mode_combo_box.setCurrentText(val.value)
