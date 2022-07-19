@@ -94,3 +94,8 @@ def detect_pyside_widget(pyside_object, target_widget):
         else:
             widgets.extend(detect_pyside_widget(new_object, target_widget))
     return widgets
+
+
+def arr_to_comma_separated_list(arr: list):
+    arr = [str(x) for x in arr]
+    return ", ".join(arr)

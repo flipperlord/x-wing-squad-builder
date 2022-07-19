@@ -17,7 +17,8 @@ from .settings_window import SettingsWindow
 from .model import XWing, Faction, Ship, PilotEquip, Squad, Upgrades
 
 from .utils_pyside import (image_path_to_qpixmap, populate_list_widget, update_action_layout,
-                           update_upgrade_slot_layout, treewidget_item_is_top_level)
+                           update_upgrade_slot_layout, treewidget_item_is_top_level,
+                           )
 from .utils import (get_upgrade_slot_from_list_item_text, gui_text_decode, prettify_name, gui_text_encode,
                     get_pilot_name_from_list_item_text, get_upgrade_name_from_list_item_text)
 
@@ -93,9 +94,8 @@ class MainWindow(QtWidgets.QMainWindow):
         self.definition_form.update_signal.connect(self.reload_data)
 
         # Set up upgrade form for adding to definition file.
-        self.upgrade_form = UpgradeForm(self.file_path)
-        self.ui.action_upgrade_form.triggered.connect(self.upgrade_form.show)
-        self.upgrade_form.update_signal.connect(self.handle_new_upgrade_data)
+        self.ui.action_upgrade_form.triggered.connect(self.handle_show_upgrade_form)
+        self.upgrade_form = self.initialize_upgrade_form()
 
         self.ui.action_reload_data.triggered.connect(self.reload_data)
 
@@ -110,13 +110,39 @@ class MainWindow(QtWidgets.QMainWindow):
         self.reload_data()
 
         # Set up upgrade viewer
-        self.viewer = Viewer(self.xwing, self.upgrades, self.upgrade_slots_dir,
-                             self.upgrades_dir, self.factions_dir, self.ship_icons_dir, self.pilots_dir)
-        self.ui.action_viewer.triggered.connect(self.viewer.show)
+        self.viewer = self.initialize_card_viewer()
 
         self.update_costs()
 
         self.showMaximized()
+
+    def initialize_upgrade_form(self):
+        """
+        this creates an upgrade form object and assigns relevant signals/slots
+        motivation for this is so we can easily reset the form when editing upgrades
+        """
+        upgrade_form = UpgradeForm(self.file_path)
+        upgrade_form.update_signal.connect(self.handle_new_upgrade_data)
+        return upgrade_form
+
+    def initialize_card_viewer(self):
+        viewer = Viewer(self.xwing, self.upgrades, self.upgrade_slots_dir,
+                        self.upgrades_dir, self.factions_dir, self.ship_icons_dir, self.pilots_dir)
+        self.ui.action_viewer.triggered.connect(viewer.show)
+        viewer.upgrade_edit_signal.connect(self.edit_upgrade)
+        return viewer
+
+    def handle_show_upgrade_form(self):
+        self.upgrade_form.ui.upgrade_name_line_edit.setReadOnly(False)
+        self.upgrade_form.show()
+
+    def edit_upgrade(self, upgrade_name):
+        # This resets the form to defaults
+        self.upgrade_form = self.initialize_upgrade_form()
+        self.upgrade_form.ui.upgrade_name_line_edit.setReadOnly(True)
+        upgrade_dict = self.upgrades.get_upgrade(upgrade_name)
+        self.upgrade_form.populate_upgrade_form(upgrade_dict)
+        self.upgrade_form.show()
 
     def reload_data(self):
         self.definition_form.load_data()
@@ -126,6 +152,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.upgrade_list_widget.clear()
         self.xwing = XWing.launch_xwing_data(self.file_path)
         self.upgrades = Upgrades(self.xwing.upgrades)
+        # self.viewer = self.initialize_card_viewer()
         faction_names = [prettify_name(faction) for faction in self.xwing.faction_names]
         populate_list_widget(faction_names, self.ui.faction_list_widget, self.factions_dir)
         populate_list_widget(self.upgrades.all_upgrades_for_gui, self.ui.upgrade_list_widget)
@@ -451,6 +478,8 @@ class MainWindow(QtWidgets.QMainWindow):
         if buttonReply == QtWidgets.QMessageBox.Yes:
             # Add closing behaviors here
             self.definition_form.close()
+            self.upgrade_form.close()
+            self.viewer.close()
             event.accept()
         else:
             event.ignore()

@@ -12,8 +12,12 @@ from .ui.card_viewer import CardViewer
 
 from PySide6 import QtWidgets, QtGui, QtCore
 
+from typing import Optional
+
 
 class Viewer(QtWidgets.QDialog):
+    upgrade_edit_signal = QtCore.Signal(str)
+    pilot_edit_signal = QtCore.Signal(str)
 
     def __init__(self, xwing: XWing, upgrades: Upgrades, upgrade_slots_dir: Path, upgrades_dir: Path,
                  factions_dir: Path, ship_icons_dir: Path, pilots_dir: Path, parent=None):
@@ -31,6 +35,8 @@ class Viewer(QtWidgets.QDialog):
 
         self.ui.expand_all_push_button.clicked.connect(partial(self.expand_collapse_all, True))
         self.ui.collapse_all_push_button.clicked.connect(partial(self.expand_collapse_all, False))
+
+        self.ui.edit_tree_widget_item_push_button.clicked.connect(self.handle_edit)
 
         self.xwing = xwing
 
@@ -70,6 +76,17 @@ class Viewer(QtWidgets.QDialog):
         self.pilot_viewer = CardViewer(self)
         self.add_card_viewer(self.pilot_viewer, self.ui.pilot_viewer_tree_widget, self.ui.pilot_layout)
 
+    def handle_edit(self):
+        selected_items = self.current_tree_widget.selectedItems()
+        if len(selected_items) == 0:
+            return
+        current_selection = selected_items[0]
+        if treewidget_item_is_top_level(current_selection):
+            return
+        if self.current_tree_widget_is_upgrade:
+            upgrade_name = get_upgrade_name_from_list_item_text(current_selection.text(0))
+            self.upgrade_edit_signal.emit(upgrade_name)
+
     def handle_upgrade_tree_click(self, item: QtWidgets.QTreeWidgetItem, column):
         if treewidget_item_is_top_level(item):
             return
@@ -85,17 +102,25 @@ class Viewer(QtWidgets.QDialog):
         self.pilot_viewer.set_card(pixmap)
 
     def expand_collapse_all(self, expand=True):
+        if expand:
+            self.current_tree_widget.expandAll()
+        else:
+            self.current_tree_widget.collapseAll()
+
+    @property
+    def current_tree_widget(self) -> Optional[QtWidgets.QTreeWidget]:
         tab_idx = self.ui.viewer_tab_widget.currentIndex()
         tab_obj_arr = self.ui.viewer_tab_widget.widget(tab_idx).children()
-        tree_widget = None
         for obj in tab_obj_arr:
             if "viewer_tree" in obj.objectName():
-                tree_widget = obj
-                if expand:
-                    tree_widget.expandAll()
-                else:
-                    tree_widget.collapseAll()
-                break
+                return obj
+        return None
+
+    @property
+    def current_tree_widget_is_upgrade(self) -> bool:
+        if "upgrade" in self.current_tree_widget.objectName():
+            return True
+        return False
 
     def add_card_viewer(self, card_viewer, tree_widget, layout):
         layout.addWidget(card_viewer)
