@@ -1,9 +1,8 @@
 from PySide6 import QtWidgets, QtCore, QtGui
 from .ui.upgrade_form_ui import Ui_UpgradeForm
 
-from .model import XWing, Faction, Ship
 from .utils import prettify_definition_form_entry
-from .utils_pyside import detect_pyside_widget, arr_to_comma_separated_list
+from .utils_pyside import detect_pyside_widget, arr_to_comma_separated_list, set_low_high, set_line_edit, parse_actions, parse_check_box
 
 from .definition_form import DefinitionForm
 
@@ -454,7 +453,7 @@ class UpgradeForm(QtWidgets.QDialog):
         ]
         for low_and_high in lows_and_highs:
             low_spinbox, high_spinbox, attribute = low_and_high
-            self.set_low_high(low_spinbox, high_spinbox, attribute, restrictions)
+            set_low_high(low_spinbox, high_spinbox, attribute, restrictions)
 
         deep_lows_and_highs = [
             (self.ui.shield_low_spinbox, self.ui.shield_high_spinbox, "shield", "shield"),
@@ -472,7 +471,7 @@ class UpgradeForm(QtWidgets.QDialog):
         ]
         for low_and_high in deep_lows_and_highs:
             low_spinbox, high_spinbox, attribute, deep_attribute = low_and_high
-            self.set_low_high(low_spinbox, high_spinbox, deep_attribute, restrictions[attribute])
+            set_low_high(low_spinbox, high_spinbox, deep_attribute, restrictions[attribute])
 
         deep_line_edits = [
             (self.ui.faction_line_edit, "factions"),
@@ -484,9 +483,9 @@ class UpgradeForm(QtWidgets.QDialog):
         ]
         for line_edit in deep_line_edits:
             item, attribute = line_edit
-            self.set_line_edit(item, attribute, restrictions)
+            set_line_edit(item, attribute, restrictions)
 
-        self.parse_actions(self.ui.actions_line_edit, self.ui.colors_line_edit, restrictions.get("actions", []))
+        parse_actions(self.ui.actions_line_edit, self.ui.colors_line_edit, restrictions.get("actions", []))
         check_boxes = [
             (self.ui.autoinclude_checkbox, "autoinclude"),
             (self.ui.epic_checkbox, "epic"),
@@ -495,55 +494,17 @@ class UpgradeForm(QtWidgets.QDialog):
         for check_box in check_boxes:
             item, attribute = check_box
             val = upgrade_dict.get(attribute)
-            self.parse_check_box(item, val)
+            parse_check_box(item, val)
 
         modifications = upgrade_dict.get("modifications", {})
-        self.parse_actions(self.ui.added_actions_line_edit, self.ui.added_action_colors_line_edit,
-                           modifications.get("actions", []))
+        parse_actions(self.ui.added_actions_line_edit, self.ui.added_action_colors_line_edit,
+                      modifications.get("actions", []))
         added_upgrade_slots = modifications.get("upgrade_slots", {}).get("added", [])
         removed_upgrade_slots = modifications.get("upgrade_slots", {}).get("removed", [])
         self.ui.added_upgrade_slots_line_edit.setText(arr_to_comma_separated_list(added_upgrade_slots))
         self.ui.removed_upgrade_slots_line_edit.setText(arr_to_comma_separated_list(removed_upgrade_slots))
         # TODO: handle upgrade deletions
         # TODO: handle reloading data in viewer when edit is complete
-
-    def parse_check_box(self, check_box: QtWidgets.QCheckBox, value: str):
-        if value == "True":
-            check_box.setChecked(True)
-        else:
-            check_box.setChecked(False)
-
-    def parse_actions(self, actions_line_edit: QtWidgets.QLineEdit, action_colors_line_edit: QtWidgets.QLineEdit, actions: List[Dict[str, str]]):
-        if len(actions) == 0:
-            return ""
-        action_list = []
-        color_list = []
-        for action in actions:
-            action_string = action["action"]
-            color_string = action["color"]
-            action_link = action["action_link"]
-            color_link = action["color_link"]
-            if action_link is not None:
-                action_string = f"{action_string} > {action_link}"
-            if color_link is not None:
-                color_string = f"{color_string} > {color_link}"
-            action_list.append(action_string)
-            color_list.append(color_string)
-        actions_line_edit.setText(arr_to_comma_separated_list(action_list))
-        action_colors_line_edit.setText(arr_to_comma_separated_list(color_list))
-
-    def set_line_edit(self, line_edit: QtWidgets.QLineEdit, attribute: str, restrictions: dict):
-        line_edit.setText(arr_to_comma_separated_list(restrictions.get(attribute)))
-
-    def set_low_high(self, low_spinbox: QtWidgets.QSpinBox, high_spinbox: QtWidgets.QSpinBox, attribute: str, restrictions: dict):
-        low_val = restrictions.get(attribute).get("low")
-        if low_val is None:
-            low_val = -1
-        high_val = restrictions.get(attribute).get("high")
-        if high_val is None:
-            high_val = -1
-        low_spinbox.setValue(low_val)
-        high_spinbox.setValue(high_val)
 
     def parse_cost(self, cost: Union[int, dict]):
         """

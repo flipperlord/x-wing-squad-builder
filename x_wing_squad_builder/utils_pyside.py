@@ -1,9 +1,51 @@
 from pathlib import Path
 from PySide6 import QtWidgets, QtGui
 
-from typing import List, Optional
+from typing import List, Optional, Dict
 
 from .utils import change_action_image_color, gui_text_encode
+
+
+def parse_check_box(check_box: QtWidgets.QCheckBox, value: str):
+    if value == "True":
+        check_box.setChecked(True)
+    else:
+        check_box.setChecked(False)
+
+
+def parse_actions(actions_line_edit: QtWidgets.QLineEdit, action_colors_line_edit: QtWidgets.QLineEdit, actions: List[Dict[str, str]]):
+    if len(actions) == 0:
+        return ""
+    action_list = []
+    color_list = []
+    for action in actions:
+        action_string = action["action"]
+        color_string = action["color"]
+        action_link = action["action_link"]
+        color_link = action["color_link"]
+        if action_link is not None:
+            action_string = f"{action_string} > {action_link}"
+        if color_link is not None:
+            color_string = f"{color_string} > {color_link}"
+        action_list.append(action_string)
+        color_list.append(color_string)
+    actions_line_edit.setText(arr_to_comma_separated_list(action_list))
+    action_colors_line_edit.setText(arr_to_comma_separated_list(color_list))
+
+
+def set_line_edit(line_edit: QtWidgets.QLineEdit, attribute: str, restrictions: dict):
+    line_edit.setText(arr_to_comma_separated_list(restrictions.get(attribute)))
+
+
+def set_low_high(low_spinbox: QtWidgets.QSpinBox, high_spinbox: QtWidgets.QSpinBox, attribute: str, restrictions: dict):
+    low_val = restrictions.get(attribute).get("low")
+    if low_val is None:
+        low_val = -1
+    high_val = restrictions.get(attribute).get("high")
+    if high_val is None:
+        high_val = -1
+    low_spinbox.setValue(low_val)
+    high_spinbox.setValue(high_val)
 
 
 def treewidget_item_is_top_level(item: QtWidgets.QTreeWidgetItem):
