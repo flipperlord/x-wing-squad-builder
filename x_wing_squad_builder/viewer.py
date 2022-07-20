@@ -89,6 +89,8 @@ class Viewer(QtWidgets.QDialog):
         self.pilot_viewer = CardViewer(self)
         self.add_card_viewer(
             self.pilot_viewer, self.ui.pilot_viewer_tree_widget, self.ui.pilot_layout)
+        self.ui.upgrade_viewer_tree_widget.expandAll()
+        self.ui.pilot_viewer_tree_widget.expandAll()
 
     def filter_items(self):
         show_all = False
