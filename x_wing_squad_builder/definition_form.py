@@ -4,6 +4,7 @@ from .ui.definition_form_ui import Ui_DefinitionForm
 from .model import XWing, Faction, Ship
 from .model.constants import BASE_SIZES, ARC_TYPES_, ACTION_COLORS, ACTIONS_, UPGRADE_SLOTS_, FACTION_NAMES, KEYWORDS, INVALID
 from .utils import prettify_definition_form_entry
+from .utils_pyside import parse_actions, parse_attacks, arr_to_comma_separated_list, parse_check_box
 
 import logging
 import json
@@ -16,6 +17,7 @@ from enum import Enum
 
 class DefinitionForm(QtWidgets.QDialog):
     update_signal = QtCore.Signal()
+
     def __init__(self, data_filepath: Path, parent=None):
         super().__init__()
         self.ui = Ui_DefinitionForm()
@@ -38,7 +40,6 @@ class DefinitionForm(QtWidgets.QDialog):
         self.ship_check_timer.timeout.connect(self.check_ship_name)
         self.ship_check_timer.start(500)
 
-
         self.accepted.connect(self.handle_ok_pressed)
 
     def load_data(self):
@@ -50,9 +51,11 @@ class DefinitionForm(QtWidgets.QDialog):
         if faction_idx is not None:
             ship_idx = self.get_ship_index(self.faction_name, self.ship_name)
             if ship_idx is not None:
-                self.ui.ship_exists_label.setText(f"Ship {self.ship_name} already exists, continue to pilot entry.")
+                self.ui.ship_exists_label.setText(
+                    f"Ship {self.ship_name} already exists, continue to pilot entry.")
             else:
-                self.ui.ship_exists_label.setText("Ship does not exist - please continue with new ship entry.")
+                self.ui.ship_exists_label.setText(
+                    "Ship does not exist - please continue with new ship entry.")
 
     @property
     def faction_name(self) -> str:
@@ -71,7 +74,8 @@ class DefinitionForm(QtWidgets.QDialog):
 
     @property
     def attacks(self) -> Union[List[str], str]:
-        attack_list = prettify_definition_form_entry(self.ui.attacks_line_edit.text())
+        attack_list = prettify_definition_form_entry(
+            self.ui.attacks_line_edit.text())
         try:
             attack_list = [int(attack) for attack in attack_list]
         except ValueError:
@@ -80,7 +84,8 @@ class DefinitionForm(QtWidgets.QDialog):
 
     @property
     def arc_types(self) -> Union[List[str], str]:
-        arc_types = prettify_definition_form_entry(self.ui.arc_types_line_edit.text())
+        arc_types = prettify_definition_form_entry(
+            self.ui.arc_types_line_edit.text())
         for arc_type in arc_types:
             if arc_type not in ARC_TYPES_:
                 return INVALID
@@ -144,7 +149,8 @@ class DefinitionForm(QtWidgets.QDialog):
     def colors(self):
         colors_text = self.ui.colors_line_edit.text()
         if colors_text:
-            colors, color_links = self.parse_actions_and_colors(self.ui.colors_line_edit.text(), ACTION_COLORS)
+            colors, color_links = self.parse_actions_and_colors(
+                self.ui.colors_line_edit.text(), ACTION_COLORS)
             actions, _ = self.actions
             if len(colors) != len(actions):
                 return INVALID
@@ -242,7 +248,8 @@ class DefinitionForm(QtWidgets.QDialog):
     def pilot_upgrade_slots(self) -> Union[List[str], str]:
         upgrade_slot_text = self.ui.pilot_upgrade_slots_line_edit.text()
         if upgrade_slot_text:
-            upgrade_slot_list = self.parse_comma_separated_text(upgrade_slot_text, UPGRADE_SLOTS_)
+            upgrade_slot_list = self.parse_comma_separated_text(
+                upgrade_slot_text, UPGRADE_SLOTS_)
         else:
             upgrade_slot_list = []
         return upgrade_slot_list
@@ -259,7 +266,8 @@ class DefinitionForm(QtWidgets.QDialog):
     def pilot_colors(self) -> Union[List[str], str]:
         pilot_colors_text = self.ui.pilot_colors_line_edit.text()
         if pilot_colors_text:
-            colors, color_links = self.parse_actions_and_colors(pilot_colors_text, ACTION_COLORS)
+            colors, color_links = self.parse_actions_and_colors(
+                pilot_colors_text, ACTION_COLORS)
             actions, _ = self.pilot_actions
             if len(colors) != len(actions):
                 return INVALID
@@ -289,6 +297,7 @@ class DefinitionForm(QtWidgets.QDialog):
             return None
         else:
             return val
+
     @property
     def pilot_agility(self) -> int:
         return self.evaluate_none_spinbox(self.ui.pilot_agility_spinbox)
@@ -301,6 +310,7 @@ class DefinitionForm(QtWidgets.QDialog):
         return {name: self.evaluate_none_spinbox(base_spinbox),
                 "recharge": self.evaluate_none_spinbox(recharge_spinbox),
                 "decharge": self.evaluate_none_spinbox(decharge_spinbox)}
+
     @property
     def pilot_shield(self) -> dict:
         return self.evaluate_attributes("shield", self.ui.pilot_shield_spinbox, self.ui.pilot_shield_recharge_spinbox, self.ui.pilot_shield_decharge_spinbox)
@@ -328,37 +338,44 @@ class DefinitionForm(QtWidgets.QDialog):
             not self.ship_name or
             not self.pilot_name
             ):
-            logging.info("Must provide a value for faction name, ship name, and pilot name.")
+            logging.info(
+                "Must provide a value for faction name, ship name, and pilot name.")
 
             valid = False
         if self.faction_name not in FACTION_NAMES:
-            logging.info(f"Must provide a faction name within the following: {FACTION_NAMES}")
+            logging.info(
+                f"Must provide a faction name within the following: {FACTION_NAMES}")
             valid = False
         if self.base_size not in BASE_SIZES:
-            logging.info(f"Base size invalid.  Please choose from the following: {BASE_SIZES}")
+            logging.info(
+                f"Base size invalid.  Please choose from the following: {BASE_SIZES}")
             valid = False
         if self.attacks == INVALID or self.pilot_attacks == INVALID:
-            logging.info("Attack entries must be numbers separated by commas.  Please try again.")
+            logging.info(
+                "Attack entries must be numbers separated by commas.  Please try again.")
             valid = False
         if self.arc_types == INVALID or self.pilot_arc_types == INVALID:
-            logging.info(f"Arc types must have the same number of attacks.  Arc Types must be be within the following: {ARC_TYPES_}")
+            logging.info(
+                f"Arc types must have the same number of attacks.  Arc Types must be be within the following: {ARC_TYPES_}")
             valid = False
         if self.actions == INVALID or self.pilot_actions == INVALID:
-            logging.info(f"Action entries must be within the following: {ACTIONS_}")
+            logging.info(
+                f"Action entries must be within the following: {ACTIONS_}")
             valid = False
         if self.colors == INVALID or self.pilot_colors == INVALID:
-            logging.info(f"Colors must have the same number of actions.  Colors must be be within the following: {ACTION_COLORS}")
+            logging.info(
+                f"Colors must have the same number of actions.  Colors must be be within the following: {ACTION_COLORS}")
             valid = False
         if self.upgrade_slots == INVALID or self.pilot_upgrade_slots == INVALID:
-            logging.info(f"Upgrade slots must be within the following: {UPGRADE_SLOTS_}")
+            logging.info(
+                f"Upgrade slots must be within the following: {UPGRADE_SLOTS_}")
             valid = False
         if self.pilot_traits == INVALID:
-            logging.info(f"Pilot keywords must either be empty, or one of the following: {KEYWORDS}")
+            logging.info(
+                f"Pilot keywords must either be empty, or one of the following: {KEYWORDS}")
             valid = False
 
         return valid
-
-
 
     def data_entry_template(self):
         new_entry = {
@@ -456,14 +473,17 @@ class DefinitionForm(QtWidgets.QDialog):
             if reply == QtWidgets.QMessageBox.Ok:
                 upgrade_idx = self.get_upgrade_idx(new_upgrade_name)
                 self.upgrade_list[upgrade_idx] = upgrade_entry
-                logging.info(f"Attempting to overwrite data for <{new_upgrade_name}>.")
+                logging.info(
+                    f"Attempting to overwrite data for <{new_upgrade_name}>.")
             else:
-                logging.info(f"Upgrade data for <{new_upgrade_name}> not overwritten.")
+                logging.info(
+                    f"Upgrade data for <{new_upgrade_name}> not overwritten.")
                 # returning true is what we use to open the upgrade form again
                 return True
         else:
             self.data["upgrades"].append(upgrade_entry)
-            logging.info(f"Attempting to insert upgrade data for <{new_upgrade_name}>.")
+            logging.info(
+                f"Attempting to insert upgrade data for <{new_upgrade_name}>.")
         self.write_data()
 
     def insert_new_entry(self) -> bool:
@@ -472,7 +492,8 @@ class DefinitionForm(QtWidgets.QDialog):
         new_faction_name = entry['name']
         if new_faction_name in self.xwing.faction_names:
             new_ship_name = entry['ship']['name']
-            current_ship_data = self.xwing.get_ship(new_faction_name, new_ship_name)
+            current_ship_data = self.xwing.get_ship(
+                new_faction_name, new_ship_name)
             if current_ship_data:
                 pilot_data = entry['pilot']
                 new_pilot_name = entry['pilot']['name']
@@ -482,15 +503,18 @@ class DefinitionForm(QtWidgets.QDialog):
                     reply = QtWidgets.QMessageBox.warning(
                         self, title, msg, QtWidgets.QMessageBox.Ok | QtWidgets.QMessageBox.Cancel)
                     if reply == QtWidgets.QMessageBox.Ok:
-                        self.insert_pilot(new_faction_name, new_ship_name, pilot_data, overwrite=True)
+                        self.insert_pilot(
+                            new_faction_name, new_ship_name, pilot_data, overwrite=True)
                     else:
                         # returning true is what we use to open the definition form again
                         return True
                 else:
-                    self.insert_pilot(new_faction_name, new_ship_name, pilot_data)
+                    self.insert_pilot(new_faction_name,
+                                      new_ship_name, pilot_data)
             else:
                 self.insert_ship(new_faction_name, entry['ship'])
-                self.insert_pilot(new_faction_name, new_ship_name, entry['pilot'])
+                self.insert_pilot(new_faction_name,
+                                  new_ship_name, entry['pilot'])
         else:
             self.insert_faction(new_faction_name)
             self.insert_ship(new_faction_name, entry['ship'])
@@ -509,7 +533,7 @@ class DefinitionForm(QtWidgets.QDialog):
                 return i
         return None
 
-    def insert_faction(self, faction_name:str):
+    def insert_faction(self, faction_name: str):
         new_faction = {
             'name': faction_name,
             'ships': []
@@ -517,11 +541,11 @@ class DefinitionForm(QtWidgets.QDialog):
         self.data['factions'].append(new_faction)
         logging.info(f"Attempting to insert new faction <{faction_name}>.")
 
-    def insert_ship(self, faction_name:str, ship_data: dict):
+    def insert_ship(self, faction_name: str, ship_data: dict):
         faction_idx = self.get_faction_index(faction_name)
         self.data['factions'][faction_idx]['ships'].append(ship_data)
-        logging.info(f"Attempting to insert new ship <{ship_data['name']}> into faction <{faction_name}>.")
-
+        logging.info(
+            f"Attempting to insert new ship <{ship_data['name']}> into faction <{faction_name}>.")
 
     def insert_pilot(self, faction_name: str, ship_name: str, pilot_data: dict, overwrite=False):
         faction_idx = self.get_faction_index(faction_name)
@@ -529,10 +553,127 @@ class DefinitionForm(QtWidgets.QDialog):
         if overwrite:
             for k, pilot in enumerate(self.data['factions'][faction_idx]['ships'][ship_idx]['pilots']):
                 if pilot['name'] == pilot_data['name']:
-                    removed = self.data['factions'][faction_idx]['ships'][ship_idx]['pilots'].pop(k)
-                    logging.info(f"Attempting to update pilot info for {removed['name']}")
-        self.data['factions'][faction_idx]['ships'][ship_idx]['pilots'].append(pilot_data)
-        logging.info(f"Attempting to insert pilot <{pilot_data['name']}> under ship <{ship_name}> under faction <{faction_name}>.")
+                    removed = self.data['factions'][faction_idx]['ships'][ship_idx]['pilots'].pop(
+                        k)
+                    logging.info(
+                        f"Attempting to update pilot info for {removed['name']}")
+        self.data['factions'][faction_idx]['ships'][ship_idx]['pilots'].append(
+            pilot_data)
+        logging.info(
+            f"Attempting to insert pilot <{pilot_data['name']}> under ship <{ship_name}> under faction <{faction_name}>.")
+
+    def populate_definition_form(self, ship: Ship, pilot: dict):
+        self.ui.faction_name_line_edit.setText(ship.faction_name)
+        self.ui.ship_name_line_edit.setText(ship.ship_name)
+        self.ui.base_size_line_edit.setText(ship.base)
+        parse_attacks(
+            self.ui.attacks_line_edit,
+            self.ui.arc_types_line_edit,
+            ship.statistics
+        )
+        shallow_ship_stats = [
+            (self.ui.agility_spinbox, "agility"),
+            (self.ui.hull_spinbox, "hull")
+        ]
+        for stat in shallow_ship_stats:
+            spinbox, attribute = stat
+            spinbox.setValue(ship.get_statistic(ship.statistics, attribute))
+
+        deep_ship_stats = [
+            (self.ui.shield_spinbox, self.ui.shield_recharge_spinbox, "shield"),
+            (self.ui.force_spinbox, self.ui.force_recharge_spinbox, "force"),
+            (self.ui.energy_spinbox, self.ui.energy_recharge_spinbox, "energy"),
+            (self.ui.charge_spinbox, self.ui.charge_recharge_spinbox, "charge"),
+        ]
+        for stat in deep_ship_stats:
+            att_spinbox, rech_spinbox, attribute = stat
+            temp = ship.get_statistic(ship.statistics, attribute)
+            att_spinbox.setValue(temp[attribute])
+            rech_spinbox.setValue(temp["recharge"])
+
+        parse_actions(
+            self.ui.actions_line_edit,
+            self.ui.colors_line_edit,
+            ship.actions
+        )
+
+        self.ui.upgrade_slots_line_edit.setText(
+            arr_to_comma_separated_list(ship.upgrade_slots))
+
+        parse_check_box(
+            self.ui.epic_checkbox, ship.ship_data.get("epic", "False")
+        )
+
+        self.ui.pilot_name_line_edit.setText(pilot.get("name"))
+
+        shallow_pilot_entries = [
+            (self.ui.cost_spinbox, "cost"),
+            (self.ui.initiative_spinbox, "initiative"),
+            (self.ui.limit_spinbox, "limit"),
+        ]
+        for entry in shallow_pilot_entries:
+            spinbox, attribute = entry
+            spinbox.setValue(pilot.get(attribute))
+
+        parse_attacks(
+            self.ui.pilot_attacks_line_edit,
+            self.ui.pilot_arc_types_line_edit,
+            pilot.get("statistics")
+        )
+
+        shallow_pilot_stats = [
+            (self.ui.pilot_agility_spinbox, "agility"),
+            (self.ui.pilot_hull_spinbox, "hull"),
+        ]
+        for stat in shallow_pilot_stats:
+            spinbox, attribute = stat
+            val = ship.get_statistic(pilot.get("statistics"), attribute)
+            if val is None:
+                val = -1
+            spinbox.setValue(val)
+
+        deep_pilot_stats = [
+            (self.ui.pilot_shield_spinbox, self.ui.pilot_shield_recharge_spinbox,
+             self.ui.pilot_shield_decharge_spinbox, "shield"),
+            (self.ui.pilot_force_spinbox, self.ui.pilot_force_recharge_spinbox,
+             self.ui.pilot_force_decharge_spinbox, "force"),
+            (self.ui.pilot_energy_spinbox, self.ui.pilot_energy_recharge_spinbox,
+             self.ui.pilot_energy_decharge_spinbox, "energy"),
+            (self.ui.pilot_charge_spinbox, self.ui.pilot_charge_recharge_spinbox,
+             self.ui.pilot_charge_decharge_spinbox, "charge"),
+        ]
+        for stat in deep_pilot_stats:
+            stat_spinbox, recharge_spinbox, decharge_spinbox, attribute = stat
+            deep_stat = ship.get_statistic(pilot.get("statistics"), attribute)
+            deep_stat = self.parse_deep_stat(deep_stat)
+            stat_spinbox.setValue(deep_stat[attribute])
+            recharge_spinbox.setValue(deep_stat["recharge"])
+            decharge_spinbox.setValue(deep_stat["decharge"])
+
+        parse_actions(
+            self.ui.pilot_actions_line_edit,
+            self.ui.pilot_colors_line_edit,
+            pilot.get("actions")
+        )
+
+        self.ui.pilot_upgrade_slots_line_edit.setText(
+            arr_to_comma_separated_list(pilot.get("upgrade_slots"))
+        )
+
+        self.ui.traits_line_edit.setText(
+            arr_to_comma_separated_list(pilot.get("keywords"))
+        )
+
+    def parse_deep_stat(self, stat: dict) -> dict:
+        """
+        this is used for pilot statistics as they have null values.
+        Will set any null to -1
+        """
+        for key in stat.keys():
+            val = stat[key]
+            if val is None:
+                stat[key] = -1
+        return stat
 
     def write_data(self):
 

@@ -4,6 +4,18 @@ from PySide6 import QtWidgets, QtGui
 from typing import List, Optional, Dict
 
 from .utils import change_action_image_color, gui_text_encode
+from .model.ship import Ship
+
+
+def parse_attacks(attacks_line_edit: QtWidgets.QLineEdit, arc_types_line_edit: QtWidgets.QLineEdit, statistics: dict):
+    attacks_list = Ship.get_statistic(statistics, "attacks")
+    attack_vals = []
+    arc_types = []
+    for attack in attacks_list:
+        attack_vals.append(attack.get("attack"))
+        arc_types.append(attack.get("arc_type"))
+    attacks_line_edit.setText(arr_to_comma_separated_list(attack_vals))
+    arc_types_line_edit.setText(arr_to_comma_separated_list(arc_types))
 
 
 def parse_check_box(check_box: QtWidgets.QCheckBox, value: str):

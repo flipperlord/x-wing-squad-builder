@@ -89,12 +89,11 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.total_cost_label.clear()
 
         # Set up definition form for adding to definition file.
-        self.definition_form = DefinitionForm(self.file_path)
-        self.ui.action_definition_form.triggered.connect(self.definition_form.show)
-        self.definition_form.update_signal.connect(self.reload_data)
+        self.definition_form = self.initialize_definition_form()
 
         # Set up upgrade form for adding to definition file.
-        self.ui.action_upgrade_form.triggered.connect(self.handle_show_upgrade_form)
+        self.ui.action_upgrade_form.triggered.connect(
+            self.handle_show_upgrade_form)
         self.upgrade_form = self.initialize_upgrade_form()
 
         self.ui.action_reload_data.triggered.connect(self.reload_data)
@@ -102,7 +101,8 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.equip_pilot_push_button.clicked.connect(self.equip_pilot)
         self.ui.unequip_pilot_push_button.clicked.connect(self.unequip_pilot)
         self.ui.equip_upgrade_push_button.clicked.connect(self.equip_upgrade)
-        self.ui.unequip_upgrade_push_button.clicked.connect(self.unequip_upgrade)
+        self.ui.unequip_upgrade_push_button.clicked.connect(
+            self.unequip_upgrade)
         self.ui.squad_tree_widget.itemClicked.connect(self.handle_squad_click)
 
         self.squad = Squad()
@@ -115,6 +115,12 @@ class MainWindow(QtWidgets.QMainWindow):
         self.update_costs()
 
         self.showMaximized()
+
+    def initialize_definition_form(self):
+        definition_form = DefinitionForm(self.file_path)
+        self.ui.action_definition_form.triggered.connect(definition_form.show)
+        definition_form.update_signal.connect(self.reload_data)
+        return definition_form
 
     def initialize_upgrade_form(self):
         """
@@ -130,6 +136,7 @@ class MainWindow(QtWidgets.QMainWindow):
                         self.upgrades_dir, self.factions_dir, self.ship_icons_dir, self.pilots_dir)
         self.ui.action_viewer.triggered.connect(viewer.show)
         viewer.upgrade_edit_signal.connect(self.edit_upgrade)
+        viewer.pilot_edit_signal.connect(self.edit_pilot)
         return viewer
 
     def handle_show_upgrade_form(self):
@@ -139,10 +146,18 @@ class MainWindow(QtWidgets.QMainWindow):
     def edit_upgrade(self, upgrade_name):
         # This resets the form to defaults
         self.upgrade_form = self.initialize_upgrade_form()
-        self.upgrade_form.ui.upgrade_name_line_edit.setReadOnly(True)
+        # self.upgrade_form.ui.upgrade_name_line_edit.setReadOnly(True)
         upgrade_dict = self.upgrades.get_upgrade(upgrade_name)
         self.upgrade_form.populate_upgrade_form(upgrade_dict)
         self.upgrade_form.show()
+
+    def edit_pilot(self, pilot_name, ship_name, faction_name):
+        # This resets the form to defaults
+        self.definition_form = self.initialize_definition_form()
+        ship = self.xwing.get_ship(faction_name, ship_name)
+        pilot = self.xwing.get_pilot(faction_name, ship_name, pilot_name)
+        self.definition_form.populate_definition_form(ship, pilot)
+        self.definition_form.show()
 
     def reload_data(self):
         self.definition_form.load_data()
@@ -153,9 +168,12 @@ class MainWindow(QtWidgets.QMainWindow):
         self.xwing = XWing.launch_xwing_data(self.file_path)
         self.upgrades = Upgrades(self.xwing.upgrades)
         # self.viewer = self.initialize_card_viewer()
-        faction_names = [prettify_name(faction) for faction in self.xwing.faction_names]
-        populate_list_widget(faction_names, self.ui.faction_list_widget, self.factions_dir)
-        populate_list_widget(self.upgrades.all_upgrades_for_gui, self.ui.upgrade_list_widget)
+        faction_names = [prettify_name(faction)
+                         for faction in self.xwing.faction_names]
+        populate_list_widget(
+            faction_names, self.ui.faction_list_widget, self.factions_dir)
+        populate_list_widget(
+            self.upgrades.all_upgrades_for_gui, self.ui.upgrade_list_widget)
 
     def handle_squad_click(self, item: QtWidgets.QTreeWidgetItem, column):
         self.ui.upgrade_list_widget.clear()
@@ -163,13 +181,16 @@ class MainWindow(QtWidgets.QMainWindow):
         # If you click on a pilot...
         if treewidget_item_is_top_level(item):
             pilot_data = self.squad.get_pilot_data(item)
-            filtered_for_gui = self.upgrades.filtered_upgrades_for_gui(pilot_data.filtered_upgrades)
+            filtered_for_gui = self.upgrades.filtered_upgrades_for_gui(
+                pilot_data.filtered_upgrades)
         # If you click on an upgrade slot...
         else:
             pilot_data = self.squad.get_pilot_data(item.parent())
             upgrade_slot = get_upgrade_slot_from_list_item_text(item.text(0))
-            filtered_upgrades = self.upgrades.filtered_upgrades_by_pilot_and_slot(pilot_data, upgrade_slot)
-            filtered_for_gui = self.upgrades.filtered_upgrades_for_gui(filtered_upgrades)
+            filtered_upgrades = self.upgrades.filtered_upgrades_by_pilot_and_slot(
+                pilot_data, upgrade_slot)
+            filtered_for_gui = self.upgrades.filtered_upgrades_for_gui(
+                filtered_upgrades)
 
         populate_list_widget(filtered_for_gui, self.ui.upgrade_list_widget)
         self.pilot_image_label = pilot_data.pilot_name
@@ -179,26 +200,31 @@ class MainWindow(QtWidgets.QMainWindow):
         ship_name = self.ship_selected_encoded
         if faction_name is None or ship_name is None:
             return
-        pilot = self.xwing.get_pilot(faction_name, ship_name, self.pilot_name_selected)
+        pilot = self.xwing.get_pilot(
+            faction_name, ship_name, self.pilot_name_selected)
         ship = self.xwing.get_ship(faction_name, ship_name)
         pilot_data = PilotEquip(ship, pilot)
-        pilot_data.filtered_upgrades = self.upgrades.filtered_upgrades_by_pilot(pilot_data)
+        pilot_data.filtered_upgrades = self.upgrades.filtered_upgrades_by_pilot(
+            pilot_data)
         item = QtWidgets.QTreeWidgetItem([self.pilot_selected_decoded])
         added = self.squad.add_pilot(item, pilot_data)
         if not added:
             return
         for slot in pilot_data.upgrade_slots:
             child = QtWidgets.QTreeWidgetItem([prettify_name(slot)])
-            pixmap = image_path_to_qpixmap(self.upgrade_slots_dir / f"{slot}.png")
+            pixmap = image_path_to_qpixmap(
+                self.upgrade_slots_dir / f"{slot}.png")
             child.setIcon(0, pixmap)
             item.addChild(child)
 
-        self.ui.squad_tree_widget.insertTopLevelItem(self.squad_tree_bottom_index, item)
+        self.ui.squad_tree_widget.insertTopLevelItem(
+            self.squad_tree_bottom_index, item)
         self.ui.squad_tree_widget.resizeColumnToContents(0)
         self.update_costs()
 
     def unequip_pilot(self):
-        top_level_idx = self.ui.squad_tree_widget.indexOfTopLevelItem(self.squad_tree_selection)
+        top_level_idx = self.ui.squad_tree_widget.indexOfTopLevelItem(
+            self.squad_tree_selection)
         item = self.ui.squad_tree_widget.takeTopLevelItem(top_level_idx)
         self.squad.remove_pilot(item)
         self.update_costs()
@@ -213,9 +239,11 @@ class MainWindow(QtWidgets.QMainWindow):
         pilot_item = self.squad_tree_selection.parent()
         pilot_data = self.squad.get_pilot_data(pilot_item)
         upgrade_dict = self.upgrades.get_upgrade(self.upgrade_name_selected)
-        upgrade_cost = Upgrades.get_filtered_upgrade_cost(upgrade_dict, pilot_data)
+        upgrade_cost = Upgrades.get_filtered_upgrade_cost(
+            upgrade_dict, pilot_data)
         upgrade_slots = Upgrades.get_upgrade_slots(upgrade_dict)
-        equipped = pilot_data.equip_upgrade(upgrade_slots, self.upgrade_name_selected, upgrade_cost)
+        equipped = pilot_data.equip_upgrade(
+            upgrade_slots, self.upgrade_name_selected, upgrade_cost)
         if equipped:
             # for upgrade slot required for the upgrade
             required_slots = upgrade_dict['upgrade_slot_types']
@@ -228,10 +256,12 @@ class MainWindow(QtWidgets.QMainWindow):
                     # empty string means nothing equipped here
                     if len(gui_equipped) == 0 and potential_slot == slot:
                         # Update icon to green (for equipped)
-                        pixmap = image_path_to_qpixmap(self.upgrade_slots_dir / f"{slot}.png", color="green")
+                        pixmap = image_path_to_qpixmap(
+                            self.upgrade_slots_dir / f"{slot}.png", color="green")
                         child_item.setIcon(0, pixmap)
                         # update item column to the name
-                        child_item.setText(1, f'{prettify_name(self.upgrade_name_selected)} ({upgrade_cost})')
+                        child_item.setText(
+                            1, f'{prettify_name(self.upgrade_name_selected)} ({upgrade_cost})')
                         break
         self.update_costs()
 
@@ -242,8 +272,10 @@ class MainWindow(QtWidgets.QMainWindow):
         pilot_data = self.squad.get_pilot_data(pilot_item)
         # Something is equipped
         if len(self.squad_tree_upgrade_name_selection) > 0:
-            upgrade_dict = self.upgrades.get_upgrade(self.squad_tree_upgrade_name_selection)
-            unequipped = pilot_data.unequip_upgrade(self.squad_tree_upgrade_name_selection)
+            upgrade_dict = self.upgrades.get_upgrade(
+                self.squad_tree_upgrade_name_selection)
+            unequipped = pilot_data.unequip_upgrade(
+                self.squad_tree_upgrade_name_selection)
             if unequipped:
                 required_slots = upgrade_dict['upgrade_slot_types']
                 for slot in required_slots:
@@ -255,7 +287,8 @@ class MainWindow(QtWidgets.QMainWindow):
                         # empty string means nothing equipped here
                         if len(gui_equipped) > 0 and potential_slot == slot:
                             # Update icon to green (for equipped)
-                            pixmap = image_path_to_qpixmap(self.upgrade_slots_dir / f"{slot}.png")
+                            pixmap = image_path_to_qpixmap(
+                                self.upgrade_slots_dir / f"{slot}.png")
                             child_item.setIcon(0, pixmap)
                             # update item column to the name
                             child_item.setText(1, "")
@@ -282,7 +315,8 @@ class MainWindow(QtWidgets.QMainWindow):
         try:
             val = self.ui.squad_tree_widget.selectedItems()[0]
         except IndexError:
-            logging.info("Nothing selected in squad tree - select a squad tree item and try again.")
+            logging.info(
+                "Nothing selected in squad tree - select a squad tree item and try again.")
             return
         return val
 
@@ -297,7 +331,8 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.pilot_list_widget.clear()
         faction_name = item.text().lower()
         faction = self.xwing.get_faction(faction_name)
-        populate_list_widget(faction.ship_names_for_gui, self.ui.ship_list_widget, self.ship_icons_dir)
+        populate_list_widget(faction.ship_names_for_gui,
+                             self.ui.ship_list_widget, self.ship_icons_dir)
 
     def update_ship(self, item):
         self.ui.pilot_image_label.clear()
@@ -306,18 +341,24 @@ class MainWindow(QtWidgets.QMainWindow):
 
         self.ui.ship_name_label.setText(prettify_name(ship_name))
         self.ui.base_label.setText(prettify_name(ship.base))
-        self.ui.initiative_label.setText(str(ship.initiative_list).replace('[', '').replace(']', ''))
+        self.ui.initiative_label.setText(
+            str(ship.initiative_list).replace('[', '').replace(']', ''))
         low, high = ship.point_range
         self.ui.points_label.setText(f"{low} - {high}")
-        self.ui.maneuver_image_label.setPixmap(image_path_to_qpixmap(self.maneuvers_dir / f"{ship_name}.png"))
-        update_action_layout(self.ui.ship_action_layout, ship.actions, self.actions_dir)
+        self.ui.maneuver_image_label.setPixmap(
+            image_path_to_qpixmap(self.maneuvers_dir / f"{ship_name}.png"))
+        update_action_layout(self.ui.ship_action_layout,
+                             ship.actions, self.actions_dir)
         update_action_layout(self.ui.pilot_action_layout, [], self.actions_dir)
-        update_upgrade_slot_layout(self.ui.ship_upgrade_slot_layout, ship.upgrade_slots, self.upgrade_slots_dir)
-        update_upgrade_slot_layout(self.ui.pilot_upgrade_slot_layout, [], self.upgrade_slots_dir)
+        update_upgrade_slot_layout(
+            self.ui.ship_upgrade_slot_layout, ship.upgrade_slots, self.upgrade_slots_dir)
+        update_upgrade_slot_layout(
+            self.ui.pilot_upgrade_slot_layout, [], self.upgrade_slots_dir)
 
         # Populate the pilot list
         self.ui.pilot_list_widget.clear()
-        populate_list_widget(ship.pilot_names_for_gui, self.ui.pilot_list_widget)
+        populate_list_widget(ship.pilot_names_for_gui,
+                             self.ui.pilot_list_widget)
 
     @property
     def pilot_image_label(self):
@@ -325,35 +366,43 @@ class MainWindow(QtWidgets.QMainWindow):
 
     @pilot_image_label.setter
     def pilot_image_label(self, pilot_name: str):
-        self.pilot_image_label.setPixmap(image_path_to_qpixmap(self.pilots_dir / f"{pilot_name}.jpg"))
+        self.pilot_image_label.setPixmap(
+            image_path_to_qpixmap(self.pilots_dir / f"{pilot_name}.jpg"))
 
     def update_pilot(self, item):
         pilot_name = get_pilot_name_from_list_item_text(item.text())
         self.pilot_image_label = pilot_name
-        pilot = self.xwing.get_pilot(self.faction_selected, self.ship_selected_encoded, pilot_name)
-        update_action_layout(self.ui.pilot_action_layout, pilot["actions"], self.actions_dir)
-        update_upgrade_slot_layout(self.ui.pilot_upgrade_slot_layout, pilot["upgrade_slots"], self.upgrade_slots_dir)
+        pilot = self.xwing.get_pilot(
+            self.faction_selected, self.ship_selected_encoded, pilot_name)
+        update_action_layout(self.ui.pilot_action_layout,
+                             pilot["actions"], self.actions_dir)
+        update_upgrade_slot_layout(
+            self.ui.pilot_upgrade_slot_layout, pilot["upgrade_slots"], self.upgrade_slots_dir)
 
         self.ui.upgrade_list_widget.clear()
-        populate_list_widget(self.upgrades.all_upgrades_for_gui, self.ui.upgrade_list_widget)
+        populate_list_widget(
+            self.upgrades.all_upgrades_for_gui, self.ui.upgrade_list_widget)
 
     def update_upgrade(self, item):
         upgrade_name = get_upgrade_name_from_list_item_text(item.text())
-        self.ui.upgrade_image_label.setPixmap(image_path_to_qpixmap(self.upgrades_dir / f"{upgrade_name}.jpg"))
+        self.ui.upgrade_image_label.setPixmap(
+            image_path_to_qpixmap(self.upgrades_dir / f"{upgrade_name}.jpg"))
 
     @property
     def faction_selected(self) -> str:
         try:
             val = self.ui.faction_list_widget.selectedItems()[0].text().lower()
         except IndexError:
-            logging.info("No faction selected - select a faction and try again.")
+            logging.info(
+                "No faction selected - select a faction and try again.")
             return
         return val
 
     @property
     def ship_selected_encoded(self) -> str:
         try:
-            val = gui_text_encode(self.ui.ship_list_widget.selectedItems()[0].text())
+            val = gui_text_encode(
+                self.ui.ship_list_widget.selectedItems()[0].text())
         except IndexError:
             logging.info("No ship selected - select a ship and try again")
             return
@@ -376,7 +425,8 @@ class MainWindow(QtWidgets.QMainWindow):
     def pilot_name_selected(self) -> str:
         """returns the encoded lowercase name of the selected pilot from the pilot list widget."""
         try:
-            val = get_pilot_name_from_list_item_text(self.ui.pilot_list_widget.selectedItems()[0].text())
+            val = get_pilot_name_from_list_item_text(
+                self.ui.pilot_list_widget.selectedItems()[0].text())
         except IndexError:
             logging.info("No pilot selected - select a pilot and try again")
             return
@@ -387,9 +437,11 @@ class MainWindow(QtWidgets.QMainWindow):
         """returns the encoded lowercase name of the selected upgrade from the upgrade list widget."""
 
         try:
-            val = get_upgrade_name_from_list_item_text(self.ui.upgrade_list_widget.selectedItems()[0].text())
+            val = get_upgrade_name_from_list_item_text(
+                self.ui.upgrade_list_widget.selectedItems()[0].text())
         except IndexError:
-            logging.info("No upgrade selected - select an upgrade and try again")
+            logging.info(
+                "No upgrade selected - select an upgrade and try again")
             return
         return val
 
@@ -398,9 +450,11 @@ class MainWindow(QtWidgets.QMainWindow):
         """returns the encoded lowercase name of the selected upgrade from the squad tree widget."""
 
         try:
-            val = get_upgrade_name_from_list_item_text(self.squad_tree_selection.text(1))
+            val = get_upgrade_name_from_list_item_text(
+                self.squad_tree_selection.text(1))
         except IndexError:
-            logging.info("No squad tree item selected - select an item from the squad tree and try again.")
+            logging.info(
+                "No squad tree item selected - select an item from the squad tree and try again.")
             return
         return val
 

@@ -1,4 +1,4 @@
-from typing import List, Tuple, Optional
+from typing import List, Tuple, Optional, Union, Dict
 from ..utils import prettify_name
 
 
@@ -77,6 +77,18 @@ class Ship:
     @property
     def ship_data(self):
         return self.__ship_data
+
+    @staticmethod
+    def get_statistic(statistics: list, attribute: str) -> Union[List, Dict]:
+        """
+        grabs a given attribute from the list of statistics.
+
+        this will return a dictionary for everything except attacks, which returns
+        a list of dictionaries.
+        """
+        for stat in statistics:
+            if attribute in stat:
+                return stat[attribute]
 
     def get_pilot_data(self, pilot_name: str) -> Optional[dict]:
         for pilot in self.pilots:
