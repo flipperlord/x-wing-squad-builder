@@ -47,7 +47,22 @@ class Viewer(QtWidgets.QDialog):
 
         self.xwing = xwing
 
+        self.populate_upgrade_viewer()
+        self.upgrade_viewer = CardViewer(self)
+        self.add_card_viewer(
+            self.upgrade_viewer, self.ui.upgrade_viewer_tree_widget, self.ui.upgrade_layout)
+
+        self.ui.pilot_viewer_tree_widget.itemClicked.connect(
+            self.handle_pilot_tree_click)
+
+        self.populate_pilot_viewer()
+        self.pilot_viewer = CardViewer(self)
+        self.add_card_viewer(
+            self.pilot_viewer, self.ui.pilot_viewer_tree_widget, self.ui.pilot_layout)
+
+    def populate_upgrade_viewer(self):
         # populate upgrade viewer
+        self.ui.upgrade_viewer_tree_widget.clear()
         for k, v in self.upgrades.upgrade_slot_dict.items():
             item = QtWidgets.QTreeWidgetItem([k.capitalize()])
             pixmap = image_path_to_qpixmap(self.upgrade_slots_dir / f"{k}.png")
@@ -57,12 +72,11 @@ class Viewer(QtWidgets.QDialog):
                 item.addChild(child)
             self.ui.upgrade_viewer_tree_widget.insertTopLevelItem(0, item)
             self.ui.upgrade_viewer_tree_widget.resizeColumnToContents(0)
+        self.ui.upgrade_viewer_tree_widget.expandAll()
 
-        self.upgrade_viewer = CardViewer(self)
-        self.add_card_viewer(
-            self.upgrade_viewer, self.ui.upgrade_viewer_tree_widget, self.ui.upgrade_layout)
-
+    def populate_pilot_viewer(self, item: Optional[QtWidgets.QTreeWidgetItem] = None):
         # populate pilot viewer
+        self.ui.pilot_viewer_tree_widget.clear()
         for faction_name, ship_dict in self.xwing.faction_ship_pilot_dict.items():
             faction_item = QtWidgets.QTreeWidgetItem(
                 [prettify_name(faction_name)])
@@ -82,15 +96,10 @@ class Viewer(QtWidgets.QDialog):
             self.ui.pilot_viewer_tree_widget.insertTopLevelItem(
                 self.ui.pilot_viewer_tree_widget.topLevelItemCount(), faction_item)
             self.ui.pilot_viewer_tree_widget.resizeColumnToContents(0)
-
-        self.ui.pilot_viewer_tree_widget.itemClicked.connect(
-            self.handle_pilot_tree_click)
-
-        self.pilot_viewer = CardViewer(self)
-        self.add_card_viewer(
-            self.pilot_viewer, self.ui.pilot_viewer_tree_widget, self.ui.pilot_layout)
-        self.ui.upgrade_viewer_tree_widget.expandAll()
-        self.ui.pilot_viewer_tree_widget.expandAll()
+        if item:
+            self.ui.pilot_viewer_tree_widget.scrollToItem(item, QtWidgets.QAbstractItemView.ScrollHint.EnsureVisible)
+        else:
+            self.ui
 
     def filter_items(self):
         show_all = False

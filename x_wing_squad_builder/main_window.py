@@ -107,10 +107,13 @@ class MainWindow(QtWidgets.QMainWindow):
 
         self.squad = Squad()
 
-        self.reload_data()
+        self.xwing = XWing.launch_xwing_data(self.file_path)
+        self.upgrades = Upgrades(self.xwing.upgrades)
 
         # Set up upgrade viewer
         self.viewer = self.initialize_card_viewer()
+
+        self.reload_data()
 
         self.update_costs()
 
@@ -167,6 +170,10 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.upgrade_list_widget.clear()
         self.xwing = XWing.launch_xwing_data(self.file_path)
         self.upgrades = Upgrades(self.xwing.upgrades)
+        self.viewer.upgrades = self.upgrades
+        self.viewer.xwing = self.xwing
+        self.viewer.populate_upgrade_viewer()
+        self.viewer.populate_pilot_viewer()
         # self.viewer = self.initialize_card_viewer()
         faction_names = [prettify_name(faction)
                          for faction in self.xwing.faction_names]

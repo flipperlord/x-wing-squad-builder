@@ -12,8 +12,6 @@ from pathlib import Path
 
 from typing import List, Optional, Union
 
-from enum import Enum
-
 
 class DefinitionForm(QtWidgets.QDialog):
     update_signal = QtCore.Signal()
