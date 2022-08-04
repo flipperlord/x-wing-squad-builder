@@ -148,6 +148,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.definition_form.edit_mode = False
         self.definition_form.edit_pilot_name = None
         self.definition_form.edit_upgrade_name = None
+        self.definition_form.edit_ship_name = None
 
     def handle_show_upgrade_form(self):
         self.upgrade_form.ui.upgrade_name_line_edit.setReadOnly(False)
@@ -168,6 +169,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.definition_form = self.initialize_definition_form()
         self.definition_form.edit_mode = True
         self.definition_form.edit_pilot_name = pilot_name
+        self.definition_form.edit_ship_name = ship_name
         ship = self.xwing.get_ship(faction_name, ship_name)
         pilot = self.xwing.get_pilot(faction_name, ship_name, pilot_name)
         self.definition_form.populate_definition_form(ship, pilot)

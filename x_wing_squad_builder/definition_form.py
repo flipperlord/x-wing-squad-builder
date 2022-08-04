@@ -29,6 +29,7 @@ class DefinitionForm(QtWidgets.QDialog):
         self.edit_mode = False
         self.edit_pilot_name = None
         self.edit_upgrade_name = None
+        self.edit_ship_name = None
 
         self.ui.faction_name_line_edit.setText("great slayers")
         self.ui.ship_name_line_edit.setText("will-d-beast")
@@ -498,12 +499,20 @@ class DefinitionForm(QtWidgets.QDialog):
         entry = self.data_entry_template()
         new_faction_name = entry['name']
         new_ship_name = entry['ship']['name']
+        # If the faction already exists...
         if new_faction_name in self.xwing.faction_names:
-            current_ship_data = self.xwing.get_ship(
-                new_faction_name, new_ship_name)
-            if current_ship_data:
+            if self.edit_mode:
+                current_ship_data = self.xwing.get_ship(
+                    new_faction_name, self.edit_ship_name)
+            else:
+                current_ship_data = self.xwing.get_ship(
+                    new_faction_name, new_ship_name)
+            # If the ship already exists...
+            if current_ship_data or self.edit_mode:
+                self.insert_ship(new_faction_name, entry['ship'], overwrite=True)
                 pilot_data = entry['pilot']
                 new_pilot_name = entry['pilot']['name']
+                # If the pilot already exists...
                 if new_pilot_name in current_ship_data.pilot_names or self.edit_mode:
                     title = "Pilot exists!"
                     msg = "This pilot exists.  Do you want to overwrite the existing pilot data?"
@@ -515,13 +524,16 @@ class DefinitionForm(QtWidgets.QDialog):
                     else:
                         # returning true is what we use to open the definition form again
                         return True
+                # Otherwise simply append a new pilot
                 else:
                     self.insert_pilot(new_faction_name,
                                       new_ship_name, pilot_data)
+            # Otherwise simply append a new ship with the pilot
             else:
                 self.insert_ship(new_faction_name, entry['ship'])
                 self.insert_pilot(new_faction_name,
                                   new_ship_name, entry['pilot'])
+        # Otherwise simply append a new faction, ship, and pilot
         else:
             self.insert_faction(new_faction_name)
             self.insert_ship(new_faction_name, entry['ship'])
@@ -529,6 +541,7 @@ class DefinitionForm(QtWidgets.QDialog):
 
         self.edit_mode = False
         self.edit_pilot_name = None
+        self.edit_ship_name = None
 
     def get_faction_index(self, faction_name: str) -> Optional[int]:
         for i, faction in enumerate(self.data['factions']):
@@ -551,11 +564,22 @@ class DefinitionForm(QtWidgets.QDialog):
         self.data['factions'].append(new_faction)
         logging.info(f"Attempting to insert new faction <{faction_name}>.")
 
-    def insert_ship(self, faction_name: str, ship_data: dict):
+    def insert_ship(self, faction_name: str, ship_data: dict, overwrite=False):
         faction_idx = self.get_faction_index(faction_name)
-        self.data['factions'][faction_idx]['ships'].append(ship_data)
-        logging.info(
-            f"Attempting to insert new ship <{ship_data['name']}> into faction <{faction_name}>.")
+        if overwrite:
+            for k, ship in enumerate(self.data['factions'][faction_idx]['ships']):
+                if ship['name'] == self.edit_ship_name:
+                    logging.info(
+                        f"Attempting to update ship info for {ship_data['name']}"
+                    )
+                    # remember to hang on to the pilots
+                    pilots = self.data['factions'][faction_idx]['ships'][k]['pilots'].copy()
+                    self.data['factions'][faction_idx]['ships'][k] = ship_data
+                    self.data['factions'][faction_idx]['ships'][k]['pilots'] = pilots
+        else:
+            self.data['factions'][faction_idx]['ships'].append(ship_data)
+            logging.info(
+                f"Attempting to insert new ship <{ship_data['name']}> into faction <{faction_name}>.")
 
     def insert_pilot(self, faction_name: str, ship_name: str, pilot_data: dict, overwrite=False):
         faction_idx = self.get_faction_index(faction_name)
@@ -569,8 +593,8 @@ class DefinitionForm(QtWidgets.QDialog):
         else:
             self.data['factions'][faction_idx]['ships'][ship_idx]['pilots'].append(
                 pilot_data)
-        logging.info(
-            f"Attempting to insert pilot <{pilot_data['name']}> under ship <{ship_name}> under faction <{faction_name}>.")
+            logging.info(
+                f"Attempting to insert pilot <{pilot_data['name']}> under ship <{ship_name}> under faction <{faction_name}>.")
 
     def populate_definition_form(self, ship: Ship, pilot: dict):
         self.ui.faction_name_line_edit.setText(ship.faction_name)

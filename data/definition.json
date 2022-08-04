@@ -13871,6 +13871,7 @@
                     "upgrade_slots": [
                         "configuration"
                     ],
+                    "epic": "True",
                     "pilots": [
                         {
                             "name": "transgalmeg control link",
