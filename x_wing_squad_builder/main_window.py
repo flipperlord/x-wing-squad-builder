@@ -123,6 +123,7 @@ class MainWindow(QtWidgets.QMainWindow):
         definition_form = DefinitionForm(self.file_path)
         self.ui.action_definition_form.triggered.connect(definition_form.show)
         definition_form.update_signal.connect(self.reload_data)
+        definition_form.form_closed_signal.connect(self.handle_form_closed)
         return definition_form
 
     def initialize_upgrade_form(self):
@@ -132,6 +133,7 @@ class MainWindow(QtWidgets.QMainWindow):
         """
         upgrade_form = UpgradeForm(self.file_path)
         upgrade_form.update_signal.connect(self.handle_new_upgrade_data)
+        upgrade_form.update_form_closed_signal.connect(self.handle_form_closed)
         return upgrade_form
 
     def initialize_card_viewer(self):
@@ -142,6 +144,11 @@ class MainWindow(QtWidgets.QMainWindow):
         viewer.pilot_edit_signal.connect(self.edit_pilot)
         return viewer
 
+    def handle_form_closed(self):
+        self.definition_form.edit_mode = False
+        self.definition_form.edit_pilot_name = None
+        self.definition_form.edit_upgrade_name = None
+
     def handle_show_upgrade_form(self):
         self.upgrade_form.ui.upgrade_name_line_edit.setReadOnly(False)
         self.upgrade_form.show()
@@ -150,6 +157,8 @@ class MainWindow(QtWidgets.QMainWindow):
         # This resets the form to defaults
         self.upgrade_form = self.initialize_upgrade_form()
         # self.upgrade_form.ui.upgrade_name_line_edit.setReadOnly(True)
+        self.definition_form.edit_mode = True
+        self.definition_form.edit_upgrade_name = upgrade_name
         upgrade_dict = self.upgrades.get_upgrade(upgrade_name)
         self.upgrade_form.populate_upgrade_form(upgrade_dict)
         self.upgrade_form.show()
@@ -157,6 +166,8 @@ class MainWindow(QtWidgets.QMainWindow):
     def edit_pilot(self, pilot_name, ship_name, faction_name):
         # This resets the form to defaults
         self.definition_form = self.initialize_definition_form()
+        self.definition_form.edit_mode = True
+        self.definition_form.edit_pilot_name = pilot_name
         ship = self.xwing.get_ship(faction_name, ship_name)
         pilot = self.xwing.get_pilot(faction_name, ship_name, pilot_name)
         self.definition_form.populate_definition_form(ship, pilot)

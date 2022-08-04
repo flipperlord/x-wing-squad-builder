@@ -15,6 +15,7 @@ from typing import List, Optional, Union
 
 class DefinitionForm(QtWidgets.QDialog):
     update_signal = QtCore.Signal()
+    form_closed_signal = QtCore.Signal()
 
     def __init__(self, data_filepath: Path, parent=None):
         super().__init__()
@@ -23,6 +24,11 @@ class DefinitionForm(QtWidgets.QDialog):
 
         self.data_filepath = data_filepath
         self.load_data()
+
+        # This is turned on when editing entries from the viewer, then turned off after the edit is complete
+        self.edit_mode = False
+        self.edit_pilot_name = None
+        self.edit_upgrade_name = None
 
         self.ui.faction_name_line_edit.setText("great slayers")
         self.ui.ship_name_line_edit.setText("will-d-beast")
@@ -39,6 +45,7 @@ class DefinitionForm(QtWidgets.QDialog):
         self.ship_check_timer.start(500)
 
         self.accepted.connect(self.handle_ok_pressed)
+        self.rejected.connect(self.handle_close_pressed)
 
     def load_data(self):
         with open(self.data_filepath) as file:
@@ -463,13 +470,13 @@ class DefinitionForm(QtWidgets.QDialog):
 
     def insert_new_upgrade_entry(self, upgrade_entry):
         new_upgrade_name = upgrade_entry["name"]
-        if new_upgrade_name in self.current_upgrade_names:
+        if new_upgrade_name in self.current_upgrade_names or self.edit_mode:
             title = "Upgrade Exists!"
             msg = "This upgrade exists.  Do you want to overwrite the existing upgrade data?"
             reply = QtWidgets.QMessageBox.warning(
                 self, title, msg, QtWidgets.QMessageBox.Ok | QtWidgets.QMessageBox.Cancel)
             if reply == QtWidgets.QMessageBox.Ok:
-                upgrade_idx = self.get_upgrade_idx(new_upgrade_name)
+                upgrade_idx = self.get_upgrade_idx(self.edit_upgrade_name)
                 self.upgrade_list[upgrade_idx] = upgrade_entry
                 logging.info(
                     f"Attempting to overwrite data for <{new_upgrade_name}>.")
@@ -483,19 +490,21 @@ class DefinitionForm(QtWidgets.QDialog):
             logging.info(
                 f"Attempting to insert upgrade data for <{new_upgrade_name}>.")
         self.write_data()
+        self.edit_mode = False
+        self.edit_upgrade_name = None
 
     def insert_new_entry(self) -> bool:
         self.xwing = XWing.launch_xwing_data(self.data_filepath)
         entry = self.data_entry_template()
         new_faction_name = entry['name']
+        new_ship_name = entry['ship']['name']
         if new_faction_name in self.xwing.faction_names:
-            new_ship_name = entry['ship']['name']
             current_ship_data = self.xwing.get_ship(
                 new_faction_name, new_ship_name)
             if current_ship_data:
                 pilot_data = entry['pilot']
                 new_pilot_name = entry['pilot']['name']
-                if new_pilot_name in current_ship_data.pilot_names:
+                if new_pilot_name in current_ship_data.pilot_names or self.edit_mode:
                     title = "Pilot exists!"
                     msg = "This pilot exists.  Do you want to overwrite the existing pilot data?"
                     reply = QtWidgets.QMessageBox.warning(
@@ -518,7 +527,10 @@ class DefinitionForm(QtWidgets.QDialog):
             self.insert_ship(new_faction_name, entry['ship'])
             self.insert_pilot(new_faction_name, new_ship_name, entry['pilot'])
 
-    def get_faction_index(self, faction_name: str) -> int:
+        self.edit_mode = False
+        self.edit_pilot_name = None
+
+    def get_faction_index(self, faction_name: str) -> Optional[int]:
         for i, faction in enumerate(self.data['factions']):
             if faction['name'] == faction_name:
                 return i
@@ -550,13 +562,13 @@ class DefinitionForm(QtWidgets.QDialog):
         ship_idx = self.get_ship_index(faction_name, ship_name)
         if overwrite:
             for k, pilot in enumerate(self.data['factions'][faction_idx]['ships'][ship_idx]['pilots']):
-                if pilot['name'] == pilot_data['name']:
-                    removed = self.data['factions'][faction_idx]['ships'][ship_idx]['pilots'].pop(
-                        k)
+                if pilot['name'] == self.edit_pilot_name:
                     logging.info(
-                        f"Attempting to update pilot info for {removed['name']}")
-        self.data['factions'][faction_idx]['ships'][ship_idx]['pilots'].append(
-            pilot_data)
+                        f"Attempting to update pilot info for {pilot_data['name']}")
+                    self.data['factions'][faction_idx]['ships'][ship_idx]['pilots'][k] = pilot_data
+        else:
+            self.data['factions'][faction_idx]['ships'][ship_idx]['pilots'].append(
+                pilot_data)
         logging.info(
             f"Attempting to insert pilot <{pilot_data['name']}> under ship <{ship_name}> under faction <{faction_name}>.")
 
@@ -690,3 +702,6 @@ class DefinitionForm(QtWidgets.QDialog):
             return
         self.write_data()
         self.update_signal.emit()
+
+    def handle_close_pressed(self):
+        self.form_closed_signal.emit()

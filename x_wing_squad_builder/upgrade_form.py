@@ -16,6 +16,7 @@ from .model.constants import BASE_SIZES, ARC_TYPES_, ACTION_COLORS, ACTIONS_, UP
 
 class UpgradeForm(QtWidgets.QDialog):
     update_signal = QtCore.Signal(dict)
+    update_form_closed_signal = QtCore.Signal()
 
     def __init__(self, data_filepath: Path, parent=None):
         super().__init__(parent)
@@ -23,15 +24,18 @@ class UpgradeForm(QtWidgets.QDialog):
         self.ui.setupUi(self)
 
         self.data_filepath = data_filepath
-        self.checkboxes = detect_pyside_widget(self.ui.verticalLayout, QtWidgets.QCheckBox)
+        self.checkboxes = detect_pyside_widget(
+            self.ui.verticalLayout, QtWidgets.QCheckBox)
 
         self.ui.upgrade_name_line_edit.setText("pikachu's tractor beam")
         self.ui.upgrade_slot_line_edit.setText("bull, shit")
         self.ui.upgrade_cost_spinbox.setValue(-1)
 
-        self.ui.upgrade_cost_spinbox.valueChanged.connect(self.variable_cost_check)
+        self.ui.upgrade_cost_spinbox.valueChanged.connect(
+            self.variable_cost_check)
 
         self.accepted.connect(self.handle_ok_pressed)
+        self.rejected.connect(self.handle_close_pressed)
 
     def variable_cost_check(self):
         if self.ui.upgrade_cost_spinbox.value() == -1:
@@ -61,7 +65,8 @@ class UpgradeForm(QtWidgets.QDialog):
     def added_upgrade_slot_types(self) -> List[Optional[str]]:
         upgrade_text = self.ui.added_upgrade_slots_line_edit.text()
         if upgrade_text:
-            upgrade_slot_list = DefinitionForm.parse_comma_separated_text(upgrade_text, UPGRADE_SLOTS_)
+            upgrade_slot_list = DefinitionForm.parse_comma_separated_text(
+                upgrade_text, UPGRADE_SLOTS_)
             return upgrade_slot_list
         return []
 
@@ -69,7 +74,8 @@ class UpgradeForm(QtWidgets.QDialog):
     def removed_upgrade_slot_types(self) -> List[Optional[str]]:
         upgrade_text = self.ui.removed_upgrade_slots_line_edit.text()
         if upgrade_text:
-            upgrade_slot_list = DefinitionForm.parse_comma_separated_text(upgrade_text, UPGRADE_SLOTS_)
+            upgrade_slot_list = DefinitionForm.parse_comma_separated_text(
+                upgrade_text, UPGRADE_SLOTS_)
             return upgrade_slot_list
         return []
 
@@ -89,7 +95,8 @@ class UpgradeForm(QtWidgets.QDialog):
     def variable_costs(self):
         cost_text = self.ui.variable_cost_line_edit.text()
         if cost_text:
-            cost_list = prettify_definition_form_entry(self.ui.variable_cost_line_edit.text())
+            cost_list = prettify_definition_form_entry(
+                self.ui.variable_cost_line_edit.text())
             try:
                 cost_list = [int(val) for val in cost_list]
             except ValueError:
@@ -119,7 +126,8 @@ class UpgradeForm(QtWidgets.QDialog):
             else:
                 attribute = "initiative"
                 restrictions = [str(i) for i in range(100)]
-            variable_list = DefinitionForm.parse_comma_separated_text(variable_list, restrictions)
+            variable_list = DefinitionForm.parse_comma_separated_text(
+                variable_list, restrictions)
             if variable_list == INVALID:
                 return INVALID
             if attribute in ["agility", "attacks", "initiative"]:
@@ -140,7 +148,8 @@ class UpgradeForm(QtWidgets.QDialog):
     def factions(self) -> List[str]:
         faction_text = self.ui.faction_line_edit.text()
         if faction_text:
-            faction_list = DefinitionForm.parse_comma_separated_text(faction_text, FACTION_NAMES)
+            faction_list = DefinitionForm.parse_comma_separated_text(
+                faction_text, FACTION_NAMES)
         else:
             faction_list = []
         return faction_list
@@ -149,7 +158,8 @@ class UpgradeForm(QtWidgets.QDialog):
     def ships(self):
         ship_text = self.ui.ships_line_edit.text()
         if ship_text:
-            ship_list = DefinitionForm.parse_comma_separated_text(ship_text, self.ship_names)
+            ship_list = DefinitionForm.parse_comma_separated_text(
+                ship_text, self.ship_names)
         else:
             ship_list = []
         return ship_list
@@ -158,7 +168,8 @@ class UpgradeForm(QtWidgets.QDialog):
     def base_sizes(self):
         base_text = self.ui.base_sizes_line_edit.text()
         if base_text:
-            base_list = DefinitionForm.parse_comma_separated_text(base_text, BASE_SIZES)
+            base_list = DefinitionForm.parse_comma_separated_text(
+                base_text, BASE_SIZES)
         else:
             base_list = []
         return base_list
@@ -173,42 +184,50 @@ class UpgradeForm(QtWidgets.QDialog):
             high = None
         if low is not None and high is not None:
             if low > high:
-                object_name = " ".join(low_spinbox.objectName().split("_")[:-2]).upper()
-                logging.warn(f"{object_name} low value is greater than the high value.")
+                object_name = " ".join(
+                    low_spinbox.objectName().split("_")[:-2]).upper()
+                logging.warn(
+                    f"{object_name} low value is greater than the high value.")
         return low, high
 
     @property
     def attacks(self):
-        low, high = self.evaluate_attribute_range(self.ui.attack_low_spinbox, self.ui.attack_high_spinbox)
+        low, high = self.evaluate_attribute_range(
+            self.ui.attack_low_spinbox, self.ui.attack_high_spinbox)
         return {"low": low, "high": high}
 
     @property
     def arc_types(self):
         arc_type_text = self.ui.arc_types_line_edit.text()
         if arc_type_text:
-            arc_types = DefinitionForm.parse_comma_separated_text(arc_type_text, ARC_TYPES_)
+            arc_types = DefinitionForm.parse_comma_separated_text(
+                arc_type_text, ARC_TYPES_)
         else:
             arc_types = []
         return arc_types
 
     @property
     def agility(self):
-        low, high = self.evaluate_attribute_range(self.ui.agility_low_spinbox, self.ui.agility_high_spinbox)
+        low, high = self.evaluate_attribute_range(
+            self.ui.agility_low_spinbox, self.ui.agility_high_spinbox)
         return {"low": low, "high": high}
 
     @property
     def hull(self):
-        low, high = self.evaluate_attribute_range(self.ui.hull_low_spinbox, self.ui.hull_high_spinbox)
+        low, high = self.evaluate_attribute_range(
+            self.ui.hull_low_spinbox, self.ui.hull_high_spinbox)
         return {"low": low, "high": high}
 
     @property
     def pilot_initiative(self):
-        low, high = self.evaluate_attribute_range(self.ui.initiative_low_spinbox, self.ui.initiative_high_spinbox)
+        low, high = self.evaluate_attribute_range(
+            self.ui.initiative_low_spinbox, self.ui.initiative_high_spinbox)
         return {"low": low, "high": high}
 
     @property
     def pilot_limit(self):
-        low, high = self.evaluate_attribute_range(self.ui.pilot_limit_low_spinbox, self.ui.pilot_limit_high_spinbox)
+        low, high = self.evaluate_attribute_range(
+            self.ui.pilot_limit_low_spinbox, self.ui.pilot_limit_high_spinbox)
         return {"low": low, "high": high}
 
     def attribute_entry_range(
@@ -220,9 +239,12 @@ class UpgradeForm(QtWidgets.QDialog):
             recharge_high_spinbox: QtWidgets.QSpinBox,
             decharge_low_spinbox: QtWidgets.QSpinBox,
             decharge_high_spinbox: QtWidgets.QSpinBox):
-        base_low, base_high = self.evaluate_attribute_range(low_spinbox, high_spinbox)
-        recharge_low, recharge_high = self.evaluate_attribute_range(recharge_low_spinbox, recharge_high_spinbox)
-        decharge_low, decharge_high = self.evaluate_attribute_range(decharge_low_spinbox, decharge_high_spinbox)
+        base_low, base_high = self.evaluate_attribute_range(
+            low_spinbox, high_spinbox)
+        recharge_low, recharge_high = self.evaluate_attribute_range(
+            recharge_low_spinbox, recharge_high_spinbox)
+        decharge_low, decharge_high = self.evaluate_attribute_range(
+            decharge_low_spinbox, decharge_high_spinbox)
 
         return {name: {"low": base_low, "high": base_high}, "recharge": {"low": recharge_low, "high": recharge_high}, "decharge": {"low": decharge_low, "high": decharge_high}}
 
@@ -278,7 +300,8 @@ class UpgradeForm(QtWidgets.QDialog):
     def colors(self):
         colors_text = self.ui.colors_line_edit.text()
         if colors_text:
-            colors, color_links = DefinitionForm.parse_actions_and_colors(colors_text, ACTION_COLORS)
+            colors, color_links = DefinitionForm.parse_actions_and_colors(
+                colors_text, ACTION_COLORS)
             actions, _ = self.actions
             if len(colors) != len(actions):
                 return INVALID
@@ -298,7 +321,8 @@ class UpgradeForm(QtWidgets.QDialog):
     def added_colors(self):
         colors_text = self.ui.added_action_colors_line_edit.text()
         if colors_text:
-            colors, color_links = DefinitionForm.parse_actions_and_colors(colors_text, ACTION_COLORS)
+            colors, color_links = DefinitionForm.parse_actions_and_colors(
+                colors_text, ACTION_COLORS)
             actions, _ = self.added_actions
             if len(colors) != len(actions):
                 return INVALID
@@ -322,7 +346,8 @@ class UpgradeForm(QtWidgets.QDialog):
     def traits(self) -> List[str]:
         traits_text = self.ui.traits_line_edit.text()
         if traits_text:
-            traits = DefinitionForm.parse_comma_separated_text(traits_text, KEYWORDS)
+            traits = DefinitionForm.parse_comma_separated_text(
+                traits_text, KEYWORDS)
         else:
             traits = []
         return traits
@@ -354,49 +379,59 @@ class UpgradeForm(QtWidgets.QDialog):
             logging.info("Must provide a value for the upgrade name.")
             valid = False
         if self.upgrade_slot_types == INVALID:
-            logging.info(f"Upgrade slot types must be within the following: {UPGRADE_SLOTS_}")
+            logging.info(
+                f"Upgrade slot types must be within the following: {UPGRADE_SLOTS_}")
             valid = False
         if self.added_upgrade_slot_types == INVALID:
-            logging.info(f"Added upgrade slot types must be within the following: {UPGRADE_SLOTS_}")
+            logging.info(
+                f"Added upgrade slot types must be within the following: {UPGRADE_SLOTS_}")
             valid = False
         if self.removed_upgrade_slot_types == INVALID:
-            logging.info(f"Removed upgrade slot types must be within the following: {UPGRADE_SLOTS_}")
+            logging.info(
+                f"Removed upgrade slot types must be within the following: {UPGRADE_SLOTS_}")
             valid = False
         if self.factions == INVALID:
-            logging.info(f"Factions must be within the following: {FACTION_NAMES}")
+            logging.info(
+                f"Factions must be within the following: {FACTION_NAMES}")
             valid = False
         if self.ships == INVALID:
-            logging.info(f"Ship names must be within previously defined ship entries.")
+            logging.info(
+                f"Ship names must be within previously defined ship entries.")
             valid = False
         if self.base_sizes == INVALID:
-            logging.info(f"Base sizes must be within the following: {BASE_SIZES}")
+            logging.info(
+                f"Base sizes must be within the following: {BASE_SIZES}")
             valid = False
         if self.arc_types == INVALID:
             logging.info(
                 f"Arc types must have the same number of attacks.  Arc Types must be be within the following: {ARC_TYPES_}")
             valid = False
         if self.actions == INVALID:
-            logging.info(f"Action entries must be within the following: {ACTIONS_}")
+            logging.info(
+                f"Action entries must be within the following: {ACTIONS_}")
             valid = False
         if self.colors == INVALID:
             logging.info(
                 f"Colors must have the same number of actions.  Colors must be be within the following: {ACTION_COLORS}")
             valid = False
         if self.added_actions == INVALID:
-            logging.info(f"Added action entries must be within the following: {ACTIONS_}")
+            logging.info(
+                f"Added action entries must be within the following: {ACTIONS_}")
             valid = False
         if self.added_colors == INVALID:
             logging.info(
                 f"Added colors must have the same number of actions.  Colors must be be within the following: {ACTION_COLORS}")
             valid = False
         if self.traits == INVALID:
-            logging.info(f"Keywords must either be empty, or one of the following: {KEYWORDS}")
+            logging.info(
+                f"Keywords must either be empty, or one of the following: {KEYWORDS}")
             valid = False
         if self.variable_costs == INVALID:
             logging.info(f"There was a problem with the variable cost entry.")
             valid = False
         if self.variable_attribute_list == INVALID:
-            logging.info(f"There was a problem with the variable cost attribute entry.")
+            logging.info(
+                f"There was a problem with the variable cost attribute entry.")
             valid = False
 
         return valid
@@ -440,13 +475,16 @@ class UpgradeForm(QtWidgets.QDialog):
 
     def populate_upgrade_form(self, upgrade_dict: dict):
         self.ui.upgrade_name_line_edit.setText(upgrade_dict.get("name"))
-        self.ui.upgrade_slot_line_edit.setText(arr_to_comma_separated_list(upgrade_dict.get("upgrade_slot_types")))
+        self.ui.upgrade_slot_line_edit.setText(
+            arr_to_comma_separated_list(upgrade_dict.get("upgrade_slot_types")))
         self.parse_cost(upgrade_dict.get("cost"))
         restrictions = upgrade_dict.get("restrictions")
         self.ui.upgrade_limit_spinbox.setValue(restrictions.get("limit"))
         lows_and_highs = [
-            (self.ui.pilot_limit_low_spinbox, self.ui.pilot_limit_high_spinbox, "pilot_limit"),
-            (self.ui.initiative_low_spinbox, self.ui.initiative_high_spinbox, "pilot_initiative"),
+            (self.ui.pilot_limit_low_spinbox,
+             self.ui.pilot_limit_high_spinbox, "pilot_limit"),
+            (self.ui.initiative_low_spinbox,
+             self.ui.initiative_high_spinbox, "pilot_initiative"),
             (self.ui.attack_low_spinbox, self.ui.attack_high_spinbox, "attacks"),
             (self.ui.agility_low_spinbox, self.ui.agility_high_spinbox, "agility"),
             (self.ui.hull_low_spinbox, self.ui.hull_high_spinbox, "hull")
@@ -456,22 +494,34 @@ class UpgradeForm(QtWidgets.QDialog):
             set_low_high(low_spinbox, high_spinbox, attribute, restrictions)
 
         deep_lows_and_highs = [
-            (self.ui.shield_low_spinbox, self.ui.shield_high_spinbox, "shield", "shield"),
-            (self.ui.shield_recharge_low_spinbox, self.ui.shield_recharge_high_spinbox, "shield", "recharge"),
-            (self.ui.shield_decharge_low_spinbox, self.ui.shield_decharge_high_spinbox, "shield", "decharge"),
+            (self.ui.shield_low_spinbox,
+             self.ui.shield_high_spinbox, "shield", "shield"),
+            (self.ui.shield_recharge_low_spinbox,
+             self.ui.shield_recharge_high_spinbox, "shield", "recharge"),
+            (self.ui.shield_decharge_low_spinbox,
+             self.ui.shield_decharge_high_spinbox, "shield", "decharge"),
             (self.ui.force_low_spinbox, self.ui.force_high_spinbox, "force", "force"),
-            (self.ui.force_recharge_low_spinbox, self.ui.force_recharge_high_spinbox, "force", "recharge"),
-            (self.ui.force_decharge_low_spinbox, self.ui.force_decharge_high_spinbox, "force", "decharge"),
-            (self.ui.energy_low_spinbox, self.ui.energy_high_spinbox, "energy", "energy"),
-            (self.ui.energy_recharge_low_spinbox, self.ui.energy_recharge_high_spinbox, "energy", "recharge"),
-            (self.ui.energy_decharge_low_spinbox, self.ui.energy_decharge_high_spinbox, "energy", "decharge"),
-            (self.ui.charge_low_spinbox, self.ui.charge_high_spinbox, "charge", "charge"),
-            (self.ui.charge_recharge_low_spinbox, self.ui.charge_recharge_high_spinbox, "charge", "recharge"),
-            (self.ui.charge_decharge_low_spinbox, self.ui.charge_decharge_high_spinbox, "charge", "decharge"),
+            (self.ui.force_recharge_low_spinbox,
+             self.ui.force_recharge_high_spinbox, "force", "recharge"),
+            (self.ui.force_decharge_low_spinbox,
+             self.ui.force_decharge_high_spinbox, "force", "decharge"),
+            (self.ui.energy_low_spinbox,
+             self.ui.energy_high_spinbox, "energy", "energy"),
+            (self.ui.energy_recharge_low_spinbox,
+             self.ui.energy_recharge_high_spinbox, "energy", "recharge"),
+            (self.ui.energy_decharge_low_spinbox,
+             self.ui.energy_decharge_high_spinbox, "energy", "decharge"),
+            (self.ui.charge_low_spinbox,
+             self.ui.charge_high_spinbox, "charge", "charge"),
+            (self.ui.charge_recharge_low_spinbox,
+             self.ui.charge_recharge_high_spinbox, "charge", "recharge"),
+            (self.ui.charge_decharge_low_spinbox,
+             self.ui.charge_decharge_high_spinbox, "charge", "decharge"),
         ]
         for low_and_high in deep_lows_and_highs:
             low_spinbox, high_spinbox, attribute, deep_attribute = low_and_high
-            set_low_high(low_spinbox, high_spinbox, deep_attribute, restrictions[attribute])
+            set_low_high(low_spinbox, high_spinbox,
+                         deep_attribute, restrictions[attribute])
 
         deep_line_edits = [
             (self.ui.faction_line_edit, "factions"),
@@ -485,7 +535,8 @@ class UpgradeForm(QtWidgets.QDialog):
             item, attribute = line_edit
             set_line_edit(item, attribute, restrictions)
 
-        parse_actions(self.ui.actions_line_edit, self.ui.colors_line_edit, restrictions.get("actions", []))
+        parse_actions(self.ui.actions_line_edit,
+                      self.ui.colors_line_edit, restrictions.get("actions", []))
         check_boxes = [
             (self.ui.autoinclude_checkbox, "autoinclude"),
             (self.ui.epic_checkbox, "epic"),
@@ -499,10 +550,14 @@ class UpgradeForm(QtWidgets.QDialog):
         modifications = upgrade_dict.get("modifications", {})
         parse_actions(self.ui.added_actions_line_edit, self.ui.added_action_colors_line_edit,
                       modifications.get("actions", []))
-        added_upgrade_slots = modifications.get("upgrade_slots", {}).get("added", [])
-        removed_upgrade_slots = modifications.get("upgrade_slots", {}).get("removed", [])
-        self.ui.added_upgrade_slots_line_edit.setText(arr_to_comma_separated_list(added_upgrade_slots))
-        self.ui.removed_upgrade_slots_line_edit.setText(arr_to_comma_separated_list(removed_upgrade_slots))
+        added_upgrade_slots = modifications.get(
+            "upgrade_slots", {}).get("added", [])
+        removed_upgrade_slots = modifications.get(
+            "upgrade_slots", {}).get("removed", [])
+        self.ui.added_upgrade_slots_line_edit.setText(
+            arr_to_comma_separated_list(added_upgrade_slots))
+        self.ui.removed_upgrade_slots_line_edit.setText(
+            arr_to_comma_separated_list(removed_upgrade_slots))
         # TODO: handle upgrade deletions
         # TODO: handle reloading data in viewer when edit is complete
 
@@ -527,11 +582,16 @@ class UpgradeForm(QtWidgets.QDialog):
                 checkbox.setChecked(True)
         attribute_vals = [key for key in cost.keys() if key != "attribute"]
         attribute_costs = [cost[val] for val in attribute_vals]
-        self.ui.variable_attribute_line_edit.setText(arr_to_comma_separated_list(attribute_vals))
-        self.ui.variable_cost_line_edit.setText(arr_to_comma_separated_list(attribute_costs))
+        self.ui.variable_attribute_line_edit.setText(
+            arr_to_comma_separated_list(attribute_vals))
+        self.ui.variable_cost_line_edit.setText(
+            arr_to_comma_separated_list(attribute_costs))
 
     def handle_ok_pressed(self):
         if not self.valid_entry:
             self.show()
             return
         self.update_signal.emit(self.data_entry())
+
+    def handle_close_pressed(self):
+        self.update_form_closed_signal.emit()
