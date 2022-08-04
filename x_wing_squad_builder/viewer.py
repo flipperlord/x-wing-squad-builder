@@ -96,10 +96,11 @@ class Viewer(QtWidgets.QDialog):
             self.ui.pilot_viewer_tree_widget.insertTopLevelItem(
                 self.ui.pilot_viewer_tree_widget.topLevelItemCount(), faction_item)
             self.ui.pilot_viewer_tree_widget.resizeColumnToContents(0)
-        if item:
-            self.ui.pilot_viewer_tree_widget.scrollToItem(item, QtWidgets.QAbstractItemView.ScrollHint.EnsureVisible)
-        else:
-            self.ui
+        self.ui.pilot_viewer_tree_widget.expandAll()
+        # if item:
+            # self.ui.pilot_viewer_tree_widget.scrollToItem(item, QtWidgets.QAbstractItemView.ScrollHint.EnsureVisible)
+        # else:
+        #     self.ui
 
     def filter_items(self):
         show_all = False
