@@ -220,3 +220,68 @@ def test_filtered_upgrades_by_pilot(xwing: XWing, upgrades: Upgrades, faction_na
         assert upgrade['name'] in expected
         expected.pop(expected.index(upgrade['name']))
     assert len(expected) == 0
+
+    # equip an action that should make another upgrade available
+
+@pytest.mark.parametrize(
+    "faction_name, ship_name, pilot_name, fake_action_name, fake_action_color, fake_slots, expected_upgrade_name", [
+        pytest.param("galactic empire", "lambda-class t-4a shuttle", "omicron group pilot", "lock", "red", ["sensor"], "grand moff tarkin"),
+        pytest.param("galactic empire", "lambda-class t-4a shuttle", "omicron group pilot", "coordinate", "red", ["sensor"], "tactical officer"),
+    ]
+)
+def test_filtered_upgrades_with_action_modifier(xwing: XWing, upgrades: Upgrades, faction_name, ship_name, pilot_name, fake_action_name, fake_action_color, fake_slots, expected_upgrade_name):
+    ship = xwing.get_ship(faction_name, ship_name)
+    pilot = ship.get_pilot_data(pilot_name)
+    pilot_equip = PilotEquip(ship, pilot)
+    # grand moff tarkin requires a target lock
+    # equip a fake upgrade that adds an action slot
+    fake_action = {
+        'action': fake_action_name,
+        'action_link': None,
+        'color': fake_action_color,
+        'color_link': None
+    }
+    fake_cost = 2
+    fake_name = 'the best around'
+
+    fake_upgrade_dict = {
+        "name": fake_name,
+        "cost": fake_cost,
+        "upgrade_slot_types": fake_slots,
+        "modifications": {
+            "actions": [fake_action]
+        }
+    }
+    pilot_equip.equip_upgrade(fake_slots, fake_name, fake_cost, fake_upgrade_dict)
+
+    pilot_equip.filtered_upgrades = upgrades.filtered_upgrades_by_pilot(pilot_equip)
+    filtered_names = [upgrade['name'] for upgrade in pilot_equip.filtered_upgrades]
+
+    assert expected_upgrade_name in filtered_names
+
+@pytest.mark.parametrize(
+    "faction_name, ship_name, pilot_name", [
+        pytest.param("galactic empire", "lambda-class t-4a shuttle", "omicron group pilot"),
+    ]
+)
+def test_filtered_upgrades_with_empty_action_modifier(xwing: XWing, upgrades: Upgrades, faction_name, ship_name, pilot_name):
+    ship = xwing.get_ship(faction_name, ship_name)
+    pilot = ship.get_pilot_data(pilot_name)
+    pilot_equip = PilotEquip(ship, pilot)
+    before_equip = upgrades.filtered_upgrades_by_pilot(pilot_equip)
+    # grand moff tarkin requires a target lock
+    # equip a fake upgrade that adds an action slot
+    fake_cost = 2
+    fake_name = 'the best around'
+    fake_slots = ['sensor']
+
+    fake_upgrade_dict = {
+        "name": fake_name,
+        "cost": fake_cost,
+        "upgrade_slot_types": fake_slots,
+    }
+    pilot_equip.equip_upgrade(fake_slots, fake_name, fake_cost, fake_upgrade_dict)
+
+    pilot_equip.filtered_upgrades = upgrades.filtered_upgrades_by_pilot(pilot_equip)
+
+    assert before_equip == pilot_equip.filtered_upgrades

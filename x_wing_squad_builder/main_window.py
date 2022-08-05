@@ -215,6 +215,46 @@ class MainWindow(QtWidgets.QMainWindow):
         populate_list_widget(filtered_for_gui, self.ui.upgrade_list_widget)
         self.pilot_image_label = pilot_data.pilot_name
 
+    def refresh_squad_upgrade_slots(self, parent_select_item: QtWidgets.QTreeWidgetItem = None, select_item: QtWidgets.QTreeWidgetItem = None):
+        """rebuilds the squad list widget.  pass in args if you wish to set selection to the same prior to refresh"""
+        for item, pilot_data in self.squad.squad_dict.items():
+            # first clear the list
+            for i in reversed(range(item.childCount())):
+                item.removeChild(item.child(i))
+            # Add all child slots to the pilot item
+            for slot in pilot_data.upgrade_slots:
+                child = QtWidgets.QTreeWidgetItem([prettify_name(slot)])
+                pixmap = image_path_to_qpixmap(
+                    self.upgrade_slots_dir / f"{slot}.png")
+                child.setIcon(0, pixmap)
+                item.addChild(child)
+                # sets the selection to the item clicked before the refresh
+                if parent_select_item == item and select_item.text(0).lower() == slot:
+                    self.ui.squad_tree_widget.clearSelection()
+                    child.setSelected(True)
+            # Now color in equipped upgrades
+            self.color_in_equipped_upgrades(item, pilot_data)
+
+    def color_in_equipped_upgrades(self, parent_item: QtWidgets.QTreeWidgetItem, pilot_data: PilotEquip):
+        for upgrade in pilot_data.equipped_upgrades:
+            required_slots = upgrade.attributes['upgrade_slot_types']
+            for slot in required_slots:
+                # Find an available item
+                for child_idx in range(parent_item.childCount()):
+                    child_item = parent_item.child(child_idx)
+                    potential_slot = child_item.text(0).lower()
+                    gui_equipped = child_item.text(1)
+                    # empty string means nothing equipped here
+                    if len(gui_equipped) == 0 and potential_slot == slot:
+                        # Update icon to green (for equipped)
+                        pixmap = image_path_to_qpixmap(
+                            self.upgrade_slots_dir / f"{slot}.png", color="green")
+                        child_item.setIcon(0, pixmap)
+                        # update item column to the name
+                        child_item.setText(
+                            1, f'{prettify_name(upgrade.name)} ({upgrade.cost})')
+                        break
+
     def equip_pilot(self):
         faction_name = self.faction_selected
         ship_name = self.ship_selected_encoded
@@ -230,16 +270,12 @@ class MainWindow(QtWidgets.QMainWindow):
         added = self.squad.add_pilot(item, pilot_data)
         if not added:
             return
-        for slot in pilot_data.upgrade_slots:
-            child = QtWidgets.QTreeWidgetItem([prettify_name(slot)])
-            pixmap = image_path_to_qpixmap(
-                self.upgrade_slots_dir / f"{slot}.png")
-            child.setIcon(0, pixmap)
-            item.addChild(child)
 
         self.ui.squad_tree_widget.insertTopLevelItem(
             self.squad_tree_bottom_index, item)
+        self.refresh_squad_upgrade_slots()
         self.ui.squad_tree_widget.resizeColumnToContents(0)
+        self.ui.squad_tree_widget.expandAll()
         self.update_costs()
 
     def unequip_pilot(self):
@@ -250,11 +286,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.update_costs()
 
     def equip_upgrade(self):
-        """
-        TODO: When equipping an upgrade, account for adding additional slots.
-        A good example card for testing is the OS-1 Arsenal Loadout
-        """
-        if self.squad_tree_selection is None or treewidget_item_is_top_level(self.squad_tree_selection):
+        if self.squad_tree_selection is None or treewidget_item_is_top_level(self.squad_tree_selection) or self.upgrade_name_selected is None:
             return
         pilot_item = self.squad_tree_selection.parent()
         pilot_data = self.squad.get_pilot_data(pilot_item)
@@ -263,26 +295,11 @@ class MainWindow(QtWidgets.QMainWindow):
             upgrade_dict, pilot_data)
         upgrade_slots = Upgrades.get_upgrade_slots(upgrade_dict)
         equipped = pilot_data.equip_upgrade(
-            upgrade_slots, self.upgrade_name_selected, upgrade_cost)
+            upgrade_slots, self.upgrade_name_selected, upgrade_cost, upgrade_dict)
         if equipped:
-            # for upgrade slot required for the upgrade
-            required_slots = upgrade_dict['upgrade_slot_types']
-            for slot in required_slots:
-                # Find an available item
-                for child_idx in range(pilot_item.childCount()):
-                    child_item = pilot_item.child(child_idx)
-                    potential_slot = child_item.text(0).lower()
-                    gui_equipped = child_item.text(1)
-                    # empty string means nothing equipped here
-                    if len(gui_equipped) == 0 and potential_slot == slot:
-                        # Update icon to green (for equipped)
-                        pixmap = image_path_to_qpixmap(
-                            self.upgrade_slots_dir / f"{slot}.png", color="green")
-                        child_item.setIcon(0, pixmap)
-                        # update item column to the name
-                        child_item.setText(
-                            1, f'{prettify_name(self.upgrade_name_selected)} ({upgrade_cost})')
-                        break
+            pilot_data.filtered_upgrades = self.upgrades.filtered_upgrades_by_pilot(
+                pilot_data)
+            self.refresh_squad_upgrade_slots(parent_select_item=self.squad_tree_selection.parent(), select_item=self.squad_tree_selection)
         self.update_costs()
 
     def unequip_upgrade(self):
@@ -292,30 +309,16 @@ class MainWindow(QtWidgets.QMainWindow):
         pilot_data = self.squad.get_pilot_data(pilot_item)
         # Something is equipped
         if len(self.squad_tree_upgrade_name_selection) > 0:
-            upgrade_dict = self.upgrades.get_upgrade(
-                self.squad_tree_upgrade_name_selection)
             unequipped = pilot_data.unequip_upgrade(
                 self.squad_tree_upgrade_name_selection)
             if unequipped:
-                required_slots = upgrade_dict['upgrade_slot_types']
-                for slot in required_slots:
-                    # Find an available item
-                    for child_idx in range(pilot_item.childCount()):
-                        child_item = pilot_item.child(child_idx)
-                        potential_slot = child_item.text(0).lower()
-                        gui_equipped = child_item.text(1)
-                        # empty string means nothing equipped here
-                        if len(gui_equipped) > 0 and potential_slot == slot:
-                            # Update icon to green (for equipped)
-                            pixmap = image_path_to_qpixmap(
-                                self.upgrade_slots_dir / f"{slot}.png")
-                            child_item.setIcon(0, pixmap)
-                            # update item column to the name
-                            child_item.setText(1, "")
-                            break
+                pilot_data.filtered_upgrades = self.upgrades.filtered_upgrades_by_pilot(
+                    pilot_data)
+                self.refresh_squad_upgrade_slots(self.squad_tree_selection.parent(), self.squad_tree_selection)
         self.update_costs()
 
     def update_costs(self):
+        """updates the UI cost labels based on squad list"""
         total_pilot = 0
         total_upgrade = 0
         for _, v in self.squad.squad_dict.items():

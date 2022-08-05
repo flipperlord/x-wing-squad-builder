@@ -10,7 +10,7 @@ from ..utils import prettify_name
 from typing import List, Dict
 
 
-Upgrade = namedtuple('Upgrade', ['slots', 'name', 'cost'])
+Upgrade = namedtuple('Upgrade', ['slots', 'name', 'cost', 'attributes'])
 
 
 class PilotEquip:
@@ -91,8 +91,27 @@ class PilotEquip:
         return self.data.get("statistics")
 
     @property
+    def default_pilot_actions(self) -> List[dict]:
+        """
+        returns a list of pilot action dictionaries (regardless of what the pilot has equipped) of the form:
+        [
+            ...
+            {
+                'action': <action>,
+                'color': <color>,
+                'action_link': <action_link>,
+                'color_link': <color_link>
+            }
+            ...
+        ]
+        """
+        return self.data.get("actions").copy()
+
+    @property
     def actions(self) -> List[dict]:
         """
+        returns a pilot's available actions based on equipped upgrades.
+        this needs the upgrades list in order to evaluate the equipped
         returns a list of pilot action dictionaries of the form:
         [
             ...
@@ -105,7 +124,11 @@ class PilotEquip:
             ...
         ]
         """
-        return self.data.get("actions")
+        additional_actions = []
+        for upgrade in self.equipped_upgrades:
+            additional_actions.extend(upgrade.attributes.get("modifications", {}).get("actions", []))
+
+        return self.default_pilot_actions + additional_actions
 
     @property
     def keywords(self):
@@ -186,16 +209,32 @@ class PilotEquip:
         return combined
 
     @property
+    def default_upgrade_slots(self) -> List[str]:
+        """
+        returns upgrade slots default to the pilot
+        """
+        return self.data.get("upgrade_slots").copy()
+
+    @property
     def upgrade_slots(self):
         """
-        returns upgrade slots
+        returns upgrade slots, adds additional slots based on equipped upgrades
         adds a command slot if the mode is epic
         """
-        slots = self.data.get("upgrade_slots").copy()
+        additional_slots = []
         if self.settings.mode == Settings.Mode.EPIC and self.base_size != "huge":
-            slots.append("command")
+            additional_slots.append("command")
+        added = []
+        removed = []
+        for upgrade in self.equipped_upgrades:
+            upgrade_modifiers = upgrade.attributes.get("modifications", {}).get("upgrade_slots", {})
+            added.extend(upgrade_modifiers.get("added", []))
+            removed.extend(upgrade_modifiers.get("removed", []))
 
-        return slots
+        additional_slots.extend(added)
+        final_slots = additional_slots + self.default_upgrade_slots
+        final_slots = [slot for slot in final_slots if slot not in removed]
+        return final_slots
 
     @property
     def cost(self):
@@ -218,7 +257,7 @@ class PilotEquip:
                 upgrade_slots.pop(upgrade_slots.index(slot))
         return upgrade_slots
 
-    def equip_upgrade(self, upgrade_slots: List[str], upgrade_name: str, upgrade_cost: int) -> bool:
+    def equip_upgrade(self, upgrade_slots: List[str], upgrade_name: str, upgrade_cost: int, upgrade_dict: dict) -> bool:
         """adds upgrade to the equipped upgrades
         returns true if upgrade equipped
         """
@@ -227,19 +266,30 @@ class PilotEquip:
             logging.info(
                 f"Insufficient upgrade slots to equip {prettify_name(upgrade_name)} to {prettify_name(self.pilot_name)}")
             return False
+        removed = upgrade_dict.get("modifications", {}).get("upgrade_slots", {}).get("removed", [])
+        for removed_upgrade_slot in removed:
+            if removed_upgrade_slot not in self.available_upgrade_slots:
+                logging.info(f"An upgrade is equipped in the to-be removed <{removed_upgrade_slot}> slot.  Please unequip this upgrade first.")
+                return False
         for upgrade in self.equipped_upgrades:
             if upgrade.name == upgrade_name:
                 logging.info("Unable to equip more than one of an upgrade to the same pilot instance.")
                 return False
-        self.__equipped_upgrades.append(Upgrade(upgrade_slots, upgrade_name, upgrade_cost))
+        self.__equipped_upgrades.append(Upgrade(upgrade_slots, upgrade_name, upgrade_cost, upgrade_dict))
         return True
 
     def unequip_upgrade(self, upgrade_name):
         """removes an equipped upgrade.
-        returns false if upgrade unequipped"""
+        returns true if upgrade successfully unequipped"""
         unequipped = False
         for upgrade in self.equipped_upgrades:
             if upgrade.name == upgrade_name:
+                upgrade_modifiers = upgrade.attributes.get("modifications", {}).get("upgrade_slots", {})
+                added = upgrade_modifiers.get("added", [])
+                for added_upgrade_slot in added:
+                    if added_upgrade_slot not in self.available_upgrade_slots:
+                        logging.info(f"An upgrade is equipped in the added <{added_upgrade_slot}> slot.  Please unequip this upgrade first.")
+                        return False
                 self.__equipped_upgrades.pop(self.__equipped_upgrades.index(upgrade))
                 unequipped = True
                 break
