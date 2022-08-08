@@ -26,21 +26,21 @@
         <item>
          <layout class="QHBoxLayout" name="data_view_layout_2" stretch="0,0,0">
           <item>
-           <widget class="QListWidget" name="faction_list_widget">
+           <widget class="EnterListWidget" name="faction_list_widget">
             <property name="toolTip">
              <string>Faction list</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QListWidget" name="ship_list_widget">
+           <widget class="EnterListWidget" name="ship_list_widget">
             <property name="toolTip">
              <string>Ship List</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QListWidget" name="pilot_list_widget">
+           <widget class="EnterListWidget" name="pilot_list_widget">
             <property name="toolTip">
              <string>Pilot List
 (Initiative) Pilot Name (Cost)</string>
@@ -349,7 +349,7 @@
            </layout>
           </item>
           <item>
-           <widget class="QTreeWidget" name="squad_tree_widget">
+           <widget class="EnterTreeWidget" name="squad_tree_widget">
             <column>
              <property name="text">
               <string>Squad</string>
@@ -363,7 +363,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QListWidget" name="upgrade_list_widget">
+           <widget class="EnterListWidget" name="upgrade_list_widget">
             <property name="toolTip">
              <string>Upgrade List
 Upgrade Name (Cost)</string>
@@ -589,6 +589,31 @@ Upgrade Name (Cost)</string>
    </property>
   </action>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>EnterListWidget</class>
+   <extends>QListWidget</extends>
+   <header>.enterlistwidget</header>
+  </customwidget>
+  <customwidget>
+   <class>EnterTreeWidget</class>
+   <extends>QTreeWidget</extends>
+   <header>.entertreewidget</header>
+  </customwidget>
+ </customwidgets>
+ <tabstops>
+  <tabstop>faction_list_widget</tabstop>
+  <tabstop>ship_list_widget</tabstop>
+  <tabstop>pilot_list_widget</tabstop>
+  <tabstop>squad_tree_widget</tabstop>
+  <tabstop>upgrade_list_widget</tabstop>
+  <tabstop>squad_name_line_edit</tabstop>
+  <tabstop>equip_pilot_push_button</tabstop>
+  <tabstop>unequip_pilot_push_button</tabstop>
+  <tabstop>equip_upgrade_push_button</tabstop>
+  <tabstop>unequip_upgrade_push_button</tabstop>
+  <tabstop>logging_plain_text_edit</tabstop>
+ </tabstops>
  <resources>
   <include location="resources.qrc"/>
  </resources>
