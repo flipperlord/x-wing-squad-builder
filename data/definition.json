@@ -21679,6 +21679,7 @@
                         "configuration",
                         "title"
                     ],
+                    "hardpoint": ["cannon", "torpedo", "missile"],
                     "pilots": [
                         {
                             "name": "blue squadron rookie",
@@ -28515,6 +28516,7 @@
                     "upgrade_slots": [
                         "modification"
                     ],
+                    "hardpoint": ["cannon", "torpedo", "missile"],
                     "pilots": [
                         {
                             "name": "cartel spacer",

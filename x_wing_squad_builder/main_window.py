@@ -383,6 +383,8 @@ class MainWindow(QtWidgets.QMainWindow):
         self.reload_data()
 
     def update_faction(self):
+        if self.faction_selected is None:
+            return
         self.ui.ship_list_widget.clear()
         self.ui.pilot_list_widget.clear()
         faction_name = self.faction_selected
@@ -456,8 +458,6 @@ class MainWindow(QtWidgets.QMainWindow):
         try:
             val = self.ui.faction_list_widget.selectedItems()[0].text().lower()
         except IndexError:
-            logging.info(
-                "No faction selected - select a faction and try again.")
             return
         return val
 

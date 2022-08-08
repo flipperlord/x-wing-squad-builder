@@ -42,6 +42,7 @@ class PilotEquip:
         d["initiative"] = self.pilot["initiative"]
         d["cost"] = self.pilot["cost"]
         d["keywords"] = self.pilot["keywords"]
+        d["hardpoint"] = self.ship.ship_data.get("hardpoint", [])
 
         return d
 
@@ -59,6 +60,10 @@ class PilotEquip:
     @property
     def base_size(self):
         return self.data.get("base")
+
+    @property
+    def hardpoint(self):
+        return self.data.get("hardpoint")
 
     @property
     def limit(self):
@@ -218,7 +223,7 @@ class PilotEquip:
     @property
     def upgrade_slots(self):
         """
-        returns upgrade slots, adds additional slots based on equipped upgrades
+        returns upgrade slots, adds additional slots based on equipped upgrades and weapon hardpoints
         adds a command slot if the mode is epic
         """
         additional_slots = []
@@ -230,9 +235,13 @@ class PilotEquip:
             upgrade_modifiers = upgrade.attributes.get("modifications", {}).get("upgrade_slots", {})
             added.extend(upgrade_modifiers.get("added", []))
             removed.extend(upgrade_modifiers.get("removed", []))
+            for slot in upgrade.slots:
+                if slot in self.hardpoint:
+                    removed.extend([hp_slot for hp_slot in self.hardpoint if hp_slot != slot])
 
         additional_slots.extend(added)
-        final_slots = additional_slots + self.default_upgrade_slots
+
+        final_slots = additional_slots + self.default_upgrade_slots + self.hardpoint
         final_slots = [slot for slot in final_slots if slot not in removed]
         return final_slots
 
