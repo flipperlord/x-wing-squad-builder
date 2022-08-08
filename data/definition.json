@@ -58058,6 +58058,7 @@
             "autoinclude": "False",
             "epic": "False",
             "solitary": "False",
+            "squad_include": ["darth vader (black leader)", "darth vader (dark lord of the sith)"],
             "restrictions": {
                 "limit": 1,
                 "pilot_initiative": {
@@ -59902,6 +59903,7 @@
             "autoinclude": "False",
             "epic": "False",
             "solitary": "False",
+            "squad_include": ["darth vader (black leader)", "darth vader (dark lord of the sith)"],
             "restrictions": {
                 "limit": 1,
                 "pilot_initiative": {
@@ -68671,6 +68673,7 @@
             "autoinclude": "False",
             "epic": "False",
             "solitary": "False",
+            "squad_include": ["ezra bridger (attack shuttle)", "ezra bridger (sheathipede)", "ezra bridger (tie fighter)", "ezra bridger (gauntlet)"],
             "restrictions": {
                 "limit": 1,
                 "pilot_initiative": {
@@ -69161,6 +69164,7 @@
             "autoinclude": "False",
             "epic": "False",
             "solitary": "False",
+            "squad_include": ["gar saxon"],
             "restrictions": {
                 "limit": 1,
                 "pilot_initiative": {

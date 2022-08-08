@@ -46,7 +46,15 @@ class Squad:
         return True
 
     def remove_pilot(self, item: QTreeWidgetItem):
+        # First we need to check if any upgrades are dependent on the equipped pilot
+        pilot_data_for_removal = self.get_pilot_data(item)
+        for _, pilot_data in self.squad_dict.items():
+            for upgrade in pilot_data.equipped_upgrades:
+                if pilot_data_for_removal.pilot_name in upgrade.attributes.get("squad_include", []):
+                    logging.info(f"Cannot unequip a pilot with dependent upgrades - try removing {prettify_name(upgrade.name)} from {prettify_name(pilot_data.pilot_name)}.")
+                    return False
         self.__squad.pop(item, None)
+        return True
 
     def get_pilot_data(self, item: QTreeWidgetItem) -> Optional[PilotEquip]:
         """returns pilot data based on qtreewidgetitem name"""

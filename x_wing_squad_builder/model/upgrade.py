@@ -1,4 +1,5 @@
 from .pilot_equip import PilotEquip
+from .squad import Squad
 from ..utils import prettify_name
 from ..settings import Settings
 from .upgrade_filters import (upgrade_slot_filter, name_filter, multiple_name_filter, actions_filter,
@@ -60,7 +61,7 @@ class Upgrades:
                 return upgrade
         return None
 
-    def filtered_upgrades_by_pilot(self, pilot: PilotEquip) -> List[dict]:
+    def filtered_upgrades_by_pilot(self, pilot: PilotEquip, squad: Squad = None) -> List[dict]:
         filtered = []
         for upgrade in self.upgrades_list:
             valid = upgrade_slot_filter(self.get_upgrade_slots(upgrade), pilot.upgrade_slots)
@@ -82,7 +83,13 @@ class Upgrades:
                     if not statistics_filter_simple(value, initiative_stat):
                         valid = False
                 elif key == "factions":
-                    if not name_filter(value, pilot.faction_name):
+                    squad_include = upgrade.get("squad_include", [])
+                    if squad_include:
+                        squad_names = [val.pilot_name for _, val in squad.squad_dict.items()]
+                        included = [name in squad_names for name in squad_include]
+                        if not any(included):
+                            valid = False
+                    elif not name_filter(value, pilot.faction_name):
                         valid = False
                 elif key == "ships":
                     if not name_filter(value, pilot.ship_name):

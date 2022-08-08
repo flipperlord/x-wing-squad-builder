@@ -250,6 +250,10 @@ class MainWindow(QtWidgets.QMainWindow):
             # Now color in equipped upgrades
             self.color_in_equipped_upgrades(item, pilot_data)
 
+            # Update available upgrades based on squad
+            pilot_data.filtered_upgrades = self.upgrades.filtered_upgrades_by_pilot(
+                pilot_data, self.squad)
+
     def color_in_equipped_upgrades(self, parent_item: QtWidgets.QTreeWidgetItem, pilot_data: PilotEquip):
         for upgrade in pilot_data.equipped_upgrades:
             required_slots = upgrade.attributes['upgrade_slot_types']
@@ -285,8 +289,6 @@ class MainWindow(QtWidgets.QMainWindow):
             faction_name, ship_name, pilot_name)
         ship = self.xwing.get_ship(faction_name, ship_name)
         pilot_data = PilotEquip(ship, pilot)
-        pilot_data.filtered_upgrades = self.upgrades.filtered_upgrades_by_pilot(
-            pilot_data)
         # TODO: Turn this formatting into a function as it's also used by the ship module
         item = QtWidgets.QTreeWidgetItem([f"({pilot_data.initiative}) {prettify_name(pilot_name)} ({pilot_data.cost})"])
         added = self.squad.add_pilot(item, pilot_data)
@@ -306,9 +308,12 @@ class MainWindow(QtWidgets.QMainWindow):
                 "No pilot selected in squad tree - select a squad tree item and try again.")
         top_level_idx = self.ui.squad_tree_widget.indexOfTopLevelItem(
             self.squad_tree_selection)
-        item = self.ui.squad_tree_widget.takeTopLevelItem(top_level_idx)
-        self.squad.remove_pilot(item)
-        self.update_costs()
+        item = self.ui.squad_tree_widget.topLevelItem(top_level_idx)
+        removed = self.squad.remove_pilot(item)
+        if removed:
+            self.ui.squad_tree_widget.takeTopLevelItem(top_level_idx)
+            self.refresh_squad_upgrade_slots()
+            self.update_costs()
 
     def handle_equip_upgrade(self):
         if self.squad_tree_selection is None or treewidget_item_is_top_level(self.squad_tree_selection):
@@ -328,7 +333,7 @@ class MainWindow(QtWidgets.QMainWindow):
             upgrade_slots, upgrade_name, upgrade_cost, upgrade_dict)
         if equipped:
             pilot_data.filtered_upgrades = self.upgrades.filtered_upgrades_by_pilot(
-                pilot_data)
+                pilot_data, self.squad)
             self.refresh_squad_upgrade_slots(parent_select_item=parent_item, select_item=select_item)
         self.update_costs()
 
@@ -343,7 +348,7 @@ class MainWindow(QtWidgets.QMainWindow):
                 self.squad_tree_upgrade_name_selection)
             if unequipped:
                 pilot_data.filtered_upgrades = self.upgrades.filtered_upgrades_by_pilot(
-                    pilot_data)
+                    pilot_data, self.squad)
                 self.refresh_squad_upgrade_slots(self.squad_tree_selection.parent(), self.squad_tree_selection)
         self.update_costs()
 
