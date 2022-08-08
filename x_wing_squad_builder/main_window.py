@@ -1,6 +1,7 @@
 import logging
 import os
 from pathlib import Path
+from functools import partial
 from PySide6 import QtWidgets, QtCore, QtGui
 
 from x_wing_squad_builder.definition_form import DefinitionForm
@@ -24,6 +25,8 @@ from .utils import (get_upgrade_slot_from_list_item_text, gui_text_decode, prett
 
 from pathlib import Path
 
+from openpyxl import load_workbook
+from openpyxl.utils import get_column_letter
 
 class MainWindow(QtWidgets.QMainWindow):
     """Main Window"""
@@ -58,7 +61,8 @@ class MainWindow(QtWidgets.QMainWindow):
         # Add widgets with icon paths here to be inverted on a theme change.
         self.widgets_with_icons = {
             self.ui.action_open_settings_window: IconPath.SETTINGS.value,
-            self.settings_window.ui.select_log_file_directory_push_button: IconPath.OPEN.value
+            self.settings_window.ui.select_log_file_directory_push_button: IconPath.OPEN.value,
+            self.ui.menu_excel: IconPath.EXCEL.value
         }
 
         self.check_theme()
@@ -68,10 +72,13 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.action_exit.triggered.connect(self.close)
         self.ui.action_open_settings_window.triggered.connect(
             self.handle_show_settings_window)
-        self.ui.faction_list_widget.itemClicked.connect(self.update_faction)
-        self.ui.ship_list_widget.itemClicked.connect(self.update_ship)
-        self.ui.pilot_list_widget.itemClicked.connect(self.update_pilot)
-        self.ui.upgrade_list_widget.itemClicked.connect(self.update_upgrade)
+        self.ui.action_export_as_excel.triggered.connect(self.export_excel)
+        self.ui.action_import_excel.triggered.connect(self.import_excel)
+
+        self.ui.faction_list_widget.itemSelectionChanged.connect(self.update_faction)
+        self.ui.ship_list_widget.itemSelectionChanged.connect(self.update_ship)
+        self.ui.pilot_list_widget.itemSelectionChanged.connect(self.update_pilot)
+        self.ui.upgrade_list_widget.itemSelectionChanged.connect(self.update_upgrade)
 
         # Initialize Factions
         self.file_path = self.data_dir / "definition.json"
@@ -98,12 +105,12 @@ class MainWindow(QtWidgets.QMainWindow):
 
         self.ui.action_reload_data.triggered.connect(self.reload_data)
 
-        self.ui.equip_pilot_push_button.clicked.connect(self.equip_pilot)
+        self.ui.equip_pilot_push_button.clicked.connect(self.handle_equip_pilot)
         self.ui.unequip_pilot_push_button.clicked.connect(self.unequip_pilot)
-        self.ui.equip_upgrade_push_button.clicked.connect(self.equip_upgrade)
+        self.ui.equip_upgrade_push_button.clicked.connect(self.handle_equip_upgrade)
         self.ui.unequip_upgrade_push_button.clicked.connect(
             self.unequip_upgrade)
-        self.ui.squad_tree_widget.itemClicked.connect(self.handle_squad_click)
+        self.ui.squad_tree_widget.itemSelectionChanged.connect(self.handle_squad_click)
 
         self.squad = Squad()
 
@@ -195,7 +202,8 @@ class MainWindow(QtWidgets.QMainWindow):
         populate_list_widget(
             self.upgrades.all_upgrades_for_gui, self.ui.upgrade_list_widget)
 
-    def handle_squad_click(self, item: QtWidgets.QTreeWidgetItem, column):
+    def handle_squad_click(self):
+        item = self.squad_tree_selection
         self.ui.upgrade_list_widget.clear()
 
         # If you click on a pilot...
@@ -255,18 +263,24 @@ class MainWindow(QtWidgets.QMainWindow):
                             1, f'{prettify_name(upgrade.name)} ({upgrade.cost})')
                         break
 
-    def equip_pilot(self):
+    def handle_equip_pilot(self):
+        if not self.pilot_name_selected:
+            return
         faction_name = self.faction_selected
         ship_name = self.ship_selected_encoded
         if faction_name is None or ship_name is None:
             return
+        self.equip_pilot(faction_name, ship_name, self.pilot_name_selected)
+
+    def equip_pilot(self, faction_name: str, ship_name: str, pilot_name: str):
         pilot = self.xwing.get_pilot(
-            faction_name, ship_name, self.pilot_name_selected)
+            faction_name, ship_name, pilot_name)
         ship = self.xwing.get_ship(faction_name, ship_name)
         pilot_data = PilotEquip(ship, pilot)
         pilot_data.filtered_upgrades = self.upgrades.filtered_upgrades_by_pilot(
             pilot_data)
-        item = QtWidgets.QTreeWidgetItem([self.pilot_selected_decoded])
+        # TODO: Turn this formatting into a function as it's also used by the ship module
+        item = QtWidgets.QTreeWidgetItem([f"({pilot_data.initiative}) {prettify_name(pilot_name)} ({pilot_data.cost})"])
         added = self.squad.add_pilot(item, pilot_data)
         if not added:
             return
@@ -285,21 +299,24 @@ class MainWindow(QtWidgets.QMainWindow):
         self.squad.remove_pilot(item)
         self.update_costs()
 
-    def equip_upgrade(self):
+    def handle_equip_upgrade(self):
         if self.squad_tree_selection is None or treewidget_item_is_top_level(self.squad_tree_selection) or self.upgrade_name_selected is None:
             return
         pilot_item = self.squad_tree_selection.parent()
         pilot_data = self.squad.get_pilot_data(pilot_item)
-        upgrade_dict = self.upgrades.get_upgrade(self.upgrade_name_selected)
+        self.equip_upgrade(self.upgrade_name_selected, pilot_data, self.squad_tree_selection.parent(), self.squad_tree_selection)
+
+    def equip_upgrade(self, upgrade_name: str, pilot_data: PilotEquip, parent_item=None, select_item=None):
+        upgrade_dict = self.upgrades.get_upgrade(upgrade_name)
         upgrade_cost = Upgrades.get_filtered_upgrade_cost(
             upgrade_dict, pilot_data)
         upgrade_slots = Upgrades.get_upgrade_slots(upgrade_dict)
         equipped = pilot_data.equip_upgrade(
-            upgrade_slots, self.upgrade_name_selected, upgrade_cost, upgrade_dict)
+            upgrade_slots, upgrade_name, upgrade_cost, upgrade_dict)
         if equipped:
             pilot_data.filtered_upgrades = self.upgrades.filtered_upgrades_by_pilot(
                 pilot_data)
-            self.refresh_squad_upgrade_slots(parent_select_item=self.squad_tree_selection.parent(), select_item=self.squad_tree_selection)
+            self.refresh_squad_upgrade_slots(parent_select_item=parent_item, select_item=select_item)
         self.update_costs()
 
     def unequip_upgrade(self):
@@ -334,7 +351,7 @@ class MainWindow(QtWidgets.QMainWindow):
         return self.ui.squad_tree_widget.topLevelItemCount()
 
     @property
-    def squad_tree_selection(self):
+    def squad_tree_selection(self) -> QtWidgets.QTreeWidgetItem:
         try:
             val = self.ui.squad_tree_widget.selectedItems()[0]
         except IndexError:
@@ -349,17 +366,17 @@ class MainWindow(QtWidgets.QMainWindow):
             self.upgrade_form.show()
         self.reload_data()
 
-    def update_faction(self, item):
+    def update_faction(self):
         self.ui.ship_list_widget.clear()
         self.ui.pilot_list_widget.clear()
-        faction_name = item.text().lower()
+        faction_name = self.faction_selected
         faction = self.xwing.get_faction(faction_name)
         populate_list_widget(faction.ship_names_for_gui,
                              self.ui.ship_list_widget, self.ship_icons_dir)
 
-    def update_ship(self, item):
+    def update_ship(self):
         self.ui.pilot_image_label.clear()
-        ship_name = gui_text_encode(item.text())
+        ship_name = self.ship_selected_encoded
         ship = self.xwing.get_ship(self.faction_selected, ship_name)
 
         self.ui.ship_name_label.setText(prettify_name(ship_name))
@@ -392,8 +409,8 @@ class MainWindow(QtWidgets.QMainWindow):
         self.pilot_image_label.setPixmap(
             image_path_to_qpixmap(self.pilots_dir / f"{pilot_name}.jpg"))
 
-    def update_pilot(self, item):
-        pilot_name = get_pilot_name_from_list_item_text(item.text())
+    def update_pilot(self):
+        pilot_name = self.pilot_name_selected
         self.pilot_image_label = pilot_name
         pilot = self.xwing.get_pilot(
             self.faction_selected, self.ship_selected_encoded, pilot_name)
@@ -406,8 +423,8 @@ class MainWindow(QtWidgets.QMainWindow):
         populate_list_widget(
             self.upgrades.all_upgrades_for_gui, self.ui.upgrade_list_widget)
 
-    def update_upgrade(self, item):
-        upgrade_name = get_upgrade_name_from_list_item_text(item.text())
+    def update_upgrade(self):
+        upgrade_name = self.upgrade_name_selected
         self.ui.upgrade_image_label.setPixmap(
             image_path_to_qpixmap(self.upgrades_dir / f"{upgrade_name}.jpg"))
 
@@ -415,6 +432,16 @@ class MainWindow(QtWidgets.QMainWindow):
     def faction_selected(self) -> str:
         try:
             val = self.ui.faction_list_widget.selectedItems()[0].text().lower()
+        except IndexError:
+            logging.info(
+                "No faction selected - select a faction and try again.")
+            return
+        return val
+
+    @property
+    def faction_item_selected(self) -> QtWidgets.QListWidgetItem:
+        try:
+            val = self.ui.faction_list_widget.selectedItems()[0]
         except IndexError:
             logging.info(
                 "No faction selected - select a faction and try again.")
@@ -548,6 +575,68 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def handle_show_settings_window(self):
         self.settings_window.show()
+
+    @property
+    def ready_for_export(self):
+        if len(self.squad.squad_dict.items()) > 0:
+            return True
+        return False
+
+    @property
+    def squad_name(self) -> str:
+        return self.ui.squad_name_line_edit.text()
+
+    def export_excel(self):
+        if self.ready_for_export:
+            options = QtWidgets.QFileDialog.Options()
+            filename, _ = QtWidgets.QFileDialog.getSaveFileName(
+                self, "Save As", "", "Excel Workbook (*.xlsx)", options=options
+            )
+            if filename:
+                worker = Worker(self.squad.export_squad_as_excel, filename, self.squad_name)
+                self.threadpool.start(worker)
+        else:
+            logging.info("Equip a pilot before trying to export your squad.")
+
+    def import_excel(self):
+        # TODO: Add checks for proper formatting (so you can't try to import any excel sheet)
+        # TODO: This will only work for standard or epic mode
+        if self.ready_for_export:
+            buttonReply = QtWidgets.QMessageBox.question(
+                self, "Warning", "Squad already in progress.  Are you sure you want to import?", QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.Cancel)
+            if buttonReply == QtWidgets.QMessageBox.Cancel:
+                return
+        options = QtWidgets.QFileDialog.Options()
+        filename, _ = QtWidgets.QFileDialog.getOpenFileName(
+            self, "Import Squad", "", "Excel Workbook (*.xlsx)", options=options
+        )
+        if not filename:
+            return
+        self.squad = Squad()
+        self.ui.squad_tree_widget.clear()
+
+        workbook = load_workbook(filename)
+        worksheet = workbook.active
+        squad_name = worksheet['B1'].value
+        faction_name = gui_text_encode(worksheet['B2'].value)
+        self.ui.squad_name_line_edit.setText(squad_name)
+        row_idx = 5
+        while worksheet[f'A{row_idx}'].value is not None:
+            pilot_name = gui_text_encode(worksheet[f'A{row_idx}'].value)
+            ship_name = gui_text_encode(worksheet[f'B{row_idx}'].value)
+            self.equip_pilot(faction_name, ship_name, pilot_name)
+            col_idx = 5
+            while worksheet[f'{get_column_letter(col_idx)}{row_idx}'].value is not None:
+                upgrade_val = gui_text_encode(worksheet[f'{get_column_letter(col_idx)}{row_idx}'].value)
+                pilot_data = self.squad.get_pilot_data_from_name(pilot_name)
+                self.equip_upgrade(upgrade_val, pilot_data)
+                col_idx += 1
+
+            row_idx += 1
+        for i in range(self.ui.faction_list_widget.count()):
+            item = self.ui.faction_list_widget.item(i)
+            if gui_text_encode(item.text()) == faction_name:
+                item.setSelected(True)
 
     def closeEvent(self, event):
         buttonReply = QtWidgets.QMessageBox.question(

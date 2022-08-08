@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1232</width>
-    <height>903</height>
+    <height>865</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -253,7 +253,28 @@
        </layout>
       </item>
       <item>
-       <layout class="QVBoxLayout" name="squad_layout" stretch="0,0">
+       <layout class="QVBoxLayout" name="squad_layout" stretch="0,0,0">
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <item>
+           <widget class="QLabel" name="label">
+            <property name="text">
+             <string>Squad Name:</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="squad_name_line_edit">
+            <property name="text">
+             <string>The Best Squad</string>
+            </property>
+            <property name="frame">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_9">
           <item>
@@ -466,8 +487,18 @@ Upgrade Name (Cost)</string>
     <property name="title">
      <string>File</string>
     </property>
+    <widget class="QMenu" name="menu_excel">
+     <property name="title">
+      <string>Import/Export Squad from Excel</string>
+     </property>
+     <addaction name="action_import_excel"/>
+     <addaction name="action_export_as_excel"/>
+    </widget>
+    <addaction name="separator"/>
+    <addaction name="menu_excel"/>
     <addaction name="separator"/>
     <addaction name="action_open_settings_window"/>
+    <addaction name="separator"/>
     <addaction name="action_exit"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
@@ -540,6 +571,21 @@ Upgrade Name (Cost)</string>
   <action name="action_pilot_viewer">
    <property name="text">
     <string>Pilot Viewer</string>
+   </property>
+  </action>
+  <action name="action_export_as_excel_3">
+   <property name="text">
+    <string>Export Squad as Excel</string>
+   </property>
+  </action>
+  <action name="action_import_excel">
+   <property name="text">
+    <string>Import...</string>
+   </property>
+  </action>
+  <action name="action_export_as_excel">
+   <property name="text">
+    <string>Export...</string>
    </property>
   </action>
  </widget>

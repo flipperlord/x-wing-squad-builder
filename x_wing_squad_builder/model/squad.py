@@ -2,10 +2,16 @@ from .pilot_equip import PilotEquip
 from ..settings import Settings
 from PySide6.QtWidgets import QTreeWidgetItem
 
+from ..utils import prettify_name
+
 from typing import Dict, Optional, List
 
 from collections import Counter
 import logging
+
+import xlsxwriter
+
+from xlsxwriter.exceptions import XlsxWriterException
 
 
 class Squad:
@@ -43,7 +49,14 @@ class Squad:
         self.__squad.pop(item, None)
 
     def get_pilot_data(self, item: QTreeWidgetItem) -> Optional[PilotEquip]:
+        """returns pilot data based on qtreewidgetitem name"""
         return self.__squad.get(item)
+
+    def get_pilot_data_from_name(self, pilot_name: str) -> Optional[PilotEquip]:
+        for _, pilot_data in self.squad_dict.items():
+            if pilot_data.pilot_name == pilot_name:
+                return pilot_data
+        return None
 
     @property
     def squad_dict(self) -> Dict[QTreeWidgetItem, PilotEquip]:
@@ -57,3 +70,53 @@ class Squad:
     @property
     def squad_factions(self) -> List[str]:
         return [pilot_data.faction_name for _, pilot_data in self.squad_dict.items()]
+
+    def export_squad_as_excel(self, workbook_name: str, squad_name: str):
+        try:
+            workbook = xlsxwriter.Workbook(workbook_name)
+        except XlsxWriterException as e:
+            logging.error(f"There was a problem exporting: {e}")
+        worksheet = workbook.add_worksheet(squad_name)
+        worksheet.set_column(0, 25, 32)
+        bold = workbook.add_format({
+            'bold': True
+        })
+        left_align = workbook.add_format()
+        left_align.set_align('left')
+        worksheet.write(0, 0, 'Squad Name', bold)
+        worksheet.write(0, 1, squad_name)
+        worksheet.write(1, 0, 'Faction', bold)
+        worksheet.write(1, 1, prettify_name(self.squad_factions[0]))
+        column_headers = ["Pilot Name", "Ship Name", "Pilot Cost", "Upgrades Cost", "Upgrades"]
+        for i, header in enumerate(column_headers):
+            worksheet.write(3, i, header, bold)
+
+        row_idx = 4
+        total_pilot_cost = 0
+        total_upgrade_cost = 0
+        for _, pilot_data in self.squad_dict.items():
+            worksheet.write(row_idx, 0, prettify_name(pilot_data.pilot_name))
+            worksheet.write(row_idx, 1, prettify_name(pilot_data.ship_name))
+            worksheet.write(row_idx, 2, pilot_data.cost, left_align)
+            worksheet.write(row_idx, 3, pilot_data.total_equipped_upgrade_cost, left_align)
+            col_idx = 4
+            for upgrade in pilot_data.equipped_upgrades:
+                worksheet.write(row_idx, col_idx, prettify_name(upgrade.name))
+                col_idx += 1
+            row_idx += 1
+            total_pilot_cost += pilot_data.cost
+            total_upgrade_cost += pilot_data.total_equipped_upgrade_cost
+
+        row_idx += 1
+        worksheet.write(row_idx, 0, "Total Pilot Cost", bold)
+        worksheet.write(row_idx, 1, total_pilot_cost)
+        worksheet.write(row_idx + 1, 0, "Total Upgrade Cost", bold)
+        worksheet.write(row_idx + 1, 1, total_upgrade_cost)
+        worksheet.write(row_idx + 2, 0, "Total Squad Cost", bold)
+        worksheet.write(row_idx + 2, 1, total_pilot_cost+total_upgrade_cost)
+
+        workbook.close()
+
+        logging.info(f"Successfully exported squad to {workbook_name}")
+
+
