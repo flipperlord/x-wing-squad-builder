@@ -204,8 +204,8 @@ class MainWindow(QtWidgets.QMainWindow):
                          for faction in self.xwing.faction_names]
         populate_list_widget(
             faction_names, self.ui.faction_list_widget, self.factions_dir)
-        populate_list_widget(
-            self.upgrades.all_upgrades_for_gui, self.ui.upgrade_list_widget)
+        # populate_list_widget(
+        #     self.upgrades.all_upgrades_for_gui, self.ui.upgrade_list_widget)
 
     def handle_squad_click(self):
         item = self.squad_tree_selection
@@ -400,13 +400,19 @@ class MainWindow(QtWidgets.QMainWindow):
             return
         self.ui.ship_list_widget.clear()
         self.ui.pilot_list_widget.clear()
+        self.ui.upgrade_list_widget.clear()
         faction_name = self.faction_selected
         faction = self.xwing.get_faction(faction_name)
         populate_list_widget(faction.ship_names_for_gui,
                              self.ui.ship_list_widget, self.ship_icons_dir)
 
     def update_ship(self):
-        # self.ui.pilot_image_label.clear()
+        self.ui.upgrade_list_widget.blockSignals(True)
+        self.ui.upgrade_list_widget.clear()
+        self.ui.upgrade_list_widget.blockSignals(False)
+        self.ui.pilot_list_widget.blockSignals(True)
+        self.pilot_image_label = None
+        self.ui.main_card_viewer.add_card(None)
         ship_name = self.ship_selected_encoded
         ship = self.xwing.get_ship(self.faction_selected, ship_name)
         if ship is None:
@@ -429,6 +435,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
         # Populate the pilot list
         self.ui.pilot_list_widget.clear()
+        self.ui.pilot_list_widget.blockSignals(False)
         populate_list_widget(ship.pilot_names_for_gui,
                              self.ui.pilot_list_widget)
 
@@ -442,6 +449,10 @@ class MainWindow(QtWidgets.QMainWindow):
             image_path_to_qpixmap(self.pilots_dir / f"{pilot_name}.jpg"))
 
     def update_pilot(self):
+        self.ui.main_card_viewer.add_card(None)
+        self.ui.upgrade_list_widget.blockSignals(True)
+        self.ui.upgrade_list_widget.clear()
+        self.ui.upgrade_list_widget.blockSignals(False)
         pilot_name = self.pilot_name_selected
         if pilot_name is None or self.ship_selected_encoded is None:
             return
@@ -455,9 +466,8 @@ class MainWindow(QtWidgets.QMainWindow):
         update_upgrade_slot_layout(
             self.ui.pilot_upgrade_slot_layout, pilot["upgrade_slots"], self.upgrade_slots_dir)
 
-        self.ui.upgrade_list_widget.clear()
-        populate_list_widget(
-            self.upgrades.all_upgrades_for_gui, self.ui.upgrade_list_widget)
+        # populate_list_widget(
+        #     self.upgrades.all_upgrades_for_gui, self.ui.upgrade_list_widget)
 
     def update_upgrade(self):
         upgrade_name = self.upgrade_name_selected

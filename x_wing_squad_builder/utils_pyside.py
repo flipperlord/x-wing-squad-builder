@@ -80,6 +80,7 @@ def image_path_to_qpixmap(image_path: Path, color=None) -> QtGui.QPixmap:
 
 
 def populate_list_widget(arr: List[str], list_widget: QtWidgets.QListWidget, image_path: Optional[Path] = None) -> None:
+    list_widget.blockSignals(True)
     for s in arr:
         list_widget_item = QtWidgets.QListWidgetItem()
         list_widget_item.setText(s)
@@ -87,6 +88,7 @@ def populate_list_widget(arr: List[str], list_widget: QtWidgets.QListWidget, ima
             pixmap = image_path_to_qpixmap(image_path / f"{gui_text_encode(s)}.png")
             list_widget_item.setIcon(pixmap)
         list_widget.addItem(list_widget_item)
+    list_widget.blockSignals(False)
 
 
 def create_image_label(item_name, item_color, item_dir) -> QtWidgets.QLabel:
