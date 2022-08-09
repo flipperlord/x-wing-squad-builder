@@ -5,6 +5,8 @@ from ..settings import Settings
 from .upgrade_filters import (upgrade_slot_filter, name_filter, multiple_name_filter, actions_filter,
                               statistics_filter_simple, statistics_filter_adv, limit_filter, bool_string_filter)
 
+from .unique_upgrades import UNIQUE_UPGRADES, get_root
+
 from typing import List, Optional, Union, Dict
 
 from collections import defaultdict
@@ -69,9 +71,14 @@ class Upgrades:
                 valid = False
 
             solitary = upgrade.get("solitary", "False") == "True"
-            if solitary:
+            upgrade_root = get_root(upgrade['name'])
+            if solitary or upgrade_root in UNIQUE_UPGRADES:
                 equipped_upgrade_names = [val.name for _, pilot in squad.squad_dict.items() for val in pilot.equipped_upgrades]
+                equipped_pilot_names = [pilot.pilot_name for _, pilot in squad.squad_dict.items()]
                 if upgrade['name'] in equipped_upgrade_names:
+                    valid = False
+                combined_roots = [get_root(i) for i in equipped_pilot_names + equipped_upgrade_names]
+                if upgrade_root in combined_roots:
                     valid = False
 
             restrictions = self.get_upgrade_restrictions(upgrade)

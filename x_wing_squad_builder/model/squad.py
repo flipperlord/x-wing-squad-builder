@@ -1,4 +1,5 @@
 from .pilot_equip import PilotEquip
+from .unique_upgrades import UNIQUE_UPGRADES, get_root
 from ..settings import Settings
 from PySide6.QtWidgets import QTreeWidgetItem
 
@@ -42,6 +43,18 @@ class Squad:
                 if data.faction_name != faction:
                     logging.info("Must equip pilots of the same faction in standard mode.  Unable to equip.")
                     return False
+        # Check if unique upgrade equipped
+        pilot_root = get_root(data.pilot_name)
+        if get_root(data.pilot_name) in UNIQUE_UPGRADES:
+            all_equipped_upgrades = [get_root(upgrade.name) for _, pilot in self.squad_dict.items() for upgrade in pilot.equipped_upgrades]
+            all_equipped_pilots = [get_root(pilot.pilot_name) for _, pilot in self.squad_dict.items()]
+            if pilot_root in all_equipped_upgrades:
+                logging.info(f"Unable to equip pilot.  Ensure this pilot is not already equipped as an upgrade.")
+                return False
+            elif pilot_root in all_equipped_pilots:
+                logging.info("Unable to equip pilot.  Ensure another version of this pilot is not already equipped.")
+                return False
+
         self.__squad[item] = data
         return True
 

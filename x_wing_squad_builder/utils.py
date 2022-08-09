@@ -36,7 +36,11 @@ def process_part(part: str, symbol: str):
         if contains_number(sub_part):
             sub_part = sub_part.upper()
         elif len(sub_part) <= 3:
-            sub_part = sub_part.upper()
+            sub_part = sub_part.lower()
+            if sub_part in ["odd", "obi", "wan", "axe", "red", "zeb", "bo", "mag"]:
+                sub_part = sub_part.capitalize()
+            else:
+                sub_part = sub_part.upper()
         elif len(sub_part) > 3:
             sub_part = sub_part.capitalize()
         sub_processed.append(sub_part)

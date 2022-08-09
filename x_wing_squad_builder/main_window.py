@@ -90,11 +90,10 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.initiative_label.clear()
         self.ui.points_label.clear()
         self.ui.maneuver_image_label.clear()
-        # self.ui.pilot_image_label.clear()
-        # self.ui.upgrade_image_label.clear()
         self.ui.total_pilot_cost_label.clear()
         self.ui.total_upgrade_cost.clear()
         self.ui.total_cost_label.clear()
+        self.ui.pilot_keyword_label.clear()
 
         # Set up definition form for adding to definition file.
         self.definition_form = self.initialize_definition_form()
@@ -401,6 +400,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.ship_list_widget.clear()
         self.ui.pilot_list_widget.clear()
         self.ui.upgrade_list_widget.clear()
+        self.ui.pilot_keyword_label.clear()
         faction_name = self.faction_selected
         faction = self.xwing.get_faction(faction_name)
         populate_list_widget(faction.ship_names_for_gui,
@@ -432,6 +432,8 @@ class MainWindow(QtWidgets.QMainWindow):
             self.ui.ship_upgrade_slot_layout, ship.upgrade_slots, self.upgrade_slots_dir)
         update_upgrade_slot_layout(
             self.ui.pilot_upgrade_slot_layout, [], self.upgrade_slots_dir)
+
+        self.ui.pilot_keyword_label.clear()
 
         # Populate the pilot list
         self.ui.pilot_list_widget.clear()
@@ -465,6 +467,13 @@ class MainWindow(QtWidgets.QMainWindow):
                              pilot["actions"], self.actions_dir)
         update_upgrade_slot_layout(
             self.ui.pilot_upgrade_slot_layout, pilot["upgrade_slots"], self.upgrade_slots_dir)
+
+        if pilot["keywords"]:
+            keyword_string = ", ".join([prettify_name(keyword) for keyword in pilot["keywords"]])
+        else:
+            keyword_string = ""
+
+        self.ui.pilot_keyword_label.setText(keyword_string)
 
         # populate_list_widget(
         #     self.upgrades.all_upgrades_for_gui, self.ui.upgrade_list_widget)

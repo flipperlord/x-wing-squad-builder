@@ -44,6 +44,9 @@ def test_process_part():
     assert process_part(test_case, "-") == 'Weare-THE-People'
     assert process_part(test_case, "?") == 'Weare-the-people'
 
+    test_case = "bo-katan"
+    assert process_part(test_case, "-") == "Bo-Katan"
+
 
 def test_prettify_name():
     test_case = "this be tn-3645 ^null^"
