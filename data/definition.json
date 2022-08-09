@@ -14288,7 +14288,7 @@
                             ]
                         },
                         {
-                            "name": "^warthog^",
+                            "name": "^warthog^ (z-95)",
                             "limit": 1,
                             "initiative": 3,
                             "cost": 31,
@@ -21679,7 +21679,11 @@
                         "configuration",
                         "title"
                     ],
-                    "hardpoint": ["cannon", "torpedo", "missile"],
+                    "hardpoint": [
+                        "cannon",
+                        "torpedo",
+                        "missile"
+                    ],
                     "pilots": [
                         {
                             "name": "blue squadron rookie",
@@ -28516,7 +28520,11 @@
                     "upgrade_slots": [
                         "modification"
                     ],
-                    "hardpoint": ["cannon", "torpedo", "missile"],
+                    "hardpoint": [
+                        "cannon",
+                        "torpedo",
+                        "missile"
+                    ],
                     "pilots": [
                         {
                             "name": "cartel spacer",
@@ -58060,7 +58068,10 @@
             "autoinclude": "False",
             "epic": "False",
             "solitary": "False",
-            "squad_include": ["darth vader (black leader)", "darth vader (dark lord of the sith)"],
+            "squad_include": [
+                "darth vader (black leader)",
+                "darth vader (dark lord of the sith)"
+            ],
             "restrictions": {
                 "limit": 1,
                 "pilot_initiative": {
@@ -59905,7 +59916,10 @@
             "autoinclude": "False",
             "epic": "False",
             "solitary": "False",
-            "squad_include": ["darth vader (black leader)", "darth vader (dark lord of the sith)"],
+            "squad_include": [
+                "darth vader (black leader)",
+                "darth vader (dark lord of the sith)"
+            ],
             "restrictions": {
                 "limit": 1,
                 "pilot_initiative": {
@@ -68675,7 +68689,12 @@
             "autoinclude": "False",
             "epic": "False",
             "solitary": "False",
-            "squad_include": ["ezra bridger (attack shuttle)", "ezra bridger (sheathipede)", "ezra bridger (tie fighter)", "ezra bridger (gauntlet)"],
+            "squad_include": [
+                "ezra bridger (attack shuttle)",
+                "ezra bridger (sheathipede)",
+                "ezra bridger (tie fighter)",
+                "ezra bridger (gauntlet)"
+            ],
             "restrictions": {
                 "limit": 1,
                 "pilot_initiative": {
@@ -69166,7 +69185,9 @@
             "autoinclude": "False",
             "epic": "False",
             "solitary": "False",
-            "squad_include": ["gar saxon"],
+            "squad_include": [
+                "gar saxon"
+            ],
             "restrictions": {
                 "limit": 1,
                 "pilot_initiative": {
@@ -79444,7 +79465,7 @@
             }
         },
         {
-            "name": "zam wesell",
+            "name": "zam wessell",
             "upgrade_slot_types": [
                 "crew"
             ],

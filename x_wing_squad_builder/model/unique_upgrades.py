@@ -14,7 +14,7 @@ UNIQUE_UPGRADES = [
     "general grievous",
     "asajj ventress",
     "sabine wren",
-    "chopper",
+    "^chopper^",
     "r2-d2",
     "boba fett",
     "dengar",

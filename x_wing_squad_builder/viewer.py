@@ -33,7 +33,7 @@ class Viewer(QtWidgets.QDialog):
         self.factions_dir = factions_dir
         self.ship_icons_dir = ship_icons_dir
         self.pilots_dir = pilots_dir
-        self.ui.upgrade_viewer_tree_widget.itemClicked.connect(
+        self.ui.upgrade_viewer_tree_widget.itemSelectionChanged.connect(
             self.handle_upgrade_tree_click)
 
         self.ui.expand_all_push_button.clicked.connect(
@@ -54,7 +54,7 @@ class Viewer(QtWidgets.QDialog):
         self.add_card_viewer(
             self.upgrade_viewer, self.ui.upgrade_viewer_tree_widget, self.ui.upgrade_layout)
 
-        self.ui.pilot_viewer_tree_widget.itemClicked.connect(
+        self.ui.pilot_viewer_tree_widget.itemSelectionChanged.connect(
             self.handle_pilot_tree_click)
 
         self.populate_pilot_viewer()
@@ -166,7 +166,10 @@ class Viewer(QtWidgets.QDialog):
             faction_name = gui_text_encode(faction_item.text(0))
             self.pilot_edit_signal.emit(pilot_name, ship_name, faction_name)
 
-    def handle_upgrade_tree_click(self, item: QtWidgets.QTreeWidgetItem, column):
+    def handle_upgrade_tree_click(self):
+        item = self.ui.upgrade_viewer_tree_widget.selectedItems()[0]
+        if item is None:
+            return
         if treewidget_item_is_top_level(item):
             return
         upgrade_name = get_upgrade_name_from_list_item_text(item.text(0))
@@ -174,7 +177,10 @@ class Viewer(QtWidgets.QDialog):
             self.upgrades_dir / f"{upgrade_name}.jpg")
         self.upgrade_viewer.set_card(pixmap)
 
-    def handle_pilot_tree_click(self, item: QtWidgets.QTreeWidgetItem, column):
+    def handle_pilot_tree_click(self):
+        item = self.ui.pilot_viewer_tree_widget.selectedItems()[0]
+        if item is None:
+            return
         if treewidget_item_is_top_level(item):
             return
         pilot_name = get_pilot_name_from_list_item_text(item.text(0))
