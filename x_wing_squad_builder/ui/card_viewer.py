@@ -12,7 +12,10 @@ class CardViewer(QtWidgets.QGraphicsView):
         self._empty = True
         self._scene = QtWidgets.QGraphicsScene(self)
         self._photo = QtWidgets.QGraphicsPixmapItem()
+        self._second_photo = QtWidgets.QGraphicsPixmapItem()
         self._scene.addItem(self._photo)
+        self._scene.addItem(self._second_photo)
+        self._second_photo.moveBy(320, 0)
         self.setScene(self._scene)
         self.setTransformationAnchor(QtWidgets.QGraphicsView.AnchorUnderMouse)
         self.setResizeAnchor(QtWidgets.QGraphicsView.AnchorUnderMouse)
@@ -26,7 +29,10 @@ class CardViewer(QtWidgets.QGraphicsView):
         return not self._empty
 
     def fitInView(self, scale=False):
-        rect = QtCore.QRectF(self._photo.pixmap().rect())
+        p1pixmap = self._photo.pixmap()
+        p2pixmap = self._second_photo.pixmap()
+        test_rect = QtCore.QRect(-20, -20, p1pixmap.width() + p2pixmap.width()+25, p1pixmap.height() + 25)
+        rect = QtCore.QRectF(test_rect)
         if not rect.isNull():
             self.setSceneRect(rect)
             if self.has_card:
@@ -49,6 +55,18 @@ class CardViewer(QtWidgets.QGraphicsView):
             self._empty = True
             self.setDragMode(QtWidgets.QGraphicsView.NoDrag)
             self._photo.setPixmap(QtGui.QPixmap())
+        self.fitInView()
+
+    def add_card(self, pixmap: QtGui.QPixmap = None):
+        self._zoom = 0
+        if pixmap and not pixmap.isNull():
+            self._empty = False
+            self.setDragMode(QtWidgets.QGraphicsView.ScrollHandDrag)
+            self._second_photo.setPixmap(pixmap)
+        else:
+            self._empty = True
+            self.setDragMode(QtWidgets.QGraphicsView.NoDrag)
+            self._second_photo.setPixmap(QtGui.QPixmap())
         self.fitInView()
 
     def wheelEvent(self, event):

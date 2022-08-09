@@ -21,7 +21,7 @@
    <item>
     <widget class="QTabWidget" name="viewer_tab_widget">
      <property name="currentIndex">
-      <number>2</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="upgrade_tab">
       <property name="layoutDirection">

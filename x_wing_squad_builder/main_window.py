@@ -90,8 +90,8 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.initiative_label.clear()
         self.ui.points_label.clear()
         self.ui.maneuver_image_label.clear()
-        self.ui.pilot_image_label.clear()
-        self.ui.upgrade_image_label.clear()
+        # self.ui.pilot_image_label.clear()
+        # self.ui.upgrade_image_label.clear()
         self.ui.total_pilot_cost_label.clear()
         self.ui.total_upgrade_cost.clear()
         self.ui.total_cost_label.clear()
@@ -406,7 +406,7 @@ class MainWindow(QtWidgets.QMainWindow):
                              self.ui.ship_list_widget, self.ship_icons_dir)
 
     def update_ship(self):
-        self.ui.pilot_image_label.clear()
+        # self.ui.pilot_image_label.clear()
         ship_name = self.ship_selected_encoded
         ship = self.xwing.get_ship(self.faction_selected, ship_name)
         if ship is None:
@@ -438,7 +438,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
     @pilot_image_label.setter
     def pilot_image_label(self, pilot_name: str):
-        self.pilot_image_label.setPixmap(
+        self.ui.main_card_viewer.set_card(
             image_path_to_qpixmap(self.pilots_dir / f"{pilot_name}.jpg"))
 
     def update_pilot(self):
@@ -463,7 +463,7 @@ class MainWindow(QtWidgets.QMainWindow):
         upgrade_name = self.upgrade_name_selected
         if upgrade_name is None:
             return
-        self.ui.upgrade_image_label.setPixmap(
+        self.ui.main_card_viewer.add_card(
             image_path_to_qpixmap(self.upgrades_dir / f"{upgrade_name}.jpg"))
 
     @property
