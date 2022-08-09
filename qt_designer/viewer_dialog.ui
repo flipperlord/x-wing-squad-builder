@@ -21,7 +21,7 @@
    <item>
     <widget class="QTabWidget" name="viewer_tab_widget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="upgrade_tab">
       <property name="layoutDirection">
@@ -117,10 +117,15 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab">
+     <widget class="QWidget" name="squad_viewer">
       <attribute name="title">
        <string>Squad Viewer</string>
       </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_4">
+       <item>
+        <widget class="QTextEdit" name="squad_text_edit"/>
+       </item>
+      </layout>
      </widget>
     </widget>
    </item>

@@ -1,7 +1,6 @@
 import logging
 import os
 from pathlib import Path
-from functools import partial
 from PySide6 import QtWidgets, QtCore, QtGui
 
 from x_wing_squad_builder.definition_form import DefinitionForm
@@ -15,7 +14,7 @@ from .ui.main_window_ui import Ui_MainWindow
 from .about_window import AboutWindow
 from .settings_window import SettingsWindow
 
-from .model import XWing, Faction, Ship, PilotEquip, Squad, Upgrades
+from .model import XWing, PilotEquip, Squad, Upgrades
 
 from .utils_pyside import (image_path_to_qpixmap, populate_list_widget, update_action_layout,
                            update_upgrade_slot_layout, treewidget_item_is_top_level,
@@ -128,8 +127,9 @@ class MainWindow(QtWidgets.QMainWindow):
 
         self.showMaximized()
 
-    def test(self):
-        logging.info("got the signal")
+
+    def handle_squad_timer(self):
+        self.viewer.populate_squad_viewer(self.squad)
 
     def initialize_definition_form(self):
         definition_form = DefinitionForm(self.file_path)
@@ -312,6 +312,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.squad_tree_widget.resizeColumnToContents(0)
         self.ui.squad_tree_widget.expandAll()
         self.update_costs()
+        self.viewer.populate_squad_viewer(self.squad)
 
     def unequip_pilot(self):
         if self.squad_tree_selection is None:
@@ -325,6 +326,7 @@ class MainWindow(QtWidgets.QMainWindow):
             self.ui.squad_tree_widget.takeTopLevelItem(top_level_idx)
             self.refresh_squad_upgrade_slots()
             self.update_costs()
+            self.viewer.populate_squad_viewer(self.squad)
 
     def handle_equip_upgrade(self):
         if self.squad_tree_selection is None or treewidget_item_is_top_level(self.squad_tree_selection):
@@ -346,6 +348,7 @@ class MainWindow(QtWidgets.QMainWindow):
             self.refresh_squad_upgrade_slots(parent_select_item=parent_item, select_item=select_item)
         self.handle_squad_click()
         self.update_costs()
+        self.viewer.populate_squad_viewer(self.squad)
 
     def unequip_upgrade(self):
         if self.squad_tree_selection is None or treewidget_item_is_top_level(self.squad_tree_selection):
@@ -360,6 +363,7 @@ class MainWindow(QtWidgets.QMainWindow):
                 self.refresh_squad_upgrade_slots(self.squad_tree_selection.parent(), self.squad_tree_selection)
         self.handle_squad_click()
         self.update_costs()
+        self.viewer.populate_squad_viewer(self.squad)
 
     def update_costs(self):
         """updates the UI cost labels based on squad list"""

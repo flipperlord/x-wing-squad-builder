@@ -1,10 +1,12 @@
 from pathlib import Path
 from functools import partial
-import logging
+import textwrap
+from unittest.mock import NonCallableMagicMock
 
 from .ui.viewer_dialog_ui import Ui_Viewer
 from .model import Upgrades
 from .model import XWing
+from .model import Squad
 
 from .utils_pyside import image_path_to_qpixmap, treewidget_item_is_top_level, gui_text_encode
 from .utils import get_upgrade_name_from_list_item_text, prettify_name, get_pilot_name_from_list_item_text
@@ -60,6 +62,8 @@ class Viewer(QtWidgets.QDialog):
         self.add_card_viewer(
             self.pilot_viewer, self.ui.pilot_viewer_tree_widget, self.ui.pilot_layout)
 
+        self.ui.squad_text_edit.setReadOnly(True)
+
     def populate_upgrade_viewer(self):
         # populate upgrade viewer
         self.ui.upgrade_viewer_tree_widget.clear()
@@ -97,10 +101,22 @@ class Viewer(QtWidgets.QDialog):
                 self.ui.pilot_viewer_tree_widget.topLevelItemCount(), faction_item)
             self.ui.pilot_viewer_tree_widget.resizeColumnToContents(0)
         self.ui.pilot_viewer_tree_widget.expandAll()
-        # if item:
-            # self.ui.pilot_viewer_tree_widget.scrollToItem(item, QtWidgets.QAbstractItemView.ScrollHint.EnsureVisible)
-        # else:
-        #     self.ui
+
+    def populate_squad_viewer(self, squad: Squad):
+        if len(squad.squad_dict) == 0:
+            return
+        faction_name = squad.squad_factions[0]
+        s = f"Faction: {prettify_name(faction_name)}\nPilots:\n"
+        for _, pilot in squad.squad_dict.items():
+            s += f"{prettify_name(pilot.pilot_name)}\n"
+            for upgrade in pilot.equipped_upgrades:
+                s += f"    {prettify_name(upgrade.name)}\n"
+
+
+        self.ui.squad_text_edit.setText(s)
+
+        # for _, pilot in squad.squad_dict.items():
+
 
     def filter_items(self):
         show_all = False
@@ -129,6 +145,8 @@ class Viewer(QtWidgets.QDialog):
             item_iterator += 1
 
     def handle_edit(self):
+        if self.current_tree_widget is None:
+            return
         selected_items = self.current_tree_widget.selectedItems()
         if len(selected_items) == 0:
             return
@@ -164,6 +182,8 @@ class Viewer(QtWidgets.QDialog):
         self.pilot_viewer.set_card(pixmap)
 
     def expand_collapse_all(self, expand=True):
+        if self.current_tree_widget is None:
+            return
         if expand:
             self.current_tree_widget.expandAll()
         else:
