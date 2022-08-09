@@ -17,7 +17,17 @@ class EnterListWidget(QtWidgets.QListWidget):
 
     def focusInEvent(self, event: QtGui.QFocusEvent) -> None:
         if self.currentItem() is None:
-            self.setCurrentItem(self.item(0))
+            if self.underMouse():
+                cursor_pos = self.cursor().pos()
+                local_qpoint = self.mapFromGlobal(cursor_pos)
+                self.setCurrentItem(self.itemAt(local_qpoint))
+            else:
+                self.setCurrentItem(self.item(0))
+
         return super().focusInEvent(event)
+
+    def set_selection(self, item):
+        print("setting selection")
+        self.setCurrentItem(item)
 
 
