@@ -68,6 +68,12 @@ class Upgrades:
             if bool_string_filter(upgrade["epic"]) and self.settings.mode != Settings.Mode.EPIC:
                 valid = False
 
+            solitary = upgrade.get("solitary", "False") == "True"
+            if solitary:
+                equipped_upgrade_names = [val.name for _, pilot in squad.squad_dict.items() for val in pilot.equipped_upgrades]
+                if upgrade['name'] in equipped_upgrade_names:
+                    valid = False
+
             restrictions = self.get_upgrade_restrictions(upgrade)
             # TODO: Fill in the rest of the conditionals
             for key, value in restrictions.items():

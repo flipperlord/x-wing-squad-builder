@@ -230,7 +230,7 @@ class MainWindow(QtWidgets.QMainWindow):
         populate_list_widget(filtered_for_gui, self.ui.upgrade_list_widget)
         self.pilot_image_label = pilot_data.pilot_name
 
-    def refresh_squad_upgrade_slots(self, parent_select_item: QtWidgets.QTreeWidgetItem = None, select_item: QtWidgets.QTreeWidgetItem = None):
+    def refresh_squad_upgrade_slots(self, parent_select_item: QtWidgets.QTreeWidgetItem = None, select_item: QtWidgets.QTreeWidgetItem = None, auto_include_bypass = True):
         """rebuilds the squad list widget.  pass in args if you wish to set selection to the same prior to refresh"""
         for item, pilot_data in self.squad.squad_dict.items():
             # first clear the list
@@ -247,12 +247,23 @@ class MainWindow(QtWidgets.QMainWindow):
                 if parent_select_item == item and select_item.text(0).lower() == slot:
                     self.ui.squad_tree_widget.clearSelection()
                     child.setSelected(True)
-            # Now color in equipped upgrades
-            self.color_in_equipped_upgrades(item, pilot_data)
 
             # Update available upgrades based on squad
             pilot_data.filtered_upgrades = self.upgrades.filtered_upgrades_by_pilot(
                 pilot_data, self.squad)
+
+            if not auto_include_bypass:
+                for upgrade in pilot_data.filtered_upgrades:
+                    auto_include = upgrade.get("autoinclude", "False") == "True"
+                    if auto_include:
+                        slots = self.upgrades.get_upgrade_slots(upgrade)
+                        equipped = pilot_data.equip_upgrade(slots, upgrade.get("name"), upgrade["cost"], upgrade)
+                        if equipped:
+                            logging.info(f"{prettify_name(upgrade['name'])} equipped automatically to {prettify_name(pilot_data.pilot_name)}")
+
+            # Now color in equipped upgrades
+            self.color_in_equipped_upgrades(item, pilot_data)
+
 
     def color_in_equipped_upgrades(self, parent_item: QtWidgets.QTreeWidgetItem, pilot_data: PilotEquip):
         for upgrade in pilot_data.equipped_upgrades:
@@ -297,7 +308,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
         self.ui.squad_tree_widget.insertTopLevelItem(
             self.squad_tree_bottom_index, item)
-        self.refresh_squad_upgrade_slots()
+        self.refresh_squad_upgrade_slots(auto_include_bypass=False)
         self.ui.squad_tree_widget.resizeColumnToContents(0)
         self.ui.squad_tree_widget.expandAll()
         self.update_costs()
@@ -332,9 +343,8 @@ class MainWindow(QtWidgets.QMainWindow):
         equipped = pilot_data.equip_upgrade(
             upgrade_slots, upgrade_name, upgrade_cost, upgrade_dict)
         if equipped:
-            pilot_data.filtered_upgrades = self.upgrades.filtered_upgrades_by_pilot(
-                pilot_data, self.squad)
             self.refresh_squad_upgrade_slots(parent_select_item=parent_item, select_item=select_item)
+        self.handle_squad_click()
         self.update_costs()
 
     def unequip_upgrade(self):
@@ -347,9 +357,8 @@ class MainWindow(QtWidgets.QMainWindow):
             unequipped = pilot_data.unequip_upgrade(
                 self.squad_tree_upgrade_name_selection)
             if unequipped:
-                pilot_data.filtered_upgrades = self.upgrades.filtered_upgrades_by_pilot(
-                    pilot_data, self.squad)
                 self.refresh_squad_upgrade_slots(self.squad_tree_selection.parent(), self.squad_tree_selection)
+        self.handle_squad_click()
         self.update_costs()
 
     def update_costs(self):
