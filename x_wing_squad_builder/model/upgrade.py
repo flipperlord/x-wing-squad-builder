@@ -61,7 +61,7 @@ class Upgrades:
                 return upgrade
         return None
 
-    def filtered_upgrades_by_pilot(self, pilot: PilotEquip, squad: Squad = None) -> List[dict]:
+    def filtered_upgrades_by_pilot(self, pilot: PilotEquip, squad: Squad) -> List[dict]:
         filtered = []
         for upgrade in self.upgrades_list:
             valid = upgrade_slot_filter(self.get_upgrade_slots(upgrade), pilot.upgrade_slots)

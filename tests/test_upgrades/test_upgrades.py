@@ -3,6 +3,7 @@ import pytest
 from x_wing_squad_builder.model.upgrade import Upgrades
 from x_wing_squad_builder.model.xwing import XWing
 from x_wing_squad_builder.model.pilot_equip import PilotEquip
+from x_wing_squad_builder.model.squad import Squad
 
 from x_wing_squad_builder.model.upgrade_filters import (upgrade_slot_filter, name_filter,
                                                         multiple_name_filter, actions_filter,
@@ -215,7 +216,7 @@ def test_filtered_upgrades_by_pilot(xwing: XWing, upgrades: Upgrades, faction_na
     ship = xwing.get_ship(faction_name, ship_name)
     pilot = ship.get_pilot_data(pilot_name)
     pilot_equip = PilotEquip(ship, pilot)
-    pilot_equip.filtered_upgrades = upgrades.filtered_upgrades_by_pilot(pilot_equip)
+    pilot_equip.filtered_upgrades = upgrades.filtered_upgrades_by_pilot(pilot_equip, Squad())
     for upgrade in pilot_equip.filtered_upgrades:
         assert upgrade['name'] in expected
         expected.pop(expected.index(upgrade['name']))
@@ -254,7 +255,7 @@ def test_filtered_upgrades_with_action_modifier(xwing: XWing, upgrades: Upgrades
     }
     pilot_equip.equip_upgrade(fake_slots, fake_name, fake_cost, fake_upgrade_dict)
 
-    pilot_equip.filtered_upgrades = upgrades.filtered_upgrades_by_pilot(pilot_equip)
+    pilot_equip.filtered_upgrades = upgrades.filtered_upgrades_by_pilot(pilot_equip, Squad())
     filtered_names = [upgrade['name'] for upgrade in pilot_equip.filtered_upgrades]
 
     assert expected_upgrade_name in filtered_names
@@ -268,7 +269,7 @@ def test_filtered_upgrades_with_empty_action_modifier(xwing: XWing, upgrades: Up
     ship = xwing.get_ship(faction_name, ship_name)
     pilot = ship.get_pilot_data(pilot_name)
     pilot_equip = PilotEquip(ship, pilot)
-    before_equip = upgrades.filtered_upgrades_by_pilot(pilot_equip)
+    before_equip = upgrades.filtered_upgrades_by_pilot(pilot_equip, Squad())
     # grand moff tarkin requires a target lock
     # equip a fake upgrade that adds an action slot
     fake_cost = 2
@@ -282,6 +283,6 @@ def test_filtered_upgrades_with_empty_action_modifier(xwing: XWing, upgrades: Up
     }
     pilot_equip.equip_upgrade(fake_slots, fake_name, fake_cost, fake_upgrade_dict)
 
-    pilot_equip.filtered_upgrades = upgrades.filtered_upgrades_by_pilot(pilot_equip)
+    pilot_equip.filtered_upgrades = upgrades.filtered_upgrades_by_pilot(pilot_equip, Squad())
 
     assert before_equip == pilot_equip.filtered_upgrades
