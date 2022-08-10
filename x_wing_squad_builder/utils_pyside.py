@@ -76,6 +76,9 @@ def image_path_to_qpixmap(image_path: Path, color=None) -> QtGui.QPixmap:
     else:
         qimage = QtGui.QImage(image_path)
     pixmap = QtGui.QPixmap.fromImage(qimage)
+    screen = QtWidgets.QApplication.primaryScreen()
+    if screen.size().width() > 1920:
+        pixmap.setDevicePixelRatio(1.25)
     return pixmap
 
 
