@@ -14069,6 +14069,10 @@
                 {
                     "name": "clone z-95 headhunter",
                     "base": "small",
+                    "hardpoint": [
+                        "torpedo",
+                        "missile"
+                    ],
                     "statistics": [
                         {
                             "attacks": [
