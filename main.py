@@ -3,6 +3,7 @@ import sys
 import logging
 from x_wing_squad_builder.utils import create_log_level_parser
 from PySide6.QtWidgets import QApplication
+from PySide6 import QtCore
 from x_wing_squad_builder.main_window import MainWindow
 
 
@@ -47,6 +48,8 @@ def main(args=sys.argv):
     options = log_level_parser.parse_args()
     log_level = getattr(logging, options.log.upper(), None)
     logging.getLogger().setLevel(log_level)
+    QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True) #enable highdpi scaling
+    QApplication.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps, True) #use highdpi icons
     app = QApplication(args)
     application = MainWindow()
     application.show()

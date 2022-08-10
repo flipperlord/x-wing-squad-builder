@@ -2,6 +2,7 @@ from pathlib import Path
 from PySide6 import QtWidgets, QtGui
 
 from typing import List, Optional, Dict
+import logging
 
 from .utils import change_action_image_color, gui_text_encode
 from .model.ship import Ship
@@ -78,6 +79,7 @@ def image_path_to_qpixmap(image_path: Path, color=None) -> QtGui.QPixmap:
     pixmap = QtGui.QPixmap.fromImage(qimage)
     screen = QtWidgets.QApplication.primaryScreen()
     if screen.size().width() > 1920:
+        logging.info(f"screen size width greater than 1920 pixels, adjusted device pixel ratio")
         pixmap.setDevicePixelRatio(1.25)
     return pixmap
 
