@@ -262,7 +262,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
             # Now color in equipped upgrades
             self.color_in_equipped_upgrades(item, pilot_data)
-
+            self.ui.squad_tree_widget.resizeColumnToContents(0)
 
     def color_in_equipped_upgrades(self, parent_item: QtWidgets.QTreeWidgetItem, pilot_data: PilotEquip):
         for upgrade in pilot_data.equipped_upgrades:
