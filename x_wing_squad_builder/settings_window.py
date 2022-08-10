@@ -91,3 +91,11 @@ class SettingsWindow(QtWidgets.QDialog):
     @mode.setter
     def mode(self, val: Settings.Mode):
         self.ui.mode_combo_box.setCurrentText(val.value)
+
+    @property
+    def scale(self) -> float:
+        return self.ui.scale_double_spin_box.value()
+
+    @scale.setter
+    def scale(self, val: float):
+        self.ui.scale_double_spin_box.setValue(val)
