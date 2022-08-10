@@ -107,10 +107,14 @@ class Viewer(QtWidgets.QDialog):
             return
         faction_name = squad.squad_factions[0]
         s = f"Faction: {prettify_name(faction_name)}\nPilots:\n"
+        total_cost = 0
         for _, pilot in squad.squad_dict.items():
-            s += f"{prettify_name(pilot.pilot_name)}\n"
+            total_cost += pilot.cost
+            s += f"{prettify_name(pilot.pilot_name)} ({pilot.cost})\n"
             for upgrade in pilot.equipped_upgrades:
-                s += f"    {prettify_name(upgrade.name)}\n"
+                total_cost += upgrade.cost
+                s += f"    {prettify_name(upgrade.name)} ({upgrade.cost})\n"
+        s += f"\nTotal Squad Points: {total_cost}\n"
         self.ui.squad_text_edit.setText(s)
 
     def filter_items(self):

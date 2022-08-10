@@ -24,6 +24,8 @@ from .utils import (get_upgrade_slot_from_list_item_text, gui_text_decode, prett
 
 from pathlib import Path
 
+from typing import Optional
+
 from openpyxl import load_workbook
 from openpyxl.utils import get_column_letter
 
@@ -107,6 +109,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
         self.ui.equip_pilot_push_button.clicked.connect(self.handle_equip_pilot)
         self.ui.unequip_pilot_push_button.clicked.connect(self.unequip_pilot)
+        self.ui.copy_pilot_push_button.clicked.connect(self.handle_copy_pilot)
         self.ui.equip_upgrade_push_button.clicked.connect(self.handle_equip_upgrade)
         self.ui.unequip_upgrade_push_button.clicked.connect(
             self.unequip_upgrade)
@@ -284,6 +287,27 @@ class MainWindow(QtWidgets.QMainWindow):
                             1, f'{prettify_name(upgrade.name)} ({upgrade.cost})')
                         break
 
+    def handle_copy_pilot(self):
+        if self.squad_tree_selection is None or not treewidget_item_is_top_level(self.squad_tree_selection):
+            logging.info(
+                "No pilot selected in squad tree - select an equipped pilot and try again.")
+            return
+        top_level_idx = self.ui.squad_tree_widget.indexOfTopLevelItem(
+            self.squad_tree_selection)
+        item = self.ui.squad_tree_widget.topLevelItem(top_level_idx)
+        pilot_data = self.squad.get_pilot_data(item)
+        equipped_item = self.equip_pilot(pilot_data.faction_name, pilot_data.ship_name, pilot_data.pilot_name)
+        if equipped_item is not None:
+            new_pilot_data = self.squad.get_pilot_data(equipped_item)
+            for upgrade in pilot_data.equipped_upgrades:
+                if upgrade.name in [u['name'] for u in new_pilot_data.filtered_upgrades]:
+                    self.equip_upgrade(upgrade.name, new_pilot_data)
+                else:
+                    logging.info(f"Unable to equip {prettify_name(upgrade.name)}")
+            logging.info(f"{prettify_name(pilot_data.pilot_name)} successfully copied.")
+        else:
+            return
+
     def handle_equip_pilot(self):
         if not self.pilot_name_selected:
             logging.info("No pilot selected - select a pilot and try again.")
@@ -294,7 +318,7 @@ class MainWindow(QtWidgets.QMainWindow):
             return
         self.equip_pilot(faction_name, ship_name, self.pilot_name_selected)
 
-    def equip_pilot(self, faction_name: str, ship_name: str, pilot_name: str):
+    def equip_pilot(self, faction_name: str, ship_name: str, pilot_name: str) -> Optional[QtWidgets.QTreeWidgetItem]:
         pilot = self.xwing.get_pilot(
             faction_name, ship_name, pilot_name)
         ship = self.xwing.get_ship(faction_name, ship_name)
@@ -303,7 +327,7 @@ class MainWindow(QtWidgets.QMainWindow):
         item = QtWidgets.QTreeWidgetItem([f"({pilot_data.initiative}) {prettify_name(pilot_name)} ({pilot_data.cost})"])
         added = self.squad.add_pilot(item, pilot_data)
         if not added:
-            return
+            return None
 
         self.ui.squad_tree_widget.insertTopLevelItem(
             self.squad_tree_bottom_index, item)
@@ -312,6 +336,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.squad_tree_widget.expandAll()
         self.update_costs()
         self.viewer.populate_squad_viewer(self.squad)
+        return item
 
     def unequip_pilot(self):
         if self.squad_tree_selection is None:
