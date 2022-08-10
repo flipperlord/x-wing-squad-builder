@@ -21,6 +21,7 @@ class Settings:
         LOG_FILE_DIR = "log_file_dir"
         THEME = "theme"
         MODE = "mode"
+        SCALE = "scale"
 
         def __str__(self) -> str:
             return self.value
@@ -36,11 +37,12 @@ class Settings:
         STANDARD = "Standard"
         EPIC = "Epic"
         FREEDOM = "Freedom"
-
+    
     defaults = {
         Key.LOG_FILE_DIR: Path(os.getenv("LOCALAPPDATA")) / organization_name / application_name,
         Key.THEME: Theme.LIGHT,
         Key.MODE: Mode.STANDARD,
+        Key.SCALE: 1,
     }
 
     def __init__(self, scope=QtCore.QSettings.UserScope):
@@ -85,3 +87,11 @@ class Settings:
     @mode.setter
     def mode(self, val: Mode):
         self.q_settings.setValue(self.Key.MODE.value, val.value)
+
+    @property
+    def scale(self) -> float:
+        return float(self.q_settings.value(self.Key.SCALE.value, self.defaults[self.Key.SCALE]))
+
+    @scale.setter
+    def scale(self, val: float):
+        self.q_settings.setValue(self.Key.SCALE.value, val)

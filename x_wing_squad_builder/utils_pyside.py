@@ -7,6 +7,8 @@ import logging
 from .utils import change_action_image_color, gui_text_encode
 from .model.ship import Ship
 
+from .settings import Settings
+
 
 def parse_attacks(attacks_line_edit: QtWidgets.QLineEdit, arc_types_line_edit: QtWidgets.QLineEdit, statistics: dict):
     attacks_list = Ship.get_statistic(statistics, "attacks")
@@ -77,10 +79,9 @@ def image_path_to_qpixmap(image_path: Path, color=None) -> QtGui.QPixmap:
     else:
         qimage = QtGui.QImage(image_path)
     pixmap = QtGui.QPixmap.fromImage(qimage)
-    screen = QtWidgets.QApplication.primaryScreen()
-    if screen.size().width() > 1920:
-        logging.info(f"screen size width greater than 1920 pixels, adjusted device pixel ratio")
-        pixmap.setDevicePixelRatio(1.25)
+
+    pixmap.setDevicePixelRatio(Settings().scale)
+
     return pixmap
 
 
