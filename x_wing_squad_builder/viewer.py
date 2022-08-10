@@ -111,12 +111,7 @@ class Viewer(QtWidgets.QDialog):
             s += f"{prettify_name(pilot.pilot_name)}\n"
             for upgrade in pilot.equipped_upgrades:
                 s += f"    {prettify_name(upgrade.name)}\n"
-
-
         self.ui.squad_text_edit.setText(s)
-
-        # for _, pilot in squad.squad_dict.items():
-
 
     def filter_items(self):
         show_all = False

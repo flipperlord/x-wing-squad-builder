@@ -308,7 +308,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.squad_tree_widget.insertTopLevelItem(
             self.squad_tree_bottom_index, item)
         self.refresh_squad_upgrade_slots(auto_include_bypass=False)
-        self.ui.squad_tree_widget.resizeColumnToContents(0)
+        # self.ui.squad_tree_widget.resizeColumnToContents(0)
         self.ui.squad_tree_widget.expandAll()
         self.update_costs()
         self.viewer.populate_squad_viewer(self.squad)
