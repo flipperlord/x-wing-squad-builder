@@ -4,12 +4,19 @@
 ---
 ## Description
 
-* TODO
+To build installer, run the following commands in your local environment:
+```
+pip install -r requirements/base.txt
+python setup.py build_qt
+python setup.py build_installer
+```
 
 ---
 ## Features
 
-* TODO
+- Filter cards by faction, ship, and pilot to assemble your squad
+- Search through all available pilots, upgrades, and current squad in the viewer
+- Export and import squad list to tweak at a later date
 
 ---
 ## Credits
