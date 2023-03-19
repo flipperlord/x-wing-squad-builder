@@ -80,8 +80,10 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.ship_list_widget.itemSelectionChanged.connect(self.update_ship)
         self.ui.pilot_list_widget.itemSelectionChanged.connect(self.update_pilot)
         self.ui.pilot_list_widget.enter_signal.connect(self.handle_equip_pilot)
+        self.ui.pilot_list_widget.itemDoubleClicked.connect(self.handle_equip_pilot)
         self.ui.upgrade_list_widget.itemSelectionChanged.connect(self.update_upgrade)
         self.ui.upgrade_list_widget.enter_signal.connect(self.handle_equip_upgrade)
+        self.ui.upgrade_list_widget.itemDoubleClicked.connect(self.handle_equip_upgrade)
 
         # Initialize Factions
         self.file_path = self.data_dir / "definition.json"
@@ -114,6 +116,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.unequip_upgrade_push_button.clicked.connect(
             self.unequip_upgrade)
         self.ui.squad_tree_widget.itemSelectionChanged.connect(self.handle_squad_click)
+        self.ui.squad_tree_widget.itemDoubleClicked.connect(self.handle_squad_double_click)
 
         self.squad = Squad()
 
@@ -128,7 +131,6 @@ class MainWindow(QtWidgets.QMainWindow):
         self.update_costs()
 
         self.showMaximized()
-
 
     def handle_squad_timer(self):
         self.viewer.populate_squad_viewer(self.squad)
@@ -231,6 +233,16 @@ class MainWindow(QtWidgets.QMainWindow):
 
         populate_list_widget(filtered_for_gui, self.ui.upgrade_list_widget)
         self.pilot_image_label = pilot_data.pilot_name
+
+    def handle_squad_double_click(self):
+        item = self.squad_tree_selection
+        if item is None:
+            return
+
+        if treewidget_item_is_top_level(item):
+            self.unequip_pilot()
+        else:
+            self.unequip_upgrade()
 
     def refresh_squad_upgrade_slots(self, parent_select_item: QtWidgets.QTreeWidgetItem = None, select_item: QtWidgets.QTreeWidgetItem = None, auto_include_bypass = True):
         """rebuilds the squad list widget.  pass in args if you wish to set selection to the same prior to refresh"""
