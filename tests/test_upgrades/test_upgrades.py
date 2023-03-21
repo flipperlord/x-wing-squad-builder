@@ -298,7 +298,8 @@ def pilot_factory(xwing: XWing):
 @pytest.mark.parametrize("faction_name, ship_name, pilot_name, upgrade_name, added_upgrade", [
     pytest.param("galactic empire", "lambda-class t-4a shuttle", "omicron group pilot", "darth vader", "0-0-0", id="0-0-0"),
     pytest.param("galactic empire", "vt-49 decimator", "patrol leader", "darth vader", "bt-1", id="bt-1"),
-    pytest.param("scum and villainy", "customized yt-1300 light freighter", "freighter captain", "gar saxon", "tristan wren", id="tristan wren"),
+    pytest.param("galactic empire", "vt-49 decimator", "patrol leader", "gar saxon (crew)", "tristan wren", id="tristan wren 1"),
+    pytest.param("scum and villainy", "customized yt-1300 light freighter", "freighter captain", "gar saxon", "tristan wren", id="tristan wren 2"),
     pytest.param("rebel alliance", "vcx-100 light freighter", "lothal rebel", "ezra bridger", "maul (1 crew)", id="maul (1 crew)"),
     ])
 def test_special_upgrade_crew_out_of_faction(upgrades: Upgrades, pilot_factory, faction_name, ship_name, pilot_name, upgrade_name, added_upgrade):
@@ -326,6 +327,8 @@ def test_special_upgrade_crew_in_faction(upgrades: Upgrades, pilot_factory, fact
 
     filtered = [upgrade["name"] for upgrade in upgrades.filtered_upgrades_by_pilot(pilot_equip, squad)]
     assert upgrade_name in filtered
+
+# TODO: Write test for if a pilot equivalent is equipped, you get the special inclusions above
 
 
 

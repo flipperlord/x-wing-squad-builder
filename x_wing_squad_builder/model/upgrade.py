@@ -101,7 +101,7 @@ class Upgrades:
                         if not name_filter(value, pilot.faction_name):
                             squad_names = []
                             for _, member in squad.squad_dict.items():
-                                squad_names.append(member)
+                                squad_names.append(member.pilot_name)
                                 for val in member.equipped_upgrades:
                                     squad_names.append(val.name)
                             included = [name in squad_names for name in squad_include]
