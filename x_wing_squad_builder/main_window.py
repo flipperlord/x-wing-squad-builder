@@ -81,7 +81,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.pilot_list_widget.itemSelectionChanged.connect(self.update_pilot)
         self.ui.pilot_list_widget.enter_signal.connect(self.handle_equip_pilot)
         self.ui.pilot_list_widget.itemDoubleClicked.connect(self.handle_equip_pilot)
-        self.ui.upgrade_list_widget.itemSelectionChanged.connect(self.update_upgrade)
+        self.ui.upgrade_list_widget.itemSelectionChanged.connect(self.handle_update_upgrade)
         self.ui.upgrade_list_widget.enter_signal.connect(self.handle_equip_upgrade)
         self.ui.upgrade_list_widget.itemDoubleClicked.connect(self.handle_equip_upgrade)
 
@@ -233,6 +233,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
         populate_list_widget(filtered_for_gui, self.ui.upgrade_list_widget)
         self.pilot_image_label = pilot_data.pilot_name
+        self.update_upgrade(self.squad_tree_upgrade_name_selection)
 
     def handle_squad_double_click(self):
         item = self.squad_tree_selection
@@ -518,8 +519,10 @@ class MainWindow(QtWidgets.QMainWindow):
         # populate_list_widget(
         #     self.upgrades.all_upgrades_for_gui, self.ui.upgrade_list_widget)
 
-    def update_upgrade(self):
-        upgrade_name = self.upgrade_name_selected
+    def handle_update_upgrade(self):
+        self.update_upgrade(self.upgrade_name_selected)
+
+    def update_upgrade(self, upgrade_name):
         if upgrade_name is None:
             return
         self.ui.main_card_viewer.add_card(
