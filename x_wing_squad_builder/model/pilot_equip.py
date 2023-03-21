@@ -250,6 +250,11 @@ class PilotEquip:
         return self.data.get("cost")
 
     @property
+    def cost_with_upgrades(self):
+        upgrade_cost = sum([upgrade.cost for upgrade in self.equipped_upgrades])
+        return self.data.get("cost") + upgrade_cost
+
+    @property
     def equipped_upgrades(self) -> List[Upgrade]:
         return self.__equipped_upgrades
 

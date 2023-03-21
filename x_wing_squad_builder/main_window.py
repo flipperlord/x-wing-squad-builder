@@ -252,6 +252,7 @@ class MainWindow(QtWidgets.QMainWindow):
             for i in reversed(range(item.childCount())):
                 item.removeChild(item.child(i))
             # Add all child slots to the pilot item
+            item.setText(0, f"({pilot_data.initiative}) {prettify_name(pilot_data.pilot_name)} ({pilot_data.cost}) ({pilot_data.cost_with_upgrades})")
             for slot in pilot_data.upgrade_slots:
                 child = QtWidgets.QTreeWidgetItem([prettify_name(slot)])
                 pixmap = image_path_to_qpixmap(
@@ -340,7 +341,7 @@ class MainWindow(QtWidgets.QMainWindow):
         ship = self.xwing.get_ship(faction_name, ship_name)
         pilot_data = PilotEquip(ship, pilot)
         # TODO: Turn this formatting into a function as it's also used by the ship module
-        item = QtWidgets.QTreeWidgetItem([f"({pilot_data.initiative}) {prettify_name(pilot_name)} ({pilot_data.cost})"])
+        item = QtWidgets.QTreeWidgetItem([f"({pilot_data.initiative}) {prettify_name(pilot_name)} ({pilot_data.cost}) (With Upgrades: {pilot_data.cost_with_upgrades})"])
         added = self.squad.add_pilot(item, pilot_data)
         if not added:
             return None

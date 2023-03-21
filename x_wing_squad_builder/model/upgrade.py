@@ -98,14 +98,15 @@ class Upgrades:
                 elif key == "factions":
                     squad_include = upgrade.get("squad_include", [])
                     if squad_include:
-                        squad_names = []
-                        for _, member in squad.squad_dict.items():
-                            squad_names.append(member)
-                        for val in pilot.equipped_upgrades:
-                            squad_names.append(val.name)
-                        included = [name in squad_names for name in squad_include]
-                        if not any(included):
-                            valid = False
+                        if not name_filter(value, pilot.faction_name):
+                            squad_names = []
+                            for _, member in squad.squad_dict.items():
+                                squad_names.append(member)
+                                for val in member.equipped_upgrades:
+                                    squad_names.append(val.name)
+                            included = [name in squad_names for name in squad_include]
+                            if not any(included):
+                                valid = False
                     elif not name_filter(value, pilot.faction_name):
                         valid = False
                 elif key == "ships":

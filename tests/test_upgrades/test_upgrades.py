@@ -301,9 +301,10 @@ def pilot_factory(xwing: XWing):
     pytest.param("scum and villainy", "customized yt-1300 light freighter", "freighter captain", "gar saxon", "tristan wren", id="tristan wren"),
     pytest.param("rebel alliance", "vcx-100 light freighter", "lothal rebel", "ezra bridger", "maul (1 crew)", id="maul (1 crew)"),
     ])
-def test_special_upgrade_crew(upgrades: Upgrades, pilot_factory, faction_name, ship_name, pilot_name, upgrade_name, added_upgrade):
+def test_special_upgrade_crew_out_of_faction(upgrades: Upgrades, pilot_factory, faction_name, ship_name, pilot_name, upgrade_name, added_upgrade):
     pilot_equip: PilotEquip = pilot_factory(faction_name, ship_name, pilot_name)
     squad = Squad()
+    squad.add_pilot("yay", pilot_equip)
 
     filtered = [upgrade["name"] for upgrade in upgrades.filtered_upgrades_by_pilot(pilot_equip, squad)]
     assert added_upgrade not in filtered
@@ -311,6 +312,20 @@ def test_special_upgrade_crew(upgrades: Upgrades, pilot_factory, faction_name, s
     pilot_equip.equip_upgrade(pilot_equip.upgrade_slots, upgrade_name, 10, upgrades.get_upgrade(upgrade_name))
     filtered = [upgrade["name"] for upgrade in upgrades.filtered_upgrades_by_pilot(pilot_equip, squad)]
     assert added_upgrade in filtered
+
+@pytest.mark.parametrize("faction_name, ship_name, pilot_name, upgrade_name", [
+    pytest.param("scum and villainy", "customized yt-1300 light freighter", "freighter captain", "0-0-0", id="0-0-0"),
+    pytest.param("scum and villainy", "customized yt-1300 light freighter", "freighter captain", "bt-1", id="bt-1"),
+    pytest.param("rebel alliance", "gauntlet fighter", "mandalorian resistance pilot", "tristan wren", id="tristan wren"),
+    pytest.param("scum and villainy", "customized yt-1300 light freighter", "freighter captain", "maul (1 crew)", id="maul (1 crew)"),
+    ])
+def test_special_upgrade_crew_in_faction(upgrades: Upgrades, pilot_factory, faction_name, ship_name, pilot_name, upgrade_name):
+    pilot_equip: PilotEquip = pilot_factory(faction_name, ship_name, pilot_name)
+    squad = Squad()
+    squad.add_pilot("yay", pilot_equip)
+
+    filtered = [upgrade["name"] for upgrade in upgrades.filtered_upgrades_by_pilot(pilot_equip, squad)]
+    assert upgrade_name in filtered
 
 
 

@@ -110,7 +110,7 @@ class Viewer(QtWidgets.QDialog):
         total_cost = 0
         for _, pilot in squad.squad_dict.items():
             total_cost += pilot.cost
-            s += f"{prettify_name(pilot.pilot_name)} ({pilot.cost})\n"
+            s += f"{prettify_name(pilot.pilot_name)} ({pilot.cost}) ({pilot.cost_with_upgrades})\n"
             for upgrade in pilot.equipped_upgrades:
                 total_cost += upgrade.cost
                 s += f"    {prettify_name(upgrade.name)} ({upgrade.cost})\n"
