@@ -12783,7 +12783,7 @@
                             ]
                         },
                         {
-                            "name": "^hawk^",
+                            "name": "^hawk^ (laat)",
                             "limit": 1,
                             "initiative": 4,
                             "cost": 51,
@@ -13871,6 +13871,7 @@
                     "upgrade_slots": [
                         "configuration"
                     ],
+                    "epic": "True",
                     "pilots": [
                         {
                             "name": "transgalmeg control link",
@@ -14061,6 +14062,599 @@
                             "upgrade_slots": [],
                             "keywords": [
                                 "corvette"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "clone z-95 headhunter",
+                    "base": "small",
+                    "hardpoint": [
+                        "torpedo",
+                        "missile"
+                    ],
+                    "statistics": [
+                        {
+                            "attacks": [
+                                {
+                                    "attack": 2,
+                                    "arc_type": "front"
+                                }
+                            ]
+                        },
+                        {
+                            "agility": 2
+                        },
+                        {
+                            "hull": 2
+                        },
+                        {
+                            "shield": {
+                                "shield": 2,
+                                "recharge": 0
+                            }
+                        },
+                        {
+                            "force": {
+                                "force": 0,
+                                "recharge": 0
+                            }
+                        },
+                        {
+                            "energy": {
+                                "energy": 0,
+                                "recharge": 0
+                            }
+                        },
+                        {
+                            "charge": {
+                                "charge": 0,
+                                "recharge": 0
+                            }
+                        }
+                    ],
+                    "actions": [
+                        {
+                            "action": "focus",
+                            "color": "white",
+                            "action_link": null,
+                            "color_link": null
+                        },
+                        {
+                            "action": "lock",
+                            "color": "white",
+                            "action_link": null,
+                            "color_link": null
+                        },
+                        {
+                            "action": "barrel roll",
+                            "color": "red",
+                            "action_link": null,
+                            "color_link": null
+                        }
+                    ],
+                    "upgrade_slots": [
+                        "modification"
+                    ],
+                    "epic": "False",
+                    "pilots": [
+                        {
+                            "name": "7th sky corps pilot",
+                            "limit": 0,
+                            "initiative": 2,
+                            "cost": 22,
+                            "statistics": [
+                                {
+                                    "attacks": []
+                                },
+                                {
+                                    "agility": null
+                                },
+                                {
+                                    "hull": null
+                                },
+                                {
+                                    "shield": {
+                                        "shield": null,
+                                        "recharge": null,
+                                        "decharge": null
+                                    }
+                                },
+                                {
+                                    "force": {
+                                        "force": null,
+                                        "recharge": null,
+                                        "decharge": null
+                                    }
+                                },
+                                {
+                                    "energy": {
+                                        "energy": null,
+                                        "recharge": null,
+                                        "decharge": null
+                                    }
+                                },
+                                {
+                                    "charge": {
+                                        "charge": null,
+                                        "recharge": null,
+                                        "decharge": null
+                                    }
+                                }
+                            ],
+                            "actions": [],
+                            "upgrade_slots": [],
+                            "keywords": [
+                                "clone"
+                            ]
+                        },
+                        {
+                            "name": "reaper squadron scout",
+                            "limit": 0,
+                            "initiative": 3,
+                            "cost": 24,
+                            "statistics": [
+                                {
+                                    "attacks": []
+                                },
+                                {
+                                    "agility": null
+                                },
+                                {
+                                    "hull": null
+                                },
+                                {
+                                    "shield": {
+                                        "shield": null,
+                                        "recharge": null,
+                                        "decharge": null
+                                    }
+                                },
+                                {
+                                    "force": {
+                                        "force": null,
+                                        "recharge": null,
+                                        "decharge": null
+                                    }
+                                },
+                                {
+                                    "energy": {
+                                        "energy": null,
+                                        "recharge": null,
+                                        "decharge": null
+                                    }
+                                },
+                                {
+                                    "charge": {
+                                        "charge": null,
+                                        "recharge": null,
+                                        "decharge": null
+                                    }
+                                }
+                            ],
+                            "actions": [],
+                            "upgrade_slots": [
+                                "talent",
+                                "sensor"
+                            ],
+                            "keywords": [
+                                "clone"
+                            ]
+                        },
+                        {
+                            "name": "^killer^",
+                            "limit": 1,
+                            "initiative": 2,
+                            "cost": 25,
+                            "statistics": [
+                                {
+                                    "attacks": []
+                                },
+                                {
+                                    "agility": null
+                                },
+                                {
+                                    "hull": null
+                                },
+                                {
+                                    "shield": {
+                                        "shield": null,
+                                        "recharge": null,
+                                        "decharge": null
+                                    }
+                                },
+                                {
+                                    "force": {
+                                        "force": null,
+                                        "recharge": null,
+                                        "decharge": null
+                                    }
+                                },
+                                {
+                                    "energy": {
+                                        "energy": null,
+                                        "recharge": null,
+                                        "decharge": null
+                                    }
+                                },
+                                {
+                                    "charge": {
+                                        "charge": null,
+                                        "recharge": null,
+                                        "decharge": null
+                                    }
+                                }
+                            ],
+                            "actions": [],
+                            "upgrade_slots": [],
+                            "keywords": [
+                                "clone"
+                            ]
+                        },
+                        {
+                            "name": "^warthog^ (z-95)",
+                            "limit": 1,
+                            "initiative": 3,
+                            "cost": 31,
+                            "statistics": [
+                                {
+                                    "attacks": []
+                                },
+                                {
+                                    "agility": null
+                                },
+                                {
+                                    "hull": null
+                                },
+                                {
+                                    "shield": {
+                                        "shield": null,
+                                        "recharge": null,
+                                        "decharge": null
+                                    }
+                                },
+                                {
+                                    "force": {
+                                        "force": null,
+                                        "recharge": null,
+                                        "decharge": null
+                                    }
+                                },
+                                {
+                                    "energy": {
+                                        "energy": null,
+                                        "recharge": null,
+                                        "decharge": null
+                                    }
+                                },
+                                {
+                                    "charge": {
+                                        "charge": null,
+                                        "recharge": null,
+                                        "decharge": null
+                                    }
+                                }
+                            ],
+                            "actions": [],
+                            "upgrade_slots": [
+                                "talent"
+                            ],
+                            "keywords": [
+                                "clone"
+                            ]
+                        },
+                        {
+                            "name": "^stub^",
+                            "limit": 1,
+                            "initiative": 3,
+                            "cost": 31,
+                            "statistics": [
+                                {
+                                    "attacks": []
+                                },
+                                {
+                                    "agility": null
+                                },
+                                {
+                                    "hull": null
+                                },
+                                {
+                                    "shield": {
+                                        "shield": null,
+                                        "recharge": null,
+                                        "decharge": null
+                                    }
+                                },
+                                {
+                                    "force": {
+                                        "force": null,
+                                        "recharge": null,
+                                        "decharge": null
+                                    }
+                                },
+                                {
+                                    "energy": {
+                                        "energy": null,
+                                        "recharge": null,
+                                        "decharge": null
+                                    }
+                                },
+                                {
+                                    "charge": {
+                                        "charge": null,
+                                        "recharge": null,
+                                        "decharge": null
+                                    }
+                                }
+                            ],
+                            "actions": [],
+                            "upgrade_slots": [
+                                "talent"
+                            ],
+                            "keywords": [
+                                "clone"
+                            ]
+                        },
+                        {
+                            "name": "^drift^",
+                            "limit": 1,
+                            "initiative": 3,
+                            "cost": 31,
+                            "statistics": [
+                                {
+                                    "attacks": []
+                                },
+                                {
+                                    "agility": null
+                                },
+                                {
+                                    "hull": null
+                                },
+                                {
+                                    "shield": {
+                                        "shield": null,
+                                        "recharge": null,
+                                        "decharge": null
+                                    }
+                                },
+                                {
+                                    "force": {
+                                        "force": null,
+                                        "recharge": null,
+                                        "decharge": null
+                                    }
+                                },
+                                {
+                                    "energy": {
+                                        "energy": null,
+                                        "recharge": null,
+                                        "decharge": null
+                                    }
+                                },
+                                {
+                                    "charge": {
+                                        "charge": null,
+                                        "recharge": null,
+                                        "decharge": null
+                                    }
+                                }
+                            ],
+                            "actions": [],
+                            "upgrade_slots": [
+                                "talent"
+                            ],
+                            "keywords": [
+                                "clone"
+                            ]
+                        },
+                        {
+                            "name": "^boost^",
+                            "limit": 1,
+                            "initiative": 3,
+                            "cost": 25,
+                            "statistics": [
+                                {
+                                    "attacks": []
+                                },
+                                {
+                                    "agility": null
+                                },
+                                {
+                                    "hull": null
+                                },
+                                {
+                                    "shield": {
+                                        "shield": null,
+                                        "recharge": null,
+                                        "decharge": null
+                                    }
+                                },
+                                {
+                                    "force": {
+                                        "force": null,
+                                        "recharge": null,
+                                        "decharge": null
+                                    }
+                                },
+                                {
+                                    "energy": {
+                                        "energy": null,
+                                        "recharge": null,
+                                        "decharge": null
+                                    }
+                                },
+                                {
+                                    "charge": {
+                                        "charge": null,
+                                        "recharge": null,
+                                        "decharge": null
+                                    }
+                                }
+                            ],
+                            "actions": [],
+                            "upgrade_slots": [
+                                "talent"
+                            ],
+                            "keywords": [
+                                "clone"
+                            ]
+                        },
+                        {
+                            "name": "^hawk^",
+                            "limit": 1,
+                            "initiative": 4,
+                            "cost": 25,
+                            "statistics": [
+                                {
+                                    "attacks": []
+                                },
+                                {
+                                    "agility": null
+                                },
+                                {
+                                    "hull": null
+                                },
+                                {
+                                    "shield": {
+                                        "shield": null,
+                                        "recharge": null,
+                                        "decharge": null
+                                    }
+                                },
+                                {
+                                    "force": {
+                                        "force": null,
+                                        "recharge": null,
+                                        "decharge": null
+                                    }
+                                },
+                                {
+                                    "energy": {
+                                        "energy": null,
+                                        "recharge": null,
+                                        "decharge": null
+                                    }
+                                },
+                                {
+                                    "charge": {
+                                        "charge": null,
+                                        "recharge": null,
+                                        "decharge": null
+                                    }
+                                }
+                            ],
+                            "actions": [],
+                            "upgrade_slots": [
+                                "talent",
+                                "talent"
+                            ],
+                            "keywords": [
+                                "clone"
+                            ]
+                        },
+                        {
+                            "name": "^knack^",
+                            "limit": 1,
+                            "initiative": 5,
+                            "cost": 26,
+                            "statistics": [
+                                {
+                                    "attacks": []
+                                },
+                                {
+                                    "agility": null
+                                },
+                                {
+                                    "hull": null
+                                },
+                                {
+                                    "shield": {
+                                        "shield": null,
+                                        "recharge": null,
+                                        "decharge": null
+                                    }
+                                },
+                                {
+                                    "force": {
+                                        "force": null,
+                                        "recharge": null,
+                                        "decharge": null
+                                    }
+                                },
+                                {
+                                    "energy": {
+                                        "energy": null,
+                                        "recharge": null,
+                                        "decharge": null
+                                    }
+                                },
+                                {
+                                    "charge": {
+                                        "charge": null,
+                                        "recharge": null,
+                                        "decharge": null
+                                    }
+                                }
+                            ],
+                            "actions": [],
+                            "upgrade_slots": [
+                                "talent",
+                                "talent"
+                            ],
+                            "keywords": [
+                                "clone"
+                            ]
+                        },
+                        {
+                            "name": "^slider^",
+                            "limit": 1,
+                            "initiative": 4,
+                            "cost": 28,
+                            "statistics": [
+                                {
+                                    "attacks": []
+                                },
+                                {
+                                    "agility": null
+                                },
+                                {
+                                    "hull": null
+                                },
+                                {
+                                    "shield": {
+                                        "shield": null,
+                                        "recharge": null,
+                                        "decharge": null
+                                    }
+                                },
+                                {
+                                    "force": {
+                                        "force": null,
+                                        "recharge": null,
+                                        "decharge": null
+                                    }
+                                },
+                                {
+                                    "energy": {
+                                        "energy": null,
+                                        "recharge": null,
+                                        "decharge": null
+                                    }
+                                },
+                                {
+                                    "charge": {
+                                        "charge": 2,
+                                        "recharge": 1,
+                                        "decharge": null
+                                    }
+                                }
+                            ],
+                            "actions": [],
+                            "upgrade_slots": [
+                                "talent"
+                            ],
+                            "keywords": [
+                                "clone"
                             ]
                         }
                     ]
@@ -21089,6 +21683,11 @@
                         "configuration",
                         "title"
                     ],
+                    "hardpoint": [
+                        "cannon",
+                        "torpedo",
+                        "missile"
+                    ],
                     "pilots": [
                         {
                             "name": "blue squadron rookie",
@@ -27925,6 +28524,11 @@
                     "upgrade_slots": [
                         "modification"
                     ],
+                    "hardpoint": [
+                        "cannon",
+                        "torpedo",
+                        "missile"
+                    ],
                     "pilots": [
                         {
                             "name": "cartel spacer",
@@ -32485,6 +33089,298 @@
                             ]
                         }
                     ]
+                },
+                {
+                    "name": "rogue-class starfighter",
+                    "base": "small",
+                    "statistics": [
+                        {
+                            "attacks": [
+                                {
+                                    "attack": 2,
+                                    "arc_type": "front"
+                                }
+                            ]
+                        },
+                        {
+                            "agility": 2
+                        },
+                        {
+                            "hull": 5
+                        },
+                        {
+                            "shield": {
+                                "shield": 2,
+                                "recharge": 0
+                            }
+                        },
+                        {
+                            "force": {
+                                "force": 0,
+                                "recharge": 0
+                            }
+                        },
+                        {
+                            "energy": {
+                                "energy": 0,
+                                "recharge": 0
+                            }
+                        },
+                        {
+                            "charge": {
+                                "charge": 0,
+                                "recharge": 0
+                            }
+                        }
+                    ],
+                    "actions": [
+                        {
+                            "action": "focus",
+                            "color": "white",
+                            "action_link": "boost",
+                            "color_link": "red"
+                        },
+                        {
+                            "action": "focus",
+                            "color": "white",
+                            "action_link": "barrel roll",
+                            "color_link": "red"
+                        },
+                        {
+                            "action": "evade",
+                            "color": "white",
+                            "action_link": "barrel roll",
+                            "color_link": "red"
+                        },
+                        {
+                            "action": "lock",
+                            "color": "white",
+                            "action_link": null,
+                            "color_link": null
+                        },
+                        {
+                            "action": "boost",
+                            "color": "red",
+                            "action_link": null,
+                            "color_link": null
+                        }
+                    ],
+                    "upgrade_slots": [
+                        "cannon",
+                        "cannon",
+                        "illicit",
+                        "modification",
+                        "title"
+                    ],
+                    "epic": "False",
+                    "pilots": [
+                        {
+                            "name": "outer rim hunter",
+                            "limit": 0,
+                            "initiative": 3,
+                            "cost": 35,
+                            "statistics": [
+                                {
+                                    "attacks": []
+                                },
+                                {
+                                    "agility": null
+                                },
+                                {
+                                    "hull": null
+                                },
+                                {
+                                    "shield": {
+                                        "shield": null,
+                                        "recharge": null,
+                                        "decharge": null
+                                    }
+                                },
+                                {
+                                    "force": {
+                                        "force": null,
+                                        "recharge": null,
+                                        "decharge": null
+                                    }
+                                },
+                                {
+                                    "energy": {
+                                        "energy": null,
+                                        "recharge": null,
+                                        "decharge": null
+                                    }
+                                },
+                                {
+                                    "charge": {
+                                        "charge": null,
+                                        "recharge": null,
+                                        "decharge": null
+                                    }
+                                }
+                            ],
+                            "actions": [],
+                            "upgrade_slots": [
+                                "talent"
+                            ],
+                            "keywords": [
+                                "bounty hunter"
+                            ]
+                        },
+                        {
+                            "name": "nom lumb (rogue)",
+                            "limit": 1,
+                            "initiative": 1,
+                            "cost": 35,
+                            "statistics": [
+                                {
+                                    "attacks": []
+                                },
+                                {
+                                    "agility": null
+                                },
+                                {
+                                    "hull": null
+                                },
+                                {
+                                    "shield": {
+                                        "shield": null,
+                                        "recharge": null,
+                                        "decharge": null
+                                    }
+                                },
+                                {
+                                    "force": {
+                                        "force": null,
+                                        "recharge": null,
+                                        "decharge": null
+                                    }
+                                },
+                                {
+                                    "energy": {
+                                        "energy": null,
+                                        "recharge": null,
+                                        "decharge": null
+                                    }
+                                },
+                                {
+                                    "charge": {
+                                        "charge": null,
+                                        "recharge": null,
+                                        "decharge": null
+                                    }
+                                }
+                            ],
+                            "actions": [],
+                            "upgrade_slots": [],
+                            "keywords": [
+                                "bounty hunter"
+                            ]
+                        },
+                        {
+                            "name": "viktor hel (rogue)",
+                            "limit": 1,
+                            "initiative": 4,
+                            "cost": 39,
+                            "statistics": [
+                                {
+                                    "attacks": []
+                                },
+                                {
+                                    "agility": null
+                                },
+                                {
+                                    "hull": null
+                                },
+                                {
+                                    "shield": {
+                                        "shield": null,
+                                        "recharge": null,
+                                        "decharge": null
+                                    }
+                                },
+                                {
+                                    "force": {
+                                        "force": null,
+                                        "recharge": null,
+                                        "decharge": null
+                                    }
+                                },
+                                {
+                                    "energy": {
+                                        "energy": null,
+                                        "recharge": null,
+                                        "decharge": null
+                                    }
+                                },
+                                {
+                                    "charge": {
+                                        "charge": null,
+                                        "recharge": null,
+                                        "decharge": null
+                                    }
+                                }
+                            ],
+                            "actions": [],
+                            "upgrade_slots": [
+                                "talent"
+                            ],
+                            "keywords": [
+                                "bounty hunter"
+                            ]
+                        },
+                        {
+                            "name": "cad bane",
+                            "limit": 1,
+                            "initiative": 4,
+                            "cost": 40,
+                            "statistics": [
+                                {
+                                    "attacks": []
+                                },
+                                {
+                                    "agility": null
+                                },
+                                {
+                                    "hull": null
+                                },
+                                {
+                                    "shield": {
+                                        "shield": null,
+                                        "recharge": null,
+                                        "decharge": null
+                                    }
+                                },
+                                {
+                                    "force": {
+                                        "force": null,
+                                        "recharge": null,
+                                        "decharge": null
+                                    }
+                                },
+                                {
+                                    "energy": {
+                                        "energy": null,
+                                        "recharge": null,
+                                        "decharge": null
+                                    }
+                                },
+                                {
+                                    "charge": {
+                                        "charge": null,
+                                        "recharge": null,
+                                        "decharge": null
+                                    }
+                                }
+                            ],
+                            "actions": [],
+                            "upgrade_slots": [
+                                "talent"
+                            ],
+                            "keywords": [
+                                "bounty hunter"
+                            ]
+                        }
+                    ]
                 }
             ]
         },
@@ -35934,6 +36830,460 @@
                             ]
                         }
                     ]
+                },
+                {
+                    "name": "rogue-class starfighter",
+                    "base": "small",
+                    "statistics": [
+                        {
+                            "attacks": [
+                                {
+                                    "attack": 2,
+                                    "arc_type": "front"
+                                }
+                            ]
+                        },
+                        {
+                            "agility": 2
+                        },
+                        {
+                            "hull": 5
+                        },
+                        {
+                            "shield": {
+                                "shield": 2,
+                                "recharge": 0
+                            }
+                        },
+                        {
+                            "force": {
+                                "force": 0,
+                                "recharge": 0
+                            }
+                        },
+                        {
+                            "energy": {
+                                "energy": 0,
+                                "recharge": 0
+                            }
+                        },
+                        {
+                            "charge": {
+                                "charge": 0,
+                                "recharge": 0
+                            }
+                        }
+                    ],
+                    "actions": [
+                        {
+                            "action": "evade",
+                            "color": "white",
+                            "action_link": "barrel roll",
+                            "color_link": "red"
+                        },
+                        {
+                            "action": "lock",
+                            "color": "white",
+                            "action_link": null,
+                            "color_link": null
+                        },
+                        {
+                            "action": "boost",
+                            "color": "red",
+                            "action_link": null,
+                            "color_link": null
+                        }
+                    ],
+                    "upgrade_slots": [
+                        "talent",
+                        "cannon",
+                        "cannon",
+                        "modification",
+                        "title"
+                    ],
+                    "epic": "False",
+                    "pilots": [
+                        {
+                            "name": "cad bane (cis)",
+                            "limit": 1,
+                            "initiative": 4,
+                            "cost": 44,
+                            "statistics": [
+                                {
+                                    "attacks": []
+                                },
+                                {
+                                    "agility": null
+                                },
+                                {
+                                    "hull": null
+                                },
+                                {
+                                    "shield": {
+                                        "shield": null,
+                                        "recharge": null,
+                                        "decharge": null
+                                    }
+                                },
+                                {
+                                    "force": {
+                                        "force": null,
+                                        "recharge": null,
+                                        "decharge": null
+                                    }
+                                },
+                                {
+                                    "energy": {
+                                        "energy": null,
+                                        "recharge": null,
+                                        "decharge": null
+                                    }
+                                },
+                                {
+                                    "charge": {
+                                        "charge": null,
+                                        "recharge": null,
+                                        "decharge": null
+                                    }
+                                }
+                            ],
+                            "actions": [
+                                {
+                                    "action": "focus",
+                                    "color": "white",
+                                    "action_link": "boost",
+                                    "color_link": "red"
+                                },
+                                {
+                                    "action": "focus",
+                                    "color": "white",
+                                    "action_link": "barrel roll",
+                                    "color_link": "red"
+                                }
+                            ],
+                            "upgrade_slots": [
+                                "illicit"
+                            ],
+                            "keywords": [
+                                "bounty hunter"
+                            ]
+                        },
+                        {
+                            "name": "ig-111",
+                            "limit": 1,
+                            "initiative": 1,
+                            "cost": 38,
+                            "statistics": [
+                                {
+                                    "attacks": []
+                                },
+                                {
+                                    "agility": null
+                                },
+                                {
+                                    "hull": null
+                                },
+                                {
+                                    "shield": {
+                                        "shield": null,
+                                        "recharge": null,
+                                        "decharge": null
+                                    }
+                                },
+                                {
+                                    "force": {
+                                        "force": null,
+                                        "recharge": null,
+                                        "decharge": null
+                                    }
+                                },
+                                {
+                                    "energy": {
+                                        "energy": null,
+                                        "recharge": null,
+                                        "decharge": null
+                                    }
+                                },
+                                {
+                                    "charge": {
+                                        "charge": null,
+                                        "recharge": null,
+                                        "decharge": null
+                                    }
+                                }
+                            ],
+                            "actions": [
+                                {
+                                    "action": "calculate",
+                                    "color": "white",
+                                    "action_link": "boost",
+                                    "color_link": "red"
+                                },
+                                {
+                                    "action": "calculate",
+                                    "color": "white",
+                                    "action_link": "barrel roll",
+                                    "color_link": "red"
+                                }
+                            ],
+                            "upgrade_slots": [],
+                            "keywords": [
+                                "droid"
+                            ]
+                        },
+                        {
+                            "name": "magnaguard executioner",
+                            "limit": 0,
+                            "initiative": 3,
+                            "cost": 37,
+                            "statistics": [
+                                {
+                                    "attacks": []
+                                },
+                                {
+                                    "agility": null
+                                },
+                                {
+                                    "hull": null
+                                },
+                                {
+                                    "shield": {
+                                        "shield": null,
+                                        "recharge": null,
+                                        "decharge": null
+                                    }
+                                },
+                                {
+                                    "force": {
+                                        "force": null,
+                                        "recharge": null,
+                                        "decharge": null
+                                    }
+                                },
+                                {
+                                    "energy": {
+                                        "energy": null,
+                                        "recharge": null,
+                                        "decharge": null
+                                    }
+                                },
+                                {
+                                    "charge": {
+                                        "charge": null,
+                                        "recharge": null,
+                                        "decharge": null
+                                    }
+                                }
+                            ],
+                            "actions": [
+                                {
+                                    "action": "calculate",
+                                    "color": "white",
+                                    "action_link": "boost",
+                                    "color_link": "red"
+                                },
+                                {
+                                    "action": "calculate",
+                                    "color": "white",
+                                    "action_link": "barrel roll",
+                                    "color_link": "red"
+                                }
+                            ],
+                            "upgrade_slots": [],
+                            "keywords": [
+                                "droid"
+                            ]
+                        },
+                        {
+                            "name": "magnaguard protector",
+                            "limit": 2,
+                            "initiative": 4,
+                            "cost": 40,
+                            "statistics": [
+                                {
+                                    "attacks": []
+                                },
+                                {
+                                    "agility": null
+                                },
+                                {
+                                    "hull": null
+                                },
+                                {
+                                    "shield": {
+                                        "shield": null,
+                                        "recharge": null,
+                                        "decharge": null
+                                    }
+                                },
+                                {
+                                    "force": {
+                                        "force": null,
+                                        "recharge": null,
+                                        "decharge": null
+                                    }
+                                },
+                                {
+                                    "energy": {
+                                        "energy": null,
+                                        "recharge": null,
+                                        "decharge": null
+                                    }
+                                },
+                                {
+                                    "charge": {
+                                        "charge": null,
+                                        "recharge": null,
+                                        "decharge": null
+                                    }
+                                }
+                            ],
+                            "actions": [
+                                {
+                                    "action": "calculate",
+                                    "color": "white",
+                                    "action_link": "boost",
+                                    "color_link": "red"
+                                },
+                                {
+                                    "action": "calculate",
+                                    "color": "white",
+                                    "action_link": "barrel roll",
+                                    "color_link": "red"
+                                }
+                            ],
+                            "upgrade_slots": [],
+                            "keywords": [
+                                "droid"
+                            ]
+                        },
+                        {
+                            "name": "ig-102",
+                            "limit": 1,
+                            "initiative": 4,
+                            "cost": 40,
+                            "statistics": [
+                                {
+                                    "attacks": []
+                                },
+                                {
+                                    "agility": null
+                                },
+                                {
+                                    "hull": null
+                                },
+                                {
+                                    "shield": {
+                                        "shield": null,
+                                        "recharge": null,
+                                        "decharge": null
+                                    }
+                                },
+                                {
+                                    "force": {
+                                        "force": null,
+                                        "recharge": null,
+                                        "decharge": null
+                                    }
+                                },
+                                {
+                                    "energy": {
+                                        "energy": null,
+                                        "recharge": null,
+                                        "decharge": null
+                                    }
+                                },
+                                {
+                                    "charge": {
+                                        "charge": null,
+                                        "recharge": null,
+                                        "decharge": null
+                                    }
+                                }
+                            ],
+                            "actions": [
+                                {
+                                    "action": "calculate",
+                                    "color": "white",
+                                    "action_link": "boost",
+                                    "color_link": "red"
+                                },
+                                {
+                                    "action": "calculate",
+                                    "color": "white",
+                                    "action_link": "barrel roll",
+                                    "color_link": "red"
+                                }
+                            ],
+                            "upgrade_slots": [],
+                            "keywords": [
+                                "droid"
+                            ]
+                        },
+                        {
+                            "name": "ig-101",
+                            "limit": 1,
+                            "initiative": 4,
+                            "cost": 39,
+                            "statistics": [
+                                {
+                                    "attacks": []
+                                },
+                                {
+                                    "agility": null
+                                },
+                                {
+                                    "hull": null
+                                },
+                                {
+                                    "shield": {
+                                        "shield": null,
+                                        "recharge": null,
+                                        "decharge": null
+                                    }
+                                },
+                                {
+                                    "force": {
+                                        "force": null,
+                                        "recharge": null,
+                                        "decharge": null
+                                    }
+                                },
+                                {
+                                    "energy": {
+                                        "energy": null,
+                                        "recharge": null,
+                                        "decharge": null
+                                    }
+                                },
+                                {
+                                    "charge": {
+                                        "charge": null,
+                                        "recharge": null,
+                                        "decharge": null
+                                    }
+                                }
+                            ],
+                            "actions": [
+                                {
+                                    "action": "calculate",
+                                    "color": "white",
+                                    "action_link": "boost",
+                                    "color_link": "red"
+                                },
+                                {
+                                    "action": "calculate",
+                                    "color": "white",
+                                    "action_link": "barrel roll",
+                                    "color_link": "red"
+                                }
+                            ],
+                            "upgrade_slots": [],
+                            "keywords": [
+                                "droid"
+                            ]
+                        }
+                    ]
                 }
             ]
         }
@@ -36461,6 +37811,20 @@
             "autoinclude": "False",
             "epic": "False",
             "solitary": "False",
+            "modifications": {
+                "actions": [
+                    {
+                        "action": "evade",
+                        "color": "red",
+                        "action_link": null,
+                        "color_link": null
+                    }
+                ],
+                "upgrade_slots": {
+                    "added": [],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 0,
                 "pilot_initiative": {
@@ -40010,6 +41374,20 @@
             "autoinclude": "False",
             "epic": "False",
             "solitary": "False",
+            "modifications": {
+                "actions": [
+                    {
+                        "action": "coordinate",
+                        "color": "white",
+                        "action_link": null,
+                        "color_link": null
+                    }
+                ],
+                "upgrade_slots": {
+                    "added": [],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 0,
                 "pilot_initiative": {
@@ -41274,6 +42652,20 @@
             "autoinclude": "False",
             "epic": "False",
             "solitary": "False",
+            "modifications": {
+                "actions": [
+                    {
+                        "action": "barrel roll",
+                        "color": "white",
+                        "action_link": null,
+                        "color_link": null
+                    }
+                ],
+                "upgrade_slots": {
+                    "added": [],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 0,
                 "pilot_initiative": {
@@ -41488,6 +42880,20 @@
             "autoinclude": "False",
             "epic": "False",
             "solitary": "False",
+            "modifications": {
+                "actions": [
+                    {
+                        "action": "coordinate",
+                        "color": "red",
+                        "action_link": null,
+                        "color_link": null
+                    }
+                ],
+                "upgrade_slots": {
+                    "added": [],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 1,
                 "pilot_initiative": {
@@ -44744,6 +46150,20 @@
             "autoinclude": "False",
             "epic": "False",
             "solitary": "False",
+            "modifications": {
+                "actions": [
+                    {
+                        "action": "rotate",
+                        "color": "white",
+                        "action_link": null,
+                        "color_link": null
+                    }
+                ],
+                "upgrade_slots": {
+                    "added": [],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 0,
                 "pilot_initiative": {
@@ -44840,6 +46260,20 @@
             "autoinclude": "False",
             "epic": "False",
             "solitary": "False",
+            "modifications": {
+                "actions": [
+                    {
+                        "action": "rotate",
+                        "color": "white",
+                        "action_link": null,
+                        "color_link": null
+                    }
+                ],
+                "upgrade_slots": {
+                    "added": [],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 0,
                 "pilot_initiative": {
@@ -47849,6 +49283,20 @@
             "autoinclude": "False",
             "epic": "False",
             "solitary": "False",
+            "modifications": {
+                "actions": [
+                    {
+                        "action": "reinforce",
+                        "color": "white",
+                        "action_link": null,
+                        "color_link": null
+                    }
+                ],
+                "upgrade_slots": {
+                    "added": [],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 0,
                 "pilot_initiative": {
@@ -48249,6 +49697,20 @@
             "autoinclude": "False",
             "epic": "False",
             "solitary": "False",
+            "modifications": {
+                "actions": [
+                    {
+                        "action": "boost",
+                        "color": "white",
+                        "action_link": null,
+                        "color_link": null
+                    }
+                ],
+                "upgrade_slots": {
+                    "added": [],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 0,
                 "pilot_initiative": {
@@ -49243,6 +50705,20 @@
             "autoinclude": "False",
             "epic": "False",
             "solitary": "False",
+            "modifications": {
+                "actions": [
+                    {
+                        "action": "lock",
+                        "color": "white",
+                        "action_link": null,
+                        "color_link": null
+                    }
+                ],
+                "upgrade_slots": {
+                    "added": [],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 0,
                 "pilot_initiative": {
@@ -49635,6 +51111,20 @@
             "autoinclude": "False",
             "epic": "True",
             "solitary": "False",
+            "modifications": {
+                "actions": [
+                    {
+                        "action": "coordinate",
+                        "color": "white",
+                        "action_link": "jam",
+                        "color_link": "red"
+                    }
+                ],
+                "upgrade_slots": {
+                    "added": [],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 1,
                 "pilot_initiative": {
@@ -50324,6 +51814,20 @@
             "autoinclude": "False",
             "epic": "True",
             "solitary": "False",
+            "modifications": {
+                "actions": [
+                    {
+                        "action": "lock",
+                        "color": "white",
+                        "action_link": "coordinate",
+                        "color_link": "white"
+                    }
+                ],
+                "upgrade_slots": {
+                    "added": [],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 0,
                 "pilot_initiative": {
@@ -50420,6 +51924,26 @@
             "autoinclude": "False",
             "epic": "True",
             "solitary": "False",
+            "modifications": {
+                "actions": [
+                    {
+                        "action": "coordinate",
+                        "color": "white",
+                        "action_link": "calculate",
+                        "color_link": "white"
+                    },
+                    {
+                        "action": "jam",
+                        "color": "white",
+                        "action_link": "calculate",
+                        "color_link": "white"
+                    }
+                ],
+                "upgrade_slots": {
+                    "added": [],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 0,
                 "pilot_initiative": {
@@ -50516,6 +52040,20 @@
             "autoinclude": "False",
             "epic": "True",
             "solitary": "False",
+            "modifications": {
+                "actions": [
+                    {
+                        "action": "reinforce",
+                        "color": "white",
+                        "action_link": "calculate",
+                        "color_link": "white"
+                    }
+                ],
+                "upgrade_slots": {
+                    "added": [],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 0,
                 "pilot_initiative": {
@@ -50612,6 +52150,20 @@
             "autoinclude": "False",
             "epic": "True",
             "solitary": "False",
+            "modifications": {
+                "actions": [
+                    {
+                        "action": "rotate",
+                        "color": "white",
+                        "action_link": "calculate",
+                        "color_link": "white"
+                    }
+                ],
+                "upgrade_slots": {
+                    "added": [],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 0,
                 "pilot_initiative": {
@@ -50708,6 +52260,20 @@
             "autoinclude": "False",
             "epic": "True",
             "solitary": "False",
+            "modifications": {
+                "actions": [
+                    {
+                        "action": "reload",
+                        "color": "white",
+                        "action_link": "calculate",
+                        "color_link": "white"
+                    }
+                ],
+                "upgrade_slots": {
+                    "added": [],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 0,
                 "pilot_initiative": {
@@ -50804,6 +52370,20 @@
             "autoinclude": "False",
             "epic": "True",
             "solitary": "False",
+            "modifications": {
+                "actions": [
+                    {
+                        "action": "lock",
+                        "color": "white",
+                        "action_link": "calculate",
+                        "color_link": "white"
+                    }
+                ],
+                "upgrade_slots": {
+                    "added": [],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 0,
                 "pilot_initiative": {
@@ -50996,6 +52576,20 @@
             "autoinclude": "False",
             "epic": "True",
             "solitary": "False",
+            "modifications": {
+                "actions": [
+                    {
+                        "action": "rotate",
+                        "color": "white",
+                        "action_link": null,
+                        "color_link": null
+                    }
+                ],
+                "upgrade_slots": {
+                    "added": [],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 0,
                 "pilot_initiative": {
@@ -51188,6 +52782,20 @@
             "autoinclude": "False",
             "epic": "True",
             "solitary": "False",
+            "modifications": {
+                "actions": [
+                    {
+                        "action": "rotate",
+                        "color": "white",
+                        "action_link": null,
+                        "color_link": null
+                    }
+                ],
+                "upgrade_slots": {
+                    "added": [],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 0,
                 "pilot_initiative": {
@@ -51383,6 +52991,20 @@
             "autoinclude": "False",
             "epic": "True",
             "solitary": "False",
+            "modifications": {
+                "actions": [
+                    {
+                        "action": "rotate",
+                        "color": "white",
+                        "action_link": null,
+                        "color_link": null
+                    }
+                ],
+                "upgrade_slots": {
+                    "added": [],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 0,
                 "pilot_initiative": {
@@ -51479,6 +53101,20 @@
             "autoinclude": "False",
             "epic": "True",
             "solitary": "False",
+            "modifications": {
+                "actions": [
+                    {
+                        "action": "rotate",
+                        "color": "white",
+                        "action_link": null,
+                        "color_link": null
+                    }
+                ],
+                "upgrade_slots": {
+                    "added": [],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 0,
                 "pilot_initiative": {
@@ -52257,6 +53893,38 @@
             "autoinclude": "True",
             "epic": "False",
             "solitary": "False",
+            "modifications": {
+                "actions": [
+                    {
+                        "action": "focus",
+                        "color": "white",
+                        "action_link": "jam",
+                        "color_link": "white"
+                    },
+                    {
+                        "action": "barrel roll",
+                        "color": "white",
+                        "action_link": "jam",
+                        "color_link": "white"
+                    },
+                    {
+                        "action": "boost",
+                        "color": "white",
+                        "action_link": "jam",
+                        "color_link": "white"
+                    },
+                    {
+                        "action": "jam",
+                        "color": "white",
+                        "action_link": null,
+                        "color_link": null
+                    }
+                ],
+                "upgrade_slots": {
+                    "added": [],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 0,
                 "pilot_initiative": {
@@ -53256,6 +54924,20 @@
             "autoinclude": "False",
             "epic": "False",
             "solitary": "False",
+            "modifications": {
+                "actions": [
+                    {
+                        "action": "coordinate",
+                        "color": "red",
+                        "action_link": null,
+                        "color_link": null
+                    }
+                ],
+                "upgrade_slots": {
+                    "added": [],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 1,
                 "pilot_initiative": {
@@ -54567,6 +56249,16 @@
             "autoinclude": "False",
             "epic": "False",
             "solitary": "False",
+            "modifications": {
+                "actions": [],
+                "upgrade_slots": {
+                    "added": [
+                        "torpedo",
+                        "missile"
+                    ],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 0,
                 "pilot_initiative": {
@@ -54665,6 +56357,15 @@
             "autoinclude": "False",
             "epic": "False",
             "solitary": "False",
+            "modifications": {
+                "actions": [],
+                "upgrade_slots": {
+                    "added": [
+                        "cannon"
+                    ],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 0,
                 "pilot_initiative": {
@@ -54763,6 +56464,26 @@
             "autoinclude": "False",
             "epic": "False",
             "solitary": "False",
+            "modifications": {
+                "actions": [
+                    {
+                        "action": "calculate",
+                        "color": "white",
+                        "action_link": null,
+                        "color_link": null
+                    },
+                    {
+                        "action": "rotate",
+                        "color": "white",
+                        "action_link": "calculate",
+                        "color_link": "white"
+                    }
+                ],
+                "upgrade_slots": {
+                    "added": [],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 0,
                 "pilot_initiative": {
@@ -54861,6 +56582,26 @@
             "autoinclude": "False",
             "epic": "False",
             "solitary": "False",
+            "modifications": {
+                "actions": [
+                    {
+                        "action": "calculate",
+                        "color": "white",
+                        "action_link": null,
+                        "color_link": null
+                    },
+                    {
+                        "action": "barrel roll",
+                        "color": "white",
+                        "action_link": "calculate",
+                        "color_link": "red"
+                    }
+                ],
+                "upgrade_slots": {
+                    "added": [],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 0,
                 "pilot_initiative": {
@@ -55058,6 +56799,18 @@
             "autoinclude": "False",
             "epic": "False",
             "solitary": "False",
+            "modifications": {
+                "actions": [],
+                "upgrade_slots": {
+                    "added": [
+                        "crew",
+                        "crew"
+                    ],
+                    "removed": [
+                        "payload"
+                    ]
+                }
+            },
             "restrictions": {
                 "limit": 0,
                 "pilot_initiative": {
@@ -55254,6 +57007,15 @@
             "autoinclude": "False",
             "epic": "True",
             "solitary": "False",
+            "modifications": {
+                "actions": [],
+                "upgrade_slots": {
+                    "added": [
+                        "gunner"
+                    ],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 1,
                 "pilot_initiative": {
@@ -55454,6 +57216,15 @@
             "autoinclude": "False",
             "epic": "True",
             "solitary": "False",
+            "modifications": {
+                "actions": [],
+                "upgrade_slots": {
+                    "added": [
+                        "sensor"
+                    ],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 1,
                 "pilot_initiative": {
@@ -55554,6 +57325,16 @@
             "autoinclude": "False",
             "epic": "True",
             "solitary": "False",
+            "modifications": {
+                "actions": [],
+                "upgrade_slots": {
+                    "added": [
+                        "crew",
+                        "cargo"
+                    ],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 1,
                 "pilot_initiative": {
@@ -55654,6 +57435,15 @@
             "autoinclude": "False",
             "epic": "True",
             "solitary": "False",
+            "modifications": {
+                "actions": [],
+                "upgrade_slots": {
+                    "added": [
+                        "gunner"
+                    ],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 1,
                 "pilot_initiative": {
@@ -55754,6 +57544,20 @@
             "autoinclude": "False",
             "epic": "True",
             "solitary": "False",
+            "modifications": {
+                "actions": [
+                    {
+                        "action": "calculate",
+                        "color": "white",
+                        "action_link": null,
+                        "color_link": null
+                    }
+                ],
+                "upgrade_slots": {
+                    "added": [],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 1,
                 "pilot_initiative": {
@@ -55854,6 +57658,15 @@
             "autoinclude": "False",
             "epic": "True",
             "solitary": "False",
+            "modifications": {
+                "actions": [],
+                "upgrade_slots": {
+                    "added": [
+                        "crew"
+                    ],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 1,
                 "pilot_initiative": {
@@ -55954,6 +57767,15 @@
             "autoinclude": "False",
             "epic": "True",
             "solitary": "False",
+            "modifications": {
+                "actions": [],
+                "upgrade_slots": {
+                    "added": [
+                        "team"
+                    ],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 1,
                 "pilot_initiative": {
@@ -56250,6 +58072,11 @@
             "autoinclude": "False",
             "epic": "False",
             "solitary": "False",
+            "squad_include": [
+                "darth vader (black leader)",
+                "darth vader (dark lord of the sith)",
+                "darth vader"
+            ],
             "restrictions": {
                 "limit": 1,
                 "pilot_initiative": {
@@ -56956,6 +58783,20 @@
             "autoinclude": "False",
             "epic": "False",
             "solitary": "False",
+            "modifications": {
+                "actions": [
+                    {
+                        "action": "lock",
+                        "color": "white",
+                        "action_link": null,
+                        "color_link": null
+                    }
+                ],
+                "upgrade_slots": {
+                    "added": [],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 1,
                 "pilot_initiative": {
@@ -58080,6 +59921,11 @@
             "autoinclude": "False",
             "epic": "False",
             "solitary": "False",
+            "squad_include": [
+                "darth vader (black leader)",
+                "darth vader (dark lord of the sith)",
+                "darth vader"
+            ],
             "restrictions": {
                 "limit": 1,
                 "pilot_initiative": {
@@ -59087,6 +60933,15 @@
             "autoinclude": "False",
             "epic": "False",
             "solitary": "False",
+            "modifications": {
+                "actions": [],
+                "upgrade_slots": {
+                    "added": [
+                        "payload"
+                    ],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 0,
                 "pilot_initiative": {
@@ -59284,6 +61139,15 @@
             "autoinclude": "False",
             "epic": "False",
             "solitary": "False",
+            "modifications": {
+                "actions": [],
+                "upgrade_slots": {
+                    "added": [
+                        "crew"
+                    ],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 1,
                 "pilot_initiative": {
@@ -59694,6 +61558,20 @@
             "autoinclude": "False",
             "epic": "False",
             "solitary": "False",
+            "modifications": {
+                "actions": [
+                    {
+                        "action": "coordinate",
+                        "color": "purple",
+                        "action_link": null,
+                        "color_link": null
+                    }
+                ],
+                "upgrade_slots": {
+                    "added": [],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 0,
                 "pilot_initiative": {
@@ -59893,6 +61771,20 @@
             "autoinclude": "False",
             "epic": "False",
             "solitary": "False",
+            "modifications": {
+                "actions": [
+                    {
+                        "action": "focus",
+                        "color": "white",
+                        "action_link": "coordinate",
+                        "color_link": "purple"
+                    }
+                ],
+                "upgrade_slots": {
+                    "added": [],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 1,
                 "pilot_initiative": {
@@ -60089,6 +61981,20 @@
             "autoinclude": "False",
             "epic": "False",
             "solitary": "False",
+            "modifications": {
+                "actions": [
+                    {
+                        "action": "calculate",
+                        "color": "white",
+                        "action_link": null,
+                        "color_link": null
+                    }
+                ],
+                "upgrade_slots": {
+                    "added": [],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 1,
                 "pilot_initiative": {
@@ -60187,6 +62093,20 @@
             "autoinclude": "False",
             "epic": "False",
             "solitary": "False",
+            "modifications": {
+                "actions": [
+                    {
+                        "action": "coordinate",
+                        "color": "purple",
+                        "action_link": null,
+                        "color_link": null
+                    }
+                ],
+                "upgrade_slots": {
+                    "added": [],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 1,
                 "pilot_initiative": {
@@ -60384,6 +62304,20 @@
             "autoinclude": "False",
             "epic": "False",
             "solitary": "False",
+            "modifications": {
+                "actions": [
+                    {
+                        "action": "evade",
+                        "color": "purple",
+                        "action_link": null,
+                        "color_link": null
+                    }
+                ],
+                "upgrade_slots": {
+                    "added": [],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 1,
                 "pilot_initiative": {
@@ -60781,6 +62715,20 @@
             "autoinclude": "False",
             "epic": "False",
             "solitary": "False",
+            "modifications": {
+                "actions": [
+                    {
+                        "action": "reinforce",
+                        "color": "purple",
+                        "action_link": null,
+                        "color_link": null
+                    }
+                ],
+                "upgrade_slots": {
+                    "added": [],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 1,
                 "pilot_initiative": {
@@ -61568,6 +63516,20 @@
             "autoinclude": "False",
             "epic": "False",
             "solitary": "False",
+            "modifications": {
+                "actions": [
+                    {
+                        "action": "rotate",
+                        "color": "white",
+                        "action_link": "focus",
+                        "color_link": "red"
+                    }
+                ],
+                "upgrade_slots": {
+                    "added": [],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 1,
                 "pilot_initiative": {
@@ -62789,6 +64751,26 @@
             "autoinclude": "True",
             "epic": "False",
             "solitary": "False",
+            "modifications": {
+                "actions": [
+                    {
+                        "action": "boost",
+                        "color": "white",
+                        "action_link": null,
+                        "color_link": null
+                    },
+                    {
+                        "action": "focus",
+                        "color": "white",
+                        "action_link": "boost",
+                        "color_link": "red"
+                    }
+                ],
+                "upgrade_slots": {
+                    "added": [],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 0,
                 "pilot_initiative": {
@@ -62979,7 +64961,7 @@
             }
         },
         {
-            "name": "millennium falcon (Rebel)",
+            "name": "millennium falcon (rebel)",
             "upgrade_slot_types": [
                 "title"
             ],
@@ -62987,6 +64969,20 @@
             "autoinclude": "False",
             "epic": "False",
             "solitary": "False",
+            "modifications": {
+                "actions": [
+                    {
+                        "action": "evade",
+                        "color": "white",
+                        "action_link": null,
+                        "color_link": null
+                    }
+                ],
+                "upgrade_slots": {
+                    "added": [],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 1,
                 "pilot_initiative": {
@@ -63087,6 +65083,32 @@
             "autoinclude": "True",
             "epic": "False",
             "solitary": "False",
+            "modifications": {
+                "actions": [
+                    {
+                        "action": "barrel roll",
+                        "color": "white",
+                        "action_link": "lock",
+                        "color_link": "red"
+                    },
+                    {
+                        "action": "barrel roll",
+                        "color": "white",
+                        "action_link": "evade",
+                        "color_link": "red"
+                    },
+                    {
+                        "action": "reload",
+                        "color": "red",
+                        "action_link": null,
+                        "color_link": null
+                    }
+                ],
+                "upgrade_slots": {
+                    "added": [],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 0,
                 "pilot_initiative": {
@@ -63185,6 +65207,15 @@
             "autoinclude": "False",
             "epic": "False",
             "solitary": "False",
+            "modifications": {
+                "actions": [],
+                "upgrade_slots": {
+                    "added": [
+                        "gunner"
+                    ],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 1,
                 "pilot_initiative": {
@@ -63286,6 +65317,15 @@
             "autoinclude": "False",
             "epic": "True",
             "solitary": "False",
+            "modifications": {
+                "actions": [],
+                "upgrade_slots": {
+                    "added": [
+                        "gunner"
+                    ],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 1,
                 "pilot_initiative": {
@@ -63986,6 +66026,15 @@
             "autoinclude": "False",
             "epic": "False",
             "solitary": "False",
+            "modifications": {
+                "actions": [],
+                "upgrade_slots": {
+                    "added": [
+                        "crew"
+                    ],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 1,
                 "pilot_initiative": {
@@ -64087,6 +66136,29 @@
             "autoinclude": "False",
             "epic": "True",
             "solitary": "False",
+            "modifications": {
+                "actions": [
+                    {
+                        "action": "evade",
+                        "color": "white",
+                        "action_link": "coordinate",
+                        "color_link": "red"
+                    },
+                    {
+                        "action": "focus",
+                        "color": "white",
+                        "action_link": "coordinate",
+                        "color_link": "red"
+                    }
+                ],
+                "upgrade_slots": {
+                    "added": [
+                        "team",
+                        "cargo"
+                    ],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 1,
                 "pilot_initiative": {
@@ -64387,6 +66459,16 @@
             "autoinclude": "False",
             "epic": "True",
             "solitary": "False",
+            "modifications": {
+                "actions": [],
+                "upgrade_slots": {
+                    "added": [
+                        "crew",
+                        "crew"
+                    ],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 1,
                 "pilot_initiative": {
@@ -64487,6 +66569,15 @@
             "autoinclude": "False",
             "epic": "True",
             "solitary": "False",
+            "modifications": {
+                "actions": [],
+                "upgrade_slots": {
+                    "added": [
+                        "gunner"
+                    ],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 1,
                 "pilot_initiative": {
@@ -64787,6 +66878,16 @@
             "autoinclude": "False",
             "epic": "True",
             "solitary": "False",
+            "modifications": {
+                "actions": [],
+                "upgrade_slots": {
+                    "added": [
+                        "team",
+                        "cargo"
+                    ],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 1,
                 "pilot_initiative": {
@@ -65280,6 +67381,20 @@
             "autoinclude": "False",
             "epic": "False",
             "solitary": "False",
+            "modifications": {
+                "actions": [
+                    {
+                        "action": "calculate",
+                        "color": "white",
+                        "action_link": null,
+                        "color_link": null
+                    }
+                ],
+                "upgrade_slots": {
+                    "added": [],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 1,
                 "pilot_initiative": {
@@ -66070,6 +68185,26 @@
             "autoinclude": "False",
             "epic": "False",
             "solitary": "False",
+            "modifications": {
+                "actions": [
+                    {
+                        "action": "calculate",
+                        "color": "white",
+                        "action_link": null,
+                        "color_link": null
+                    },
+                    {
+                        "action": "jam",
+                        "color": "white",
+                        "action_link": null,
+                        "color_link": null
+                    }
+                ],
+                "upgrade_slots": {
+                    "added": [],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 1,
                 "pilot_initiative": {
@@ -66560,6 +68695,13 @@
             "autoinclude": "False",
             "epic": "False",
             "solitary": "False",
+            "squad_include": [
+                "ezra bridger (attack shuttle)",
+                "ezra bridger (sheathipede)",
+                "ezra bridger (tie fighter)",
+                "ezra bridger (gauntlet)",
+                "ezra bridger"
+            ],
             "restrictions": {
                 "limit": 1,
                 "pilot_initiative": {
@@ -67050,6 +69192,10 @@
             "autoinclude": "False",
             "epic": "False",
             "solitary": "False",
+            "squad_include": [
+                "gar saxon",
+                "gar saxon (Crew)"
+            ],
             "restrictions": {
                 "limit": 1,
                 "pilot_initiative": {
@@ -67144,10 +69290,17 @@
             "upgrade_slot_types": [
                 "crew"
             ],
-            "cost": 5,
+            "cost": 3,
             "autoinclude": "False",
             "epic": "False",
             "solitary": "False",
+            "modifications": {
+                "actions": [],
+                "upgrade_slots": {
+                    "added": [],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 1,
                 "pilot_initiative": {
@@ -68134,6 +70287,20 @@
             "autoinclude": "False",
             "epic": "True",
             "solitary": "False",
+            "modifications": {
+                "actions": [
+                    {
+                        "action": "lock",
+                        "color": "white",
+                        "action_link": "coordinate",
+                        "color_link": "red"
+                    }
+                ],
+                "upgrade_slots": {
+                    "added": [],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 1,
                 "pilot_initiative": {
@@ -68235,6 +70402,20 @@
             "autoinclude": "False",
             "epic": "True",
             "solitary": "False",
+            "modifications": {
+                "actions": [
+                    {
+                        "action": "evade",
+                        "color": "red",
+                        "action_link": null,
+                        "color_link": null
+                    }
+                ],
+                "upgrade_slots": {
+                    "added": [],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 1,
                 "pilot_initiative": {
@@ -68538,6 +70719,20 @@
             "autoinclude": "False",
             "epic": "True",
             "solitary": "False",
+            "modifications": {
+                "actions": [
+                    {
+                        "action": "coordinate",
+                        "color": "red",
+                        "action_link": null,
+                        "color_link": null
+                    }
+                ],
+                "upgrade_slots": {
+                    "added": [],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 1,
                 "pilot_initiative": {
@@ -68640,6 +70835,20 @@
             "autoinclude": "False",
             "epic": "False",
             "solitary": "False",
+            "modifications": {
+                "actions": [
+                    {
+                        "action": "slam",
+                        "color": "white",
+                        "action_link": null,
+                        "color_link": null
+                    }
+                ],
+                "upgrade_slots": {
+                    "added": [],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 1,
                 "pilot_initiative": {
@@ -68740,6 +70949,26 @@
             "autoinclude": "True",
             "epic": "False",
             "solitary": "False",
+            "modifications": {
+                "actions": [
+                    {
+                        "action": "barrel roll",
+                        "color": "white",
+                        "action_link": null,
+                        "color_link": null
+                    },
+                    {
+                        "action": "focus",
+                        "color": "white",
+                        "action_link": "barrel roll",
+                        "color_link": "red"
+                    }
+                ],
+                "upgrade_slots": {
+                    "added": [],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 0,
                 "pilot_initiative": {
@@ -68838,6 +71067,20 @@
             "autoinclude": "False",
             "epic": "False",
             "solitary": "False",
+            "modifications": {
+                "actions": [
+                    {
+                        "action": "rotate",
+                        "color": "white",
+                        "action_link": null,
+                        "color_link": null
+                    }
+                ],
+                "upgrade_slots": {
+                    "added": [],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 0,
                 "pilot_initiative": {
@@ -69246,6 +71489,26 @@
             "autoinclude": "False",
             "epic": "False",
             "solitary": "False",
+            "modifications": {
+                "actions": [
+                    {
+                        "action": "lock",
+                        "color": "white",
+                        "action_link": null,
+                        "color_link": null
+                    },
+                    {
+                        "action": "reload",
+                        "color": "white",
+                        "action_link": null,
+                        "color_link": null
+                    }
+                ],
+                "upgrade_slots": {
+                    "added": [],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 0,
                 "pilot_initiative": {
@@ -69540,6 +71803,26 @@
             "autoinclude": "False",
             "epic": "False",
             "solitary": "False",
+            "modifications": {
+                "actions": [
+                    {
+                        "action": "calculate",
+                        "color": "white",
+                        "action_link": null,
+                        "color_link": null
+                    },
+                    {
+                        "action": "coordinate",
+                        "color": "red",
+                        "action_link": null,
+                        "color_link": null
+                    }
+                ],
+                "upgrade_slots": {
+                    "added": [],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 1,
                 "pilot_initiative": {
@@ -69736,6 +72019,20 @@
             "autoinclude": "False",
             "epic": "False",
             "solitary": "False",
+            "modifications": {
+                "actions": [
+                    {
+                        "action": "calculate",
+                        "color": "white",
+                        "action_link": null,
+                        "color_link": null
+                    }
+                ],
+                "upgrade_slots": {
+                    "added": [],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 1,
                 "pilot_initiative": {
@@ -69834,6 +72131,20 @@
             "autoinclude": "False",
             "epic": "False",
             "solitary": "False",
+            "modifications": {
+                "actions": [
+                    {
+                        "action": "evade",
+                        "color": "red",
+                        "action_link": null,
+                        "color_link": null
+                    }
+                ],
+                "upgrade_slots": {
+                    "added": [],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 1,
                 "pilot_initiative": {
@@ -70227,6 +72538,20 @@
             "autoinclude": "False",
             "epic": "False",
             "solitary": "False",
+            "modifications": {
+                "actions": [
+                    {
+                        "action": "coordinate",
+                        "color": "purple",
+                        "action_link": null,
+                        "color_link": null
+                    }
+                ],
+                "upgrade_slots": {
+                    "added": [],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 1,
                 "pilot_initiative": {
@@ -70325,6 +72650,20 @@
             "autoinclude": "False",
             "epic": "False",
             "solitary": "False",
+            "modifications": {
+                "actions": [
+                    {
+                        "action": "calculate",
+                        "color": "white",
+                        "action_link": null,
+                        "color_link": null
+                    }
+                ],
+                "upgrade_slots": {
+                    "added": [],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 1,
                 "pilot_initiative": {
@@ -71029,6 +73368,20 @@
             "autoinclude": "False",
             "epic": "False",
             "solitary": "False",
+            "modifications": {
+                "actions": [
+                    {
+                        "action": "rotate",
+                        "color": "white",
+                        "action_link": "calculate",
+                        "color_link": "white"
+                    }
+                ],
+                "upgrade_slots": {
+                    "added": [],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 1,
                 "pilot_initiative": {
@@ -71931,6 +74284,15 @@
             "autoinclude": "False",
             "epic": "False",
             "solitary": "False",
+            "modifications": {
+                "actions": [],
+                "upgrade_slots": {
+                    "added": [
+                        "payload"
+                    ],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 1,
                 "pilot_initiative": {
@@ -72031,6 +74393,15 @@
             "autoinclude": "False",
             "epic": "False",
             "solitary": "False",
+            "modifications": {
+                "actions": [],
+                "upgrade_slots": {
+                    "added": [
+                        "gunner"
+                    ],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 1,
                 "pilot_initiative": {
@@ -72131,6 +74502,15 @@
             "autoinclude": "False",
             "epic": "False",
             "solitary": "False",
+            "modifications": {
+                "actions": [],
+                "upgrade_slots": {
+                    "added": [
+                        "torpedo"
+                    ],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 1,
                 "pilot_initiative": {
@@ -72231,6 +74611,15 @@
             "autoinclude": "False",
             "epic": "False",
             "solitary": "False",
+            "modifications": {
+                "actions": [],
+                "upgrade_slots": {
+                    "added": [
+                        "gunner"
+                    ],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 1,
                 "pilot_initiative": {
@@ -72431,6 +74820,15 @@
             "autoinclude": "False",
             "epic": "False",
             "solitary": "False",
+            "modifications": {
+                "actions": [],
+                "upgrade_slots": {
+                    "added": [
+                        "modification"
+                    ],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 1,
                 "pilot_initiative": {
@@ -72629,6 +75027,22 @@
             "autoinclude": "False",
             "epic": "False",
             "solitary": "False",
+            "modifications": {
+                "actions": [
+                    {
+                        "action": "barrel roll",
+                        "color": "white",
+                        "action_link": null,
+                        "color_link": null
+                    }
+                ],
+                "upgrade_slots": {
+                    "added": [
+                        "cannon"
+                    ],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 1,
                 "pilot_initiative": {
@@ -72729,6 +75143,17 @@
             "autoinclude": "False",
             "epic": "False",
             "solitary": "False",
+            "modifications": {
+                "actions": [],
+                "upgrade_slots": {
+                    "added": [
+                        "astromech"
+                    ],
+                    "removed": [
+                        "crew"
+                    ]
+                }
+            },
             "restrictions": {
                 "limit": 1,
                 "pilot_initiative": {
@@ -72929,6 +75354,18 @@
             "autoinclude": "False",
             "epic": "False",
             "solitary": "False",
+            "modifications": {
+                "actions": [],
+                "upgrade_slots": {
+                    "added": [
+                        "sensor",
+                        "astromech"
+                    ],
+                    "removed": [
+                        "crew"
+                    ]
+                }
+            },
             "restrictions": {
                 "limit": 1,
                 "pilot_initiative": {
@@ -73129,6 +75566,20 @@
             "autoinclude": "False",
             "epic": "False",
             "solitary": "False",
+            "modifications": {
+                "actions": [
+                    {
+                        "action": "evade",
+                        "color": "white",
+                        "action_link": "barrel roll",
+                        "color_link": "red"
+                    }
+                ],
+                "upgrade_slots": {
+                    "added": [],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 1,
                 "pilot_initiative": {
@@ -73227,6 +75678,17 @@
             "autoinclude": "False",
             "epic": "True",
             "solitary": "False",
+            "modifications": {
+                "actions": [],
+                "upgrade_slots": {
+                    "added": [
+                        "cannon",
+                        "turret",
+                        "missile"
+                    ],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 2,
                 "pilot_initiative": {
@@ -73325,6 +75787,16 @@
             "autoinclude": "False",
             "epic": "True",
             "solitary": "False",
+            "modifications": {
+                "actions": [],
+                "upgrade_slots": {
+                    "added": [
+                        "crew",
+                        "illicit"
+                    ],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 1,
                 "pilot_initiative": {
@@ -73425,6 +75897,15 @@
             "autoinclude": "False",
             "epic": "True",
             "solitary": "False",
+            "modifications": {
+                "actions": [],
+                "upgrade_slots": {
+                    "added": [
+                        "cargo"
+                    ],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 1,
                 "pilot_initiative": {
@@ -73525,6 +76006,30 @@
             "autoinclude": "False",
             "epic": "True",
             "solitary": "False",
+            "modifications": {
+                "actions": [
+                    {
+                        "action": "evade",
+                        "color": "red",
+                        "action_link": null,
+                        "color_link": null
+                    },
+                    {
+                        "action": "coordinate",
+                        "color": "white",
+                        "action_link": null,
+                        "color_link": null
+                    }
+                ],
+                "upgrade_slots": {
+                    "added": [
+                        "turret",
+                        "team",
+                        "cargo"
+                    ],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 1,
                 "pilot_initiative": {
@@ -74903,6 +77408,20 @@
             "autoinclude": "False",
             "epic": "False",
             "solitary": "False",
+            "modifications": {
+                "actions": [
+                    {
+                        "action": "coordinate",
+                        "color": "red",
+                        "action_link": null,
+                        "color_link": null
+                    }
+                ],
+                "upgrade_slots": {
+                    "added": [],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 1,
                 "pilot_initiative": {
@@ -75001,6 +77520,20 @@
             "autoinclude": "False",
             "epic": "False",
             "solitary": "False",
+            "modifications": {
+                "actions": [
+                    {
+                        "action": "calculate",
+                        "color": "white",
+                        "action_link": null,
+                        "color_link": null
+                    }
+                ],
+                "upgrade_slots": {
+                    "added": [],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 1,
                 "pilot_initiative": {
@@ -75099,6 +77632,20 @@
             "autoinclude": "False",
             "epic": "False",
             "solitary": "False",
+            "modifications": {
+                "actions": [
+                    {
+                        "action": "calculate",
+                        "color": "white",
+                        "action_link": null,
+                        "color_link": null
+                    }
+                ],
+                "upgrade_slots": {
+                    "added": [],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 1,
                 "pilot_initiative": {
@@ -75989,6 +78536,22 @@
             "autoinclude": "False",
             "epic": "False",
             "solitary": "False",
+            "modifications": {
+                "actions": [
+                    {
+                        "action": "coordinate",
+                        "color": "purple",
+                        "action_link": null,
+                        "color_link": null
+                    }
+                ],
+                "upgrade_slots": {
+                    "added": [
+                        "illicit"
+                    ],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 1,
                 "pilot_initiative": {
@@ -76188,6 +78751,20 @@
             "autoinclude": "False",
             "epic": "False",
             "solitary": "False",
+            "modifications": {
+                "actions": [
+                    {
+                        "action": "coordinate",
+                        "color": "white",
+                        "action_link": null,
+                        "color_link": null
+                    }
+                ],
+                "upgrade_slots": {
+                    "added": [],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 1,
                 "pilot_initiative": {
@@ -76385,6 +78962,20 @@
             "autoinclude": "False",
             "epic": "False",
             "solitary": "False",
+            "modifications": {
+                "actions": [
+                    {
+                        "action": "lock",
+                        "color": "red",
+                        "action_link": null,
+                        "color_link": null
+                    }
+                ],
+                "upgrade_slots": {
+                    "added": [],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 1,
                 "pilot_initiative": {
@@ -76582,6 +79173,20 @@
             "autoinclude": "False",
             "epic": "False",
             "solitary": "False",
+            "modifications": {
+                "actions": [
+                    {
+                        "action": "reinforce",
+                        "color": "white",
+                        "action_link": null,
+                        "color_link": null
+                    }
+                ],
+                "upgrade_slots": {
+                    "added": [],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 1,
                 "pilot_initiative": {
@@ -76868,7 +79473,7 @@
             }
         },
         {
-            "name": "zam wessell",
+            "name": "zam wesell",
             "upgrade_slot_types": [
                 "crew"
             ],
@@ -78057,6 +80662,20 @@
             "autoinclude": "False",
             "epic": "False",
             "solitary": "False",
+            "modifications": {
+                "actions": [
+                    {
+                        "action": "slam",
+                        "color": "white",
+                        "action_link": null,
+                        "color_link": null
+                    }
+                ],
+                "upgrade_slots": {
+                    "added": [],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 0,
                 "pilot_initiative": {
@@ -78260,6 +80879,20 @@
             "autoinclude": "False",
             "epic": "True",
             "solitary": "False",
+            "modifications": {
+                "actions": [
+                    {
+                        "action": "focus",
+                        "color": "white",
+                        "action_link": "coordinate",
+                        "color_link": "purple"
+                    }
+                ],
+                "upgrade_slots": {
+                    "added": [],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 1,
                 "pilot_initiative": {
@@ -78361,6 +80994,20 @@
             "autoinclude": "False",
             "epic": "True",
             "solitary": "False",
+            "modifications": {
+                "actions": [
+                    {
+                        "action": "calculate",
+                        "color": "white",
+                        "action_link": null,
+                        "color_link": null
+                    }
+                ],
+                "upgrade_slots": {
+                    "added": [],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 0,
                 "pilot_initiative": {
@@ -78860,6 +81507,26 @@
             "autoinclude": "False",
             "epic": "False",
             "solitary": "False",
+            "modifications": {
+                "actions": [
+                    {
+                        "action": "cloak",
+                        "color": "red",
+                        "action_link": null,
+                        "color_link": null
+                    },
+                    {
+                        "action": "jam",
+                        "color": "white",
+                        "action_link": null,
+                        "color_link": null
+                    }
+                ],
+                "upgrade_slots": {
+                    "added": [],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 1,
                 "pilot_initiative": {
@@ -79561,6 +82228,20 @@
             "autoinclude": "False",
             "epic": "False",
             "solitary": "False",
+            "modifications": {
+                "actions": [
+                    {
+                        "action": "slam",
+                        "color": "white",
+                        "action_link": "lock",
+                        "color_link": "red"
+                    }
+                ],
+                "upgrade_slots": {
+                    "added": [],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 0,
                 "pilot_initiative": {
@@ -80452,6 +83133,20 @@
             "autoinclude": "False",
             "epic": "False",
             "solitary": "True",
+            "modifications": {
+                "actions": [
+                    {
+                        "action": "calculate",
+                        "color": "white",
+                        "action_link": null,
+                        "color_link": null
+                    }
+                ],
+                "upgrade_slots": {
+                    "added": [],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 1,
                 "pilot_initiative": {
@@ -80550,6 +83245,20 @@
             "autoinclude": "False",
             "epic": "False",
             "solitary": "True",
+            "modifications": {
+                "actions": [
+                    {
+                        "action": "calculate",
+                        "color": "white",
+                        "action_link": null,
+                        "color_link": null
+                    }
+                ],
+                "upgrade_slots": {
+                    "added": [],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 1,
                 "pilot_initiative": {
@@ -81560,6 +84269,20 @@
             "autoinclude": "False",
             "epic": "True",
             "solitary": "False",
+            "modifications": {
+                "actions": [
+                    {
+                        "action": "calculate",
+                        "color": "white",
+                        "action_link": "lock",
+                        "color_link": "red"
+                    }
+                ],
+                "upgrade_slots": {
+                    "added": [],
+                    "removed": []
+                }
+            },
             "restrictions": {
                 "limit": 0,
                 "pilot_initiative": {
@@ -81572,6 +84295,450 @@
                 },
                 "factions": [
                     "separatist alliance"
+                ],
+                "ships": [],
+                "base_sizes": [],
+                "attacks": {
+                    "low": null,
+                    "high": null
+                },
+                "arc_types": [],
+                "agility": {
+                    "low": null,
+                    "high": null
+                },
+                "hull": {
+                    "low": null,
+                    "high": null
+                },
+                "shield": {
+                    "shield": {
+                        "low": null,
+                        "high": null
+                    },
+                    "recharge": {
+                        "low": null,
+                        "high": null
+                    },
+                    "decharge": {
+                        "low": null,
+                        "high": null
+                    }
+                },
+                "force": {
+                    "force": {
+                        "low": null,
+                        "high": null
+                    },
+                    "recharge": {
+                        "low": null,
+                        "high": null
+                    },
+                    "decharge": {
+                        "low": null,
+                        "high": null
+                    }
+                },
+                "energy": {
+                    "energy": {
+                        "low": null,
+                        "high": null
+                    },
+                    "recharge": {
+                        "low": null,
+                        "high": null
+                    },
+                    "decharge": {
+                        "low": null,
+                        "high": null
+                    }
+                },
+                "charge": {
+                    "charge": {
+                        "low": null,
+                        "high": null
+                    },
+                    "recharge": {
+                        "low": null,
+                        "high": null
+                    },
+                    "decharge": {
+                        "low": null,
+                        "high": null
+                    }
+                },
+                "actions": [],
+                "keywords": [],
+                "other_equipped_upgrades": []
+            }
+        },
+        {
+            "name": "proton cannons",
+            "upgrade_slot_types": [
+                "cannon",
+                "cannon"
+            ],
+            "cost": {
+                "attribute": "attacks",
+                "2": 4,
+                "3": 3,
+                "4": 1
+            },
+            "autoinclude": "False",
+            "epic": "False",
+            "solitary": "False",
+            "modifications": {
+                "actions": [],
+                "upgrade_slots": {
+                    "added": [],
+                    "removed": []
+                }
+            },
+            "restrictions": {
+                "limit": 0,
+                "pilot_initiative": {
+                    "low": null,
+                    "high": null
+                },
+                "pilot_limit": {
+                    "low": null,
+                    "high": null
+                },
+                "factions": [],
+                "ships": [],
+                "base_sizes": [],
+                "attacks": {
+                    "low": null,
+                    "high": null
+                },
+                "arc_types": [],
+                "agility": {
+                    "low": null,
+                    "high": null
+                },
+                "hull": {
+                    "low": null,
+                    "high": null
+                },
+                "shield": {
+                    "shield": {
+                        "low": null,
+                        "high": null
+                    },
+                    "recharge": {
+                        "low": null,
+                        "high": null
+                    },
+                    "decharge": {
+                        "low": null,
+                        "high": null
+                    }
+                },
+                "force": {
+                    "force": {
+                        "low": null,
+                        "high": null
+                    },
+                    "recharge": {
+                        "low": null,
+                        "high": null
+                    },
+                    "decharge": {
+                        "low": null,
+                        "high": null
+                    }
+                },
+                "energy": {
+                    "energy": {
+                        "low": null,
+                        "high": null
+                    },
+                    "recharge": {
+                        "low": null,
+                        "high": null
+                    },
+                    "decharge": {
+                        "low": null,
+                        "high": null
+                    }
+                },
+                "charge": {
+                    "charge": {
+                        "low": null,
+                        "high": null
+                    },
+                    "recharge": {
+                        "low": null,
+                        "high": null
+                    },
+                    "decharge": {
+                        "low": null,
+                        "high": null
+                    }
+                },
+                "actions": [],
+                "keywords": [],
+                "other_equipped_upgrades": []
+            }
+        },
+        {
+            "name": "homing torpedoes",
+            "upgrade_slot_types": [
+                "torpedo"
+            ],
+            "cost": {
+                "attribute": "attacks",
+                "2": 5,
+                "3": 3,
+                "4": 2
+            },
+            "autoinclude": "False",
+            "epic": "False",
+            "solitary": "False",
+            "modifications": {
+                "actions": [],
+                "upgrade_slots": {
+                    "added": [],
+                    "removed": []
+                }
+            },
+            "restrictions": {
+                "limit": 0,
+                "pilot_initiative": {
+                    "low": null,
+                    "high": null
+                },
+                "pilot_limit": {
+                    "low": null,
+                    "high": null
+                },
+                "factions": [],
+                "ships": [],
+                "base_sizes": [],
+                "attacks": {
+                    "low": null,
+                    "high": null
+                },
+                "arc_types": [],
+                "agility": {
+                    "low": null,
+                    "high": null
+                },
+                "hull": {
+                    "low": null,
+                    "high": null
+                },
+                "shield": {
+                    "shield": {
+                        "low": null,
+                        "high": null
+                    },
+                    "recharge": {
+                        "low": null,
+                        "high": null
+                    },
+                    "decharge": {
+                        "low": null,
+                        "high": null
+                    }
+                },
+                "force": {
+                    "force": {
+                        "low": null,
+                        "high": null
+                    },
+                    "recharge": {
+                        "low": null,
+                        "high": null
+                    },
+                    "decharge": {
+                        "low": null,
+                        "high": null
+                    }
+                },
+                "energy": {
+                    "energy": {
+                        "low": null,
+                        "high": null
+                    },
+                    "recharge": {
+                        "low": null,
+                        "high": null
+                    },
+                    "decharge": {
+                        "low": null,
+                        "high": null
+                    }
+                },
+                "charge": {
+                    "charge": {
+                        "low": null,
+                        "high": null
+                    },
+                    "recharge": {
+                        "low": null,
+                        "high": null
+                    },
+                    "decharge": {
+                        "low": null,
+                        "high": null
+                    }
+                },
+                "actions": [],
+                "keywords": [],
+                "other_equipped_upgrades": []
+            }
+        },
+        {
+            "name": "xanadu blood",
+            "upgrade_slot_types": [
+                "title"
+            ],
+            "cost": 2,
+            "autoinclude": "False",
+            "epic": "False",
+            "solitary": "False",
+            "modifications": {
+                "actions": [
+                    {
+                        "action": "cloak",
+                        "color": "red",
+                        "action_link": null,
+                        "color_link": null
+                    }
+                ],
+                "upgrade_slots": {
+                    "added": [
+                        "crew",
+                        "payload"
+                    ],
+                    "removed": []
+                }
+            },
+            "restrictions": {
+                "limit": 1,
+                "pilot_initiative": {
+                    "low": null,
+                    "high": null
+                },
+                "pilot_limit": {
+                    "low": null,
+                    "high": null
+                },
+                "factions": [],
+                "ships": [
+                    "rogue-class starfighter"
+                ],
+                "base_sizes": [],
+                "attacks": {
+                    "low": null,
+                    "high": null
+                },
+                "arc_types": [],
+                "agility": {
+                    "low": null,
+                    "high": null
+                },
+                "hull": {
+                    "low": null,
+                    "high": null
+                },
+                "shield": {
+                    "shield": {
+                        "low": null,
+                        "high": null
+                    },
+                    "recharge": {
+                        "low": null,
+                        "high": null
+                    },
+                    "decharge": {
+                        "low": null,
+                        "high": null
+                    }
+                },
+                "force": {
+                    "force": {
+                        "low": null,
+                        "high": null
+                    },
+                    "recharge": {
+                        "low": null,
+                        "high": null
+                    },
+                    "decharge": {
+                        "low": null,
+                        "high": null
+                    }
+                },
+                "energy": {
+                    "energy": {
+                        "low": null,
+                        "high": null
+                    },
+                    "recharge": {
+                        "low": null,
+                        "high": null
+                    },
+                    "decharge": {
+                        "low": null,
+                        "high": null
+                    }
+                },
+                "charge": {
+                    "charge": {
+                        "low": null,
+                        "high": null
+                    },
+                    "recharge": {
+                        "low": null,
+                        "high": null
+                    },
+                    "decharge": {
+                        "low": null,
+                        "high": null
+                    }
+                },
+                "actions": [],
+                "keywords": [],
+                "other_equipped_upgrades": []
+            }
+        },
+        {
+            "name": "yoda",
+            "upgrade_slot_types": [
+                "crew"
+            ],
+            "cost": 12,
+            "autoinclude": "False",
+            "epic": "False",
+            "solitary": "False",
+            "modifications": {
+                "actions": [
+                    {
+                        "action": "coordinate",
+                        "color": "purple",
+                        "action_link": null,
+                        "color_link": null
+                    }
+                ],
+                "upgrade_slots": {
+                    "added": [],
+                    "removed": []
+                }
+            },
+            "restrictions": {
+                "limit": 1,
+                "pilot_initiative": {
+                    "low": null,
+                    "high": null
+                },
+                "pilot_limit": {
+                    "low": null,
+                    "high": null
+                },
+                "factions": [
+                    "grand army of the republic"
                 ],
                 "ships": [],
                 "base_sizes": [],

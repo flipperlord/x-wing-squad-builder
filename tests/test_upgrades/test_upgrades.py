@@ -286,3 +286,34 @@ def test_filtered_upgrades_with_empty_action_modifier(xwing: XWing, upgrades: Up
     pilot_equip.filtered_upgrades = upgrades.filtered_upgrades_by_pilot(pilot_equip, Squad())
 
     assert before_equip == pilot_equip.filtered_upgrades
+
+@pytest.fixture(scope="module")
+def pilot_factory(xwing: XWing):
+    def _pilot_factory(faction_name, ship_name, pilot_name):
+        ship = xwing.get_ship(faction_name, ship_name)
+        pilot = ship.get_pilot_data(pilot_name)
+        return PilotEquip(ship, pilot)
+    return _pilot_factory
+
+@pytest.mark.parametrize("faction_name, ship_name, pilot_name, upgrade_name, added_upgrade", [
+    pytest.param("galactic empire", "lambda-class t-4a shuttle", "omicron group pilot", "darth vader", "0-0-0", id="0-0-0"),
+    pytest.param("galactic empire", "vt-49 decimator", "patrol leader", "darth vader", "bt-1", id="bt-1"),
+    pytest.param("scum and villainy", "customized yt-1300 light freighter", "freighter captain", "gar saxon", "tristan wren", id="tristan wren"),
+    pytest.param("rebel alliance", "vcx-100 light freighter", "lothal rebel", "ezra bridger", "maul (1 crew)", id="maul (1 crew)"),
+    ])
+def test_special_upgrade_crew(upgrades: Upgrades, pilot_factory, faction_name, ship_name, pilot_name, upgrade_name, added_upgrade):
+    pilot_equip: PilotEquip = pilot_factory(faction_name, ship_name, pilot_name)
+    squad = Squad()
+
+    filtered = [upgrade["name"] for upgrade in upgrades.filtered_upgrades_by_pilot(pilot_equip, squad)]
+    assert added_upgrade not in filtered
+
+    pilot_equip.equip_upgrade(pilot_equip.upgrade_slots, upgrade_name, 10, upgrades.get_upgrade(upgrade_name))
+    filtered = [upgrade["name"] for upgrade in upgrades.filtered_upgrades_by_pilot(pilot_equip, squad)]
+    assert added_upgrade in filtered
+
+
+
+
+
+

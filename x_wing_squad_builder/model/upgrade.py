@@ -73,7 +73,7 @@ class Upgrades:
             solitary = upgrade.get("solitary", "False") == "True"
             upgrade_root = get_root(upgrade['name'])
             if solitary or upgrade_root in UNIQUE_UPGRADES:
-                equipped_upgrade_names = [val.name for _, pilot in squad.squad_dict.items() for val in pilot.equipped_upgrades]
+                equipped_upgrade_names = [val.name for _, member in squad.squad_dict.items() for val in member.equipped_upgrades]
                 equipped_pilot_names = [pilot.pilot_name for _, pilot in squad.squad_dict.items()]
                 if upgrade['name'] in equipped_upgrade_names:
                     valid = False
@@ -98,7 +98,11 @@ class Upgrades:
                 elif key == "factions":
                     squad_include = upgrade.get("squad_include", [])
                     if squad_include:
-                        squad_names = [val.pilot_name for _, val in squad.squad_dict.items()]
+                        squad_names = []
+                        for _, member in squad.squad_dict.items():
+                            squad_names.append(member)
+                        for val in pilot.equipped_upgrades:
+                            squad_names.append(val.name)
                         included = [name in squad_names for name in squad_include]
                         if not any(included):
                             valid = False

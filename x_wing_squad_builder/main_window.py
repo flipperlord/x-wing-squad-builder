@@ -271,7 +271,10 @@ class MainWindow(QtWidgets.QMainWindow):
                     auto_include = upgrade.get("autoinclude", "False") == "True"
                     if auto_include:
                         slots = self.upgrades.get_upgrade_slots(upgrade)
-                        equipped = pilot_data.equip_upgrade(slots, upgrade.get("name"), upgrade["cost"], upgrade)
+                        equipped_upgrades = [upgrade.name for upgrade in pilot_data.equipped_upgrades]
+                        equipped = False
+                        if upgrade["name"] not in equipped_upgrades:
+                            equipped = pilot_data.equip_upgrade(slots, upgrade.get("name"), upgrade["cost"], upgrade)
                         if equipped:
                             logging.info(f"{prettify_name(upgrade['name'])} equipped automatically to {prettify_name(pilot_data.pilot_name)}")
 
